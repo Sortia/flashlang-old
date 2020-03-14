@@ -13,20 +13,26 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="{{route('block.index')}}" class="nav-link">
+                <a href="{{route('deck.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-chart-pie"></i>
-                    <p>Blocks</p>
+                    <p>Decks</p>
                 </a>
             </li>
-            <li class="nav-item has-treeview menu-open">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                        Projects
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
+            <li class="nav-item">
+                <a href="{{route('train.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>Train</p>
                 </a>
-                <ul class="nav nav-treeview">
+            </li>
+{{--            <li class="nav-item has-treeview menu-open">--}}
+{{--                <a href="#" class="nav-link">--}}
+{{--                    <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                    <p>--}}
+{{--                        Projects--}}
+{{--                        <i class="right fas fa-angle-left"></i>--}}
+{{--                    </p>--}}
+{{--                </a>--}}
+{{--                <ul class="nav nav-treeview">--}}
 
 {{--                    @foreach(\App\Project::all() as $project)--}}
 {{--                        <li class="nav-item">--}}
@@ -37,8 +43,8 @@
 {{--                        </li>--}}
 {{--                    @endforeach--}}
 
-                </ul>
-            </li>
+{{--                </ul>--}}
+{{--            </li>--}}
 
             {{--                <li class="nav-item has-treeview">--}}
             {{--                    <a href="#" class="nav-link">--}}

@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Flashcard extends Model
 {
     protected $fillable = [
-        'block_id',
+        'deck_id',
         'status_id',
         'front_text',
         'back_text',
     ];
 
-    public function block()
+    public function deck()
     {
-        return $this->belongsTo(Block::class);
+        return $this->belongsTo(Deck::class);
     }
 
     public function status()

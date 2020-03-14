@@ -13,7 +13,7 @@ class CreateBlocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('blocks', function (Blueprint $table) {
+        Schema::create('decks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->bigInteger('status_id')->default(1);
@@ -29,6 +29,6 @@ class CreateBlocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocks');
+        Schema::dropIfExists('decks');
     }
 }

@@ -7,7 +7,7 @@
                 <div class="card shadow">
                     <div class="card-header">
                         <span>Blocks</span>
-                        <span><a href="{{route('block.create')}}" class="btn btn-sm btn-success float-right">Create</a></span>
+                        <span><a href="{{route('deck.create')}}" class="btn btn-sm btn-success float-right">Create</a></span>
                     </div>
 
                     <div class="card-body">
@@ -18,14 +18,14 @@
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
-                            @foreach($blocks as $block)
+                            @foreach($decks as $deck)
                                 <tr>
-                                    <td>{{$block->id}}</td>
-                                    <td>{{$block->name}}</td>
-                                    <td>{{$block->status->name}}</td>
+                                    <td>{{$deck->id}}</td>
+                                    <td>{{$deck->name}}</td>
+                                    <td>{{$deck->status->name}}</td>
                                     <td>
-                                        <a href="{{route('block.edit', ['block' => $block->id])}}" class="btn btn-primary btn-sm">Edit</a>
-                                        <form class="d-inline" method="post" action="{{route('block.destroy', ['block' => $block->id])}}">
+                                        <a href="{{route('deck.edit', ['deck' => $deck->id])}}" class="btn btn-primary btn-sm">Edit</a>
+                                        <form class="d-inline" method="post" action="{{route('deck.destroy', ['deck' => $deck->id])}}">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger btn-sm">Delete</button>

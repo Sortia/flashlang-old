@@ -17,7 +17,7 @@
                     <div class="card-header">Block</div>
 
                     <div class="card-body">
-                        <form action="{{route('block.store')}}" method="post">
+                        <form action="{{route('deck.store')}}" method="post">
                             @csrf
                             <div class="col-sm-12 my-1 mb-3">
                                 <label class="sr-only" for="id">Id</label>
@@ -25,7 +25,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Id</div>
                                     </div>
-                                    <input readonly value="{{old('id') ?? $block->id ?? ''}}" name="id" type="text"
+                                    <input readonly value="{{old('id') ?? $deck->id ?? ''}}" name="id" type="text"
                                            class="form-control" id="id" placeholder="Id">
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Name</div>
                                     </div>
-                                    <input autocomplete="off" value="{{old('name') ?? $block->name ?? ''}}" name="name" type="text"
+                                    <input autocomplete="off" value="{{old('name') ?? $deck->name ?? ''}}" name="name" type="text"
                                            class="form-control" id="name" placeholder="Name">
                                 </div>
                             </div>
@@ -60,9 +60,9 @@
                     </div>
                 </div>
 
-                @isset($block)
-                    @include('block.components.create_flashcard')
-                    @include('block.components.show_flashcards')
+                @isset($deck)
+                    @include('deck.components.create_flashcard')
+                    @include('deck.components.show_flashcards')
                 @endisset
 
             </div>

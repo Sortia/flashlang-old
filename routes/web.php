@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('side_type', 'Books\SideTypeController');
     Route::resource('status', 'Books\StatusController');
 
-    Route::resource('block', 'BlockController');
+    Route::resource('deck', 'DeckController');
     Route::resource('flashcard', 'FlashcardController');
+    Route::resource('train', 'TrainController');
 });

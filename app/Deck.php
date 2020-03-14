@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Block extends Model
+class Deck extends Model
 {
     protected $fillable = [
         'name',
