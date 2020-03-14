@@ -42,7 +42,8 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    @yield('css')
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -171,6 +172,8 @@
 <script defer src="{{asset('dist/js/demo.js')}}"></script>
 <script defer src="{{asset('plugins/select2/js/select2.js')}}"></script>
 <script defer src="{{asset('js/script.js')}}"></script>
+
+@yield('js')
 
 </body>
 </html>

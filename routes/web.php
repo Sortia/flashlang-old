@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::resource('right', 'Books\RightController');
+    Route::resource('side_type', 'Books\SideTypeController');
+    Route::resource('status', 'Books\StatusController');
+
+    Route::resource('block', 'BlockController');
+    Route::resource('flashcard', 'FlashcardController');
+});

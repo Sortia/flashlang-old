@@ -15,8 +15,10 @@ class CreateFlashcardsTable extends Migration
     {
         Schema::create('flashcards', function (Blueprint $table) {
             $table->id();
+            $table->string('front_text');
+            $table->string('back_text');
             $table->bigInteger('block_id');
-            $table->bigInteger('status_id');
+            $table->bigInteger('status_id')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

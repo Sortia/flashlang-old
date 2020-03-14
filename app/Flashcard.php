@@ -8,7 +8,9 @@ class Flashcard extends Model
 {
     protected $fillable = [
         'block_id',
-        'status_id'
+        'status_id',
+        'front_text',
+        'back_text',
     ];
 
     public function block()
@@ -19,10 +21,5 @@ class Flashcard extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
-    }
-
-    public function sides()
-    {
-        return $this->hasMany(Side::class);
     }
 }

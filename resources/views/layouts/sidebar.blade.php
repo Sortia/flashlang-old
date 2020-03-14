@@ -13,10 +13,10 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-{{--                <a href="{{route('project.index')}}" class="nav-link">--}}
-{{--                    <i class="nav-icon fas fa-chart-pie"></i>--}}
-{{--                    <p>All projects</p>--}}
-{{--                </a>--}}
+                <a href="{{route('block.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>Blocks</p>
+                </a>
             </li>
             <li class="nav-item has-treeview menu-open">
                 <a href="#" class="nav-link">
