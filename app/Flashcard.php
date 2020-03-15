@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Flashcard extends Model
@@ -16,12 +17,18 @@ class Flashcard extends Model
         'back_text',
     ];
 
-    public function deck()
+    /**
+     * @return BelongsTo
+     */
+    public function deck(): BelongsTo
     {
         return $this->belongsTo(Deck::class);
     }
 
-    public function status()
+    /**
+     * @return BelongsTo
+     */
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
