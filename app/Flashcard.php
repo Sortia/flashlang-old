@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Flashcard extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'deck_id',
         'status_id',

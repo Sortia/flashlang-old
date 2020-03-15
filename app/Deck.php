@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Deck extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'name',
         'status_id',
