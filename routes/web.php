@@ -30,5 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('deck', 'DeckController');
     Route::resource('flashcard', 'FlashcardController');
-    Route::resource('train', 'TrainController');
+
+    Route::get('training/dashboard', 'TrainingController@dashboard')->name('training.dashboard');
+    Route::get('training/{deck}/study', 'TrainingController@study')->name('training.study');
 });
