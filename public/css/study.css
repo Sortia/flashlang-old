@@ -87,3 +87,13 @@
     margin: 0 200px;
     padding: 40px 0
 }
+
+.right-icons {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #fff;
+    text-align: right;
+    top: 100px;
+    position: absolute;
+    right: 0;
+}

@@ -9,4 +9,17 @@ $(() => {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    window.set_settings = (key, value) => {
+        $.ajax({
+            url: `/settings`,
+            method: "post",
+            data: {
+                key: key,
+                value: value
+            },
+            dataType: "json",
+            success: () => location.reload()
+        });
+    }
 });

@@ -8,7 +8,7 @@ class TrainingController extends Controller
 {
     public function dashboard()
     {
-        return view('deck.dashboard', ['decks' => Deck::all()]);
+        return view('training.dashboard', ['decks' => Deck::all()]);
     }
 
     public function study(Deck $deck)
