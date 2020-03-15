@@ -1,5 +1,7 @@
 $(() => {
-    $('#create_flashcard').on('click', () => {
+    $('#create_flashcard').on('click', (event) => {
+        event.preventDefault();
+
         $.ajax({
             url: "/flashcard",
             method: "post",
@@ -12,6 +14,7 @@ $(() => {
             success: (response) => {
                 $('.flashcard-list').append(response);
                 $('#front_text, #back_text').val('');
+                $('#front_text').focus();
             },
         });
     });
