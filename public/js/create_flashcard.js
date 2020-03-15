@@ -4,7 +4,7 @@ $(() => {
             url: "/flashcard",
             method: "post",
             data: {
-                block_id: $('#id').val(),
+                deck_id: $('#id').val(),
                 front_text: $('#front_text').val(),
                 back_text: $('#back_text').val(),
             },
