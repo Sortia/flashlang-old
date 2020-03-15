@@ -15,7 +15,7 @@ class FlashcardController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(view('block.components.flashcard', [
+        return response()->json(view('deck.components.flashcard', [
             'flashcard' => Flashcard::on()->updateOrCreate(['id' => $request->get('id')], $request->all())
         ])->toHtml());
     }
