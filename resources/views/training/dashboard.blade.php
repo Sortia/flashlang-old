@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="list-group">
+    <div class="list-group" style="margin-top: -25px">
         <a href="#" class="list-group-item disabled list-group-item-action">
             <span class="navbar-brand text-primary"><b>{{\App\Deck::totalProgress()}}% Total progress</b></span>
             <div class="progress">
