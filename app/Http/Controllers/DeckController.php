@@ -30,7 +30,7 @@ class DeckController extends Controller
 
     public function store(Request $request)
     {
-        Deck::on()->updateOrCreate(['id' => $request->get('id')], $request->all());
+        Deck::on()->updateOrCreate(['id' => $request->get('id')], array_merge($request->all(), ['user_id' => user()->id]));
 
         return redirect(route('deck.index'));
     }
