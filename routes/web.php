@@ -28,11 +28,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('side_type', 'Books\SideTypeController');
     Route::resource('status', 'Books\StatusController');
 
-    Route::resource('settings', 'SettingsController');
     Route::resource('deck', 'DeckController');
     Route::resource('flashcard', 'FlashcardController');
 
     Route::get('settings', 'SettingsController@index')->name('settings.index');
+    Route::post('settings/update', 'SettingsController@update')->name('settings.update');
+    Route::post('settings/store', 'SettingsController@store')->name('settings.store');
+
     Route::get('vocabulary', 'VocabularyController@index')->name('vocabulary.index');
     Route::get('profile', 'ProfileController@index')->name('profile.index');
 

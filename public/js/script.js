@@ -12,7 +12,7 @@ $(() => {
 
     window.set_settings = (key, value) => {
         $.ajax({
-            url: `/settings`,
+            url: `/settings/update`,
             method: "post",
             data: {
                 key: key,

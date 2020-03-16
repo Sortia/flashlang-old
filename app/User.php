@@ -44,7 +44,7 @@ class User extends Authenticatable
      */
     public function settings(): HasMany
     {
-        return $this->hasMany(Settings::class);
+        return $this->hasMany(UserSettings::class);
     }
 
     public function decks(): HasMany

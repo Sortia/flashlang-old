@@ -14,16 +14,12 @@ class Settings extends Model
      * @var array
      */
     protected $fillable = [
-        'key',
-        'value',
-        'user_id',
+        'name',
+        'description',
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
+    public function values()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(SettingsValues::class);
     }
 }
