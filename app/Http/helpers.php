@@ -28,3 +28,12 @@ function user() {
     return auth()->user();
 }
 
+/**
+ * @param string $view
+ * @param array $data
+ * @return string
+ */
+function ajax_view(string $view, array $data = []): string {
+    return view($view, $data)->toHtml();
+}
+

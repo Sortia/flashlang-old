@@ -32,4 +32,9 @@ class Flashcard extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function getBackLetters()
+    {
+        return collect(str_split($this->back_text))->shuffle();
+    }
 }
