@@ -37,3 +37,6 @@ function ajax_view(string $view, array $data = []): string {
     return view($view, $data)->toHtml();
 }
 
+function to_array($object){
+    return json_decode(json_encode($object), true);
+}

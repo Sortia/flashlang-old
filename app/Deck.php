@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Deck extends Model
 {
@@ -59,11 +60,21 @@ class Deck extends Model
      */
     public static function totalProgress(): float
     {
-        $progress = collect();
+        $query = "
+            select
+                f.status_id
+            from decks as d
+            inner join flashcards as f on f.deck_id = d.id
+            where user_id = " . user()->id . "
+              and f.deleted_at is null;
+        ";
 
-        Deck::all()->each(fn(Deck $item) => $progress->add($item->progress()));
+        $result = collect(to_array(DB::select($query)));
 
-        return round($progress->filter()->avg(), 2);
+        $notStudied = $result->where('status_id', 1)->count();
+        $studied = $result->where('status_id', 2)->count();
+
+        return round($studied / ($notStudied + $studied) * 100, 2);
     }
 
     /**
