@@ -13,15 +13,33 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="{{route('deck.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-chart-pie"></i>
-                    <p>Decks</p>
+                <a href="{{route('profile.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>Profile</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('training.dashboard')}}" class="nav-link">
-                    <i class="nav-icon fas fa-copy"></i>
-                    <p>Train</p>
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>Training</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('deck.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>Decks</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('vocabulary.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Vocabulary</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('settings.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-cog"></i>
+                    <p>Settings</p>
                 </a>
             </li>
 {{--            <li class="nav-item has-treeview menu-open">--}}

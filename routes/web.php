@@ -32,6 +32,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('deck', 'DeckController');
     Route::resource('flashcard', 'FlashcardController');
 
+    Route::get('settings', 'SettingsController@index')->name('settings.index');
+    Route::get('vocabulary', 'VocabularyController@index')->name('vocabulary.index');
+    Route::get('profile', 'ProfileController@index')->name('profile.index');
+
     Route::get('training/dashboard', 'TrainingController@dashboard')->name('training.dashboard');
     Route::get('training/{deck}/{typeTraining}', 'TrainingController@study')->name('training.study')
         ->where(['typeTraining' => 'flashcards|word-constructor|choose-word']);
