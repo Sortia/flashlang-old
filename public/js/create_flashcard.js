@@ -19,7 +19,7 @@ $(() => {
         });
     });
 
-    $('.delete-flashcard').on('click', function (event) {
+    $('body').on('click', '.delete-flashcard', function (event) {
         event.preventDefault();
 
         let flashcard_id = $(this).data('flashcard-id');
