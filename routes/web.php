@@ -34,7 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('training/dashboard', 'TrainingController@dashboard')->name('training.dashboard');
     Route::get('training/{deck}/{typeTraining}', 'TrainingController@study')->name('training.study')
-        ->where(['typeTraining' => 'flashcards|word-constructor|read-text']);
+        ->where(['typeTraining' => 'flashcards|word-constructor|choose-word']);
 
-    Route::post('training/{deck}/word-constructor/get-word', 'TrainingController@getWord')->name('training.get_word');
+    Route::post('training/{deck}/word-constructor/get-constructor-word', 'TrainingController@getConstructorWord');
+    Route::post('training/{deck}/choose-word/get-choose-word', 'TrainingController@getChooseWord');
 });

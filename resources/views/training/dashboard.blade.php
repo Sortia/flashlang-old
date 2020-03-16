@@ -65,9 +65,9 @@
                             <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
                         </div>
                     </a>
-                    <a href="#" class="card card-training" data-type-training="read-text">
+                    <a href="#" class="card card-training" data-type-training="choose-word">
                         <div class="card-body">
-                            <h3>Read text</h3>
+                            <h3>Choose word</h3>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
                         </div>
                     </a>

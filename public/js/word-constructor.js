@@ -8,7 +8,7 @@ $(() => {
 
     function get_word(offset) {
         $.ajax({
-            url: location.href + "/get-word",
+            url: location.href + "/get-constructor-word",
             method: "post",
             data: {
                 offset: offset
