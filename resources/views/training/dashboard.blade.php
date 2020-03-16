@@ -82,6 +82,10 @@
 
     <style>
 
+        #animatedModal {
+            opacity: 0;
+        }
+
         .img:hover {
             transition: 0.3s;
             transform: rotate(90deg);
