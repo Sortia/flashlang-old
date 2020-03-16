@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Flashcard;
+use Illuminate\Database\Eloquent\Builder;
 
 class VocabularyController extends Controller
 {
     public function index()
     {
-        return view('vocabulary');
+        $flashcards = Flashcard::with('deck')->whereHas('deck', function (Builder $query) {
+            $query->where('user_id', user()->id);
+        })->get();
+
+        return view('vocabulary', ['flashcards' => $flashcards]);
     }
 }

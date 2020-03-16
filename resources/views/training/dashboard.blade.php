@@ -96,14 +96,8 @@
             color: #343434;
         }
 
-
-
         .list-group {
             margin-top: -25px;
-        }
-
-        .list-group-item {
-            border-bottom: 2px solid rgba(0, 0, 0, .125);
         }
 
         .deck-name-caption {
