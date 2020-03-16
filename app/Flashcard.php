@@ -35,6 +35,6 @@ class Flashcard extends Model
 
     public function getBackLetters()
     {
-        return collect(str_split($this->back_text))->shuffle();
+        return collect(mb_str_split($this->back_text))->shuffle();
     }
 }
