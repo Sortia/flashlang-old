@@ -148,10 +148,10 @@
         $('#sidebar-menu-btn').on('click', () => {
             if ($('#main-main').css('margin-left') === '68px') {
                 $('#main-main').css('margin-left', '250px');
-                $('#sidebar-brand').text('Optimizer')
+                $('#sidebar-brand').text('Flashlang')
             } else {
                 $('#main-main').css('margin-left', '68px');
-                $('#sidebar-brand').text('Opt')
+                $('#sidebar-brand').text('Flang')
             }
         });
     })
