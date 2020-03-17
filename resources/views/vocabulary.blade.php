@@ -12,9 +12,11 @@
                         @foreach($flashcards as $flashcard)
                             <a href="#" class="list-group-item list-group-item-action">
                                 <div class="row">
-                                    <div class="col-lg-6">{{$flashcard->front_text}}</div>
-                                    <div class="col-lg-6">{{$flashcard->back_text}}</div>
-                                </div>
+                                    <div class="col-lg-5">{{$flashcard->front_text}}</div>
+                                    <div class="col-lg-5">{{$flashcard->back_text}}</div>
+                                    <div class="col-lg-2">
+                                    <div class="rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->status->value}}"></div>
+                                </div></div>
                             </a>
                         @endforeach
                     </div>
@@ -22,4 +24,14 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .list-group-item {
+            font-size: 18px;
+        }
+
+        .rate {
+            margin: -5px 0;
+        }
+    </style>
 @endsection

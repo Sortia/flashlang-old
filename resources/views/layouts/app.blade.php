@@ -173,6 +173,7 @@
 <script defer src="{{asset('dist/js/demo.js')}}"></script>
 <script defer src="{{asset('plugins/select2/js/select2.js')}}"></script>
 <script defer src="{{asset('js/script.js')}}"></script>
+<script defer src="{{asset('plugins/rater/rater.min.js')}}"></script>
 
 @yield('js')
 

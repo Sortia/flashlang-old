@@ -14,9 +14,9 @@
             </div>
 
         </div>
-        <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-            <span class="float-right">
+        <div class="card-footer py-1 px-3">
+            <div class="float-left rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->status->value}}"></div>
+            <span class="float-right pt-2">
                 <a href="#" data-flashcard-id="{{$flashcard->id}}" class="fas fa-trash delete-flashcard"></a>
             </span>
         </div>

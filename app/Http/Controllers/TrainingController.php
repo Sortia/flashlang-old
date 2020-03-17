@@ -24,7 +24,7 @@ class TrainingController extends Controller
             return response()->json(['layout' => ajax_view('training.components.word-constructor-finish')]);
         }
 
-        $flashcard = $deck->flashcards->slice($request->offset, 1)->first();
+        $flashcard = $deck->flashcards->sortBy('id')->slice($request->offset, 1)->first();
         $flashcardHtml = ajax_view('training.components.word-constructor', ['flashcard' => $flashcard]);
 
         return response()->json([
@@ -39,7 +39,7 @@ class TrainingController extends Controller
             return response()->json(['layout' => ajax_view('training.components.word-constructor-finish')]);
         }
 
-        $flashcard = $deck->flashcards->slice($request->offset, 1)->first();
+        $flashcard = $deck->flashcards->sortBy('id')->slice($request->offset, 1)->first();
 
         $words = Flashcard::on()->inRandomOrder()->take(5)->pluck('back_text');
         $words->add($flashcard->back_text)->shuffle();

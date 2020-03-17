@@ -16,6 +16,7 @@ $(() => {
                 if (response.flashcard) {
                     $('#training-block').empty().append(response.layout);
                     back_text = response.flashcard.back_text;
+                    initStatus();
                 } else {
                     $('#training-block').prepend(response.layout).css('pointer-events', 'none');
                 }

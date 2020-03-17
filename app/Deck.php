@@ -50,7 +50,7 @@ class Deck extends Model
      */
     public function studied(): int
     {
-        return $this->flashcards->filter(fn($value) => $value->status_id === 2)->count();
+        return $this->flashcards->filter(fn($value) => $value->status->value === 5)->count();
     }
 
     /**
@@ -62,19 +62,15 @@ class Deck extends Model
     {
         $query = "
             select
-                f.status_id
-            from decks as d
-            inner join flashcards as f on f.deck_id = d.id
-            where user_id = " . user()->id . "
-              and f.deleted_at is null;
+                s.value
+            from flashcards f
+            inner join statuses s on f.status_id = s.id
+            inner join decks d on f.deck_id = d.id
+            where d.user_id = " . user()->id . "
+              and f.deleted_at is null
         ";
 
-        $result = collect(to_array(DB::select($query)));
-
-        $notStudied = $result->where('status_id', 1)->count();
-        $studied = $result->where('status_id', 2)->count();
-
-        return round($studied / ($notStudied + $studied) * 100, 2);
+        return self::calcProgressPercent(DB::select($query));
     }
 
     /**
@@ -84,9 +80,24 @@ class Deck extends Model
      */
     public function progress(): float
     {
-        return round(percent(
-            $this->flashcards->filter(fn($value) => $value->status_id === 2)->count(),
-            $this->flashcards->count()
-        ), 2);
+        $query = "
+            select
+                s.value
+            from flashcards f
+            inner join statuses s on f.status_id = s.id
+            where deck_id = $this->id
+              and f.deleted_at is null
+        ";
+
+
+        return self::calcProgressPercent(DB::select($query));
+    }
+
+    private static function calcProgressPercent($values)
+    {
+        $progress = collect(array_column(to_array($values), 'value'));
+        $progress->transform(fn($item) => $item * 20);
+
+        return round(percent($progress->sum(), $progress->count() * 100), 2);
     }
 }

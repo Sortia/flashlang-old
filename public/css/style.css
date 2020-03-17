@@ -5,3 +5,20 @@ body {
 .list-group-item {
     border-bottom: 2px solid rgba(0, 0, 0, .125);
 }
+
+.rate-base-layer
+{
+    color: #aaa;
+}
+.rate-hover-layer
+{
+    color: orange;
+}
+
+.rate {
+    font-size: 25px;
+}
+
+.rate-select-layer span {
+    color: orange;
+}

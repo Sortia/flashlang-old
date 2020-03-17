@@ -20,6 +20,7 @@ $(() => {
 
                     front_text = response.flashcard.front_text || '';
                     back_text = response.flashcard.back_text || '';
+                    initStatus();
                 } else {
                     $('#training-block').prepend(response.layout).css('pointer-events', 'none');
                 }
