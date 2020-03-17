@@ -41,7 +41,7 @@ class TrainingController extends Controller
 
         $flashcard = $deck->flashcards->sortBy('id')->slice($request->offset, 1)->first();
 
-        $words = Flashcard::on()->inRandomOrder()->take(5)->pluck('back_text');
+        $words = Flashcard::on()->where('id', '<>', $flashcard->id)->inRandomOrder()->take(5)->pluck('back_text');
         $words->add($flashcard->back_text)->shuffle();
 
         $flashcardHtml = ajax_view('training.components.study-choose', ['flashcard' => $flashcard, 'words' => $words]);
