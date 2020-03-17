@@ -10,7 +10,7 @@ class DeckController extends Controller
 {
     public function index()
     {
-        return view('deck.list', ['decks' => Deck::with('status')->get()]);
+        return view('deck.list', ['decks' => Deck::all()]);
     }
 
     public function create()

@@ -23,7 +23,6 @@ class Deck extends Model
      */
     protected $fillable = [
         'name',
-        'status_id',
         'user_id'
     ];
 
@@ -33,14 +32,6 @@ class Deck extends Model
     public function flashcards(): HasMany
     {
         return $this->hasMany(Flashcard::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(Status::class);
     }
 
     /**

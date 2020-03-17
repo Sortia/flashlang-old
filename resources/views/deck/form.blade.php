@@ -39,19 +39,6 @@
                                            class="form-control" id="name" placeholder="Name">
                                 </div>
                             </div>
-                            <div class="col-sm-12 my-1 mb-3">
-                                <label class="sr-only" for="status">Status</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Status</div>
-                                    </div>
-                                    <select class="custom-select" id="status" name="status_id">
-                                        @foreach($statuses as $status)
-                                            <option value="{{$status->id}}">{{$status->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-lg-12">
                                 <a href="{{url()->previous()}}" class="btn btn-secondary float-left">Back</a>
                                 <button class="btn btn-success float-right">Save</button>

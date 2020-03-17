@@ -15,14 +15,12 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                             @foreach($decks as $deck)
                                 <tr>
                                     <td>{{$deck->id}}</td>
                                     <td>{{$deck->name}}</td>
-                                    <td>{{$deck->status->name}}</td>
                                     <td>
                                         <a href="{{route('deck.edit', ['deck' => $deck->id])}}" class="btn btn-primary btn-sm">Edit</a>
                                         <form class="d-inline" method="post" action="{{route('deck.destroy', ['deck' => $deck->id])}}">
