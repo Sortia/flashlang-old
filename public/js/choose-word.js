@@ -1,6 +1,7 @@
 $(() => {
     let back_text = '';
     let offset = 0;
+    let total = 0;
 
     get_word(offset);
 
@@ -13,27 +14,41 @@ $(() => {
             },
             dataType: "json",
             success: (response) => {
-                if (response.flashcard) {
-                    $('#training-block').empty().append(response.layout);
-                    back_text = response.flashcard.back_text;
-                    initStatus();
-                } else {
-                    $('#training-block').prepend(response.layout).css('pointer-events', 'none');
-                }
+                $('#training-block').empty().append(response.layout);
+
+                total = response.deck.flashcards.length;
+                back_text = response.flashcard.back_text;
+                initStatus();
             },
         });
     }
 
+    function get_finish()
+    {
+        $.ajax({
+            url: location.href + "/get-finish",
+            method: "post",
+            dataType: "json",
+            success: (response) =>  $('#training-block').empty().append(response.layout)
+        });
+    }
+
     $('body')
-        .on('click', '#next-word', () => get_word(++offset))
+        .on('click', '#next-word', () => request())
         .on('click', '.word', function (event) {
         event.preventDefault();
 
         if ($(this).text() === back_text) {
-            get_word(++offset);
+            request();
         } else {
             $(this).addClass('btn-wrong');
         }
     });
 
+    function request() {
+        if (++offset === total)
+            get_finish();
+        else
+            get_word(offset);
+    }
 });

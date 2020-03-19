@@ -3,7 +3,7 @@
  * author: João Pereira
  * website: http://www.joaopereira.pt
  * email: joaopereirawd@gmail.com
- * Licensed MIT 
+ * Licensed MIT
 =========================================*/
 
 (function ($) {
