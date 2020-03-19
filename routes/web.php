@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('training/{deck}/word-constructor/get-constructor-word', 'Training\ConstructorController@getWord');
     Route::post('training/{deck}/choose-word/get-choose-word', 'Training\ChooseController@getWord');
+    Route::post('training/{deck}/flashcards/get-flashcard-word', 'Training\FlashcardController@getWord');
 
-    Route::post('training/{deck}/word-constructor/get-finish', 'Training\ConstructorController@getFinish');
-    Route::post('training/{deck}/choose-word/get-finish', 'Training\ChooseController@getFinish');
 });

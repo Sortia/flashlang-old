@@ -2,7 +2,7 @@
 
 @section('js')
     <script src="{{asset('plugins/animated-modal/animatedModal.min.js')}}"></script>
-    <script src="{{asset('js/training-dashboard.js')}}"></script>
+    <script src="{{asset('js/training/training-dashboard.js')}}"></script>
 @endsection
 
 @section('css')

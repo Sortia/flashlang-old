@@ -4,13 +4,28 @@ use App\Settings;
 use App\SettingsValues;
 use App\User;
 use App\UserSettings;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Calc percent
+ *
+ * @param float $progress
+ * @param float $total
+ * @return float
+ */
 function percent(float $progress, float $total): float
 {
     return ($progress / ($total == 0 ? 1 : $total)) * 100;
 }
 
+/**
+ * Get / Set settings value
+ *
+ * @param string $key
+ * @param string|null $value
+ * @return string
+ */
 function settings(string $key, string $value = null): string
 {
     if (!is_null($value)) {
@@ -37,6 +52,8 @@ function settings(string $key, string $value = null): string
 }
 
 /**
+ * Get auth user
+ *
  * @return User|null
  */
 function user()
@@ -45,6 +62,8 @@ function user()
 }
 
 /**
+ * Get rendered view
+ *
  * @param string $view
  * @param array $data
  * @return string
@@ -54,7 +73,31 @@ function ajax_view(string $view, array $data = []): string
     return view($view, $data)->toHtml();
 }
 
+/**
+ * Convert stdClass to array
+ *
+ * @param $object
+ * @return mixed
+ */
 function to_array($object)
 {
     return json_decode(json_encode($object), true);
+}
+
+/**
+ * Get array of values
+ *
+ * @param array $collection
+ * @param string $key
+ * @return array
+ */
+function arrayGet(array $collection, string $key): array
+{
+    $result = [];
+
+    foreach ($collection as $item) {
+        $result[] = Arr::get($item, $key);
+    }
+
+    return $result;
 }

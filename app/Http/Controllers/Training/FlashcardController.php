@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Training;
 
-class ConstructorController extends TrainingController
+class FlashcardController extends TrainingController
 {
-    protected string $trainingComponentPath = 'training.components.word-constructor';
+    protected string $trainingComponentPath = 'training.components.slide-item';
 
     public function setLayout(): void
     {

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('js')
-    <script src="{{asset('js/choose-word.js')}}" defer></script>
+    <script src="{{asset('js/training/choose-word.js')}}" defer></script>
 @endsection
 
 @section('content')

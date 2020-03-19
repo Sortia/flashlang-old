@@ -9,8 +9,6 @@ class ChooseController extends TrainingController
 {
     protected string $trainingComponentPath = 'training.components.study-choose';
 
-    protected string $finishComponentPath = 'training.components.word-constructor-finish';
-
     protected function setLayout(): void
     {
         $words = $this->getRandomWords();
