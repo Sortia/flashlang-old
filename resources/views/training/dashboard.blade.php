@@ -62,13 +62,13 @@
                     <a href="#" class="card card-training" data-type-training="word-constructor">
                         <div class="card-body">
                             <h3>Word constructor</h3>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text">Gather the correct translation word from the suggested letters.</p>
                         </div>
                     </a>
                     <a href="#" class="card card-training" data-type-training="choose-word">
                         <div class="card-body">
                             <h3>Choose word</h3>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                            <p class="card-text">Choose one of the suggested translation options for the word and find out whether you answered correctly or not.</p>
                         </div>
                     </a>
                 </div>
