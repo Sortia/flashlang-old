@@ -2,7 +2,6 @@
 
 @section('js')
     <script src="{{asset('js/create_flashcard.js')}}"></script>
-
 @endsection
 
 @section('css')
@@ -19,16 +18,9 @@
                     <div class="card-body">
                         <form action="{{route('deck.store')}}" method="post">
                             @csrf
-                            <div class="col-sm-12 my-1 mb-3">
-                                <label class="sr-only" for="id">Id</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Id</div>
-                                    </div>
-                                    <input readonly value="{{old('id') ?? $deck->id ?? ''}}" name="id" type="text"
-                                           class="form-control" id="id" placeholder="Id">
-                                </div>
-                            </div>
+
+                            <input readonly value="{{old('id') ?? $deck->id ?? ''}}" name="id" type="hidden"
+                                   class="form-control" id="id" placeholder="Id">
                             <div class="col-sm-12 my-1 mb-3">
                                 <label class="sr-only" for="name">Name</label>
                                 <div class="input-group">
@@ -40,7 +32,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <a href="{{url()->previous()}}" class="btn btn-secondary float-left">Back</a>
                                 <button class="btn btn-success float-right">Save</button>
                             </div>
                         </form>
