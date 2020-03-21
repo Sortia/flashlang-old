@@ -33,8 +33,18 @@ class Flashcard extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function getBackLetters()
+    public function getHiddenLetters()
     {
-        return collect(mb_str_split($this->back_text))->shuffle();
+        return collect(mb_str_split($this->getHiddenText()))->shuffle();
+    }
+
+    public function getShowText()
+    {
+        return $this->{settings('study_show_side')};
+    }
+
+    public function getHiddenText()
+    {
+        return $this->{getHiddenSideName()};
     }
 }

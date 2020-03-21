@@ -4,12 +4,12 @@
             <div class="card-hover">
                 <div class="face face1">
                     <div class="content">
-                        <p>{{$flashcard->front_text}}</p>
+                        <p>{{$flashcard->getShowText()}}</p>
                     </div>
                 </div>
                 <div class="face face2">
                     <div class="content">
-                        <p>{{$flashcard->back_text}}</p>
+                        <p>{{$flashcard->getHiddenText()}}</p>
                     </div>
                 </div>
             </div>

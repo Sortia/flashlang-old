@@ -12,8 +12,8 @@ $(() => {
             dataType: "json",
             success: (response) => {
                 $('#training-block').empty().append(response.layout);
-                front_text = response.flashcard.front_text || '';
-                back_text = response.flashcard.back_text || '';
+                front_text = response.flashcard.show_text || '';
+                back_text = response.flashcard.hidden_text || '';
                 initStatus();
             },
         });

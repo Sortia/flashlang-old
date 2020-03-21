@@ -1,5 +1,5 @@
 $(() => {
-    let back_text = '';
+    let hidden_text = '';
 
     get_word();
 
@@ -10,7 +10,7 @@ $(() => {
             dataType: "json",
             success: (response) => {
                 $('#training-block').empty().append(response.layout);
-                back_text = response.flashcard.back_text;
+                hidden_text = response.flashcard.hidden_text;
                 initStatus();
             },
         });
@@ -21,7 +21,7 @@ $(() => {
         .on('click', '.word', function (event) {
         event.preventDefault();
 
-        if ($(this).text() === back_text) {
+        if ($(this).text() === hidden_text) {
             get_word();
         } else {
             $(this).addClass('btn-wrong');

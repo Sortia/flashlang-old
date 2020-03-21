@@ -6,6 +6,7 @@ use App\Deck;
 use App\Flashcard;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LayoutResponse;
+use App\Http\Resources\FlashcardResource;
 use App\Http\Service\RandomPicker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -79,7 +80,7 @@ class TrainingController extends Controller
     protected function sendResponse(): string
     {
         return json_encode([
-            'flashcard' => $this->flashcard,
+            'flashcard' => new FlashcardResource($this->flashcard),
             'layout' => $this->flashcardHtml,
             'deck' => $this->deck,
         ]);

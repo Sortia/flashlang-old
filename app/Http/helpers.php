@@ -46,6 +46,7 @@ function settings(string $key, string $value = null): string
         from settings as s
         inner join user_settings as us on us.settings_id = s.id
         inner join settings_values as sv on us.settings_value_id = sv.id
+        where s.name = '$key'
     ";
 
     return DB::selectOne($query)->value;
@@ -100,4 +101,9 @@ function arrayGet(array $collection, string $key): array
     }
 
     return $result;
+}
+
+function getHiddenSideName()
+{
+    return settings('study_show_side') === 'front_text' ? 'back_text' : 'front_text';
 }

@@ -12,7 +12,7 @@ class ChooseController extends TrainingController
     protected function setLayout(): void
     {
         $words = $this->getRandomWords();
-        $words->add($this->flashcard->back_text)->shuffle();
+        $words->add($this->flashcard->getHiddenText())->shuffle();
 
         $this->flashcardHtml = $this->prepareLayout($this->trainingComponentPath, [
             'flashcard' => $this->flashcard,
@@ -26,6 +26,6 @@ class ChooseController extends TrainingController
             ->where('id', '<>', $this->flashcard->id)
             ->inRandomOrder()
             ->take(5)
-            ->pluck('back_text');
+            ->pluck(getHiddenSideName());
     }
 }

@@ -5,10 +5,10 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <p>{{$flashcard->front_text}}</p>
+                        <p>{{$flashcard->getShowText()}}</p>
                     </div>
                     <div class="flip-card-back">
-                        <p>{{$flashcard->back_text}}</p>
+                        <p>{{$flashcard->getHiddenText()}}</p>
                     </div>
                 </div>
             </div>

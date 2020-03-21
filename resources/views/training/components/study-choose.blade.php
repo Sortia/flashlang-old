@@ -2,7 +2,7 @@
     <div class="card mt-5">
         <div class="card-body">
             <div class="p5 mb-5 mt-3 text-center">
-                <h2 class="pt-4">{{$flashcard->front_text}}</h2>
+                <h2 class="pt-4">{{$flashcard->getShowText()}}</h2>
             </div>
 
             <div class="row justify-content-center mb-4">
