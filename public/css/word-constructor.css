@@ -7,7 +7,3 @@
     font-size: 24px !important;
     align-items: flex-start;
 }
-
-.letter-filled {
-    pointer-events: none;
-}

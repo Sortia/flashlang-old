@@ -16,7 +16,7 @@
             <div class="row justify-content-center mb-4">
                 @foreach($flashcard->getHiddenLetters() as $letter)
                     <div class="card shadow card-letter m-2 ">
-                        <button class="card-body btn p-2 px-4 bg-teal m-0 btn-letter letter">{{$letter}}</button>
+                        <button id="id-{{rand(0, 100000)}}" class="card-body btn p-2 px-4 bg-teal m-0 btn-letter letter">{{$letter}}</button>
                     </div>
                 @endforeach
             </div>
