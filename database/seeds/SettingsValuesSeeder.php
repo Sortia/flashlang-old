@@ -15,13 +15,25 @@ class SettingsValuesSeeder extends Seeder
         $data = [
             [
                 'value' => 'flip',
-                'description' => '',
+                'description' => 'Flip',
                 'settings_id' => 1,
             ],
             [
                 'value' => 'slide',
-                'description' => '',
+                'description' => 'Slide',
                 'settings_id' => 1,
+            ],
+
+        [
+                'value' => 'front_text',
+                'description' => 'Front',
+                'settings_id' => 2,
+            ],
+
+        [
+                'value' => 'back_text',
+                'description' => 'Back',
+                'settings_id' => 2,
             ],
 
         ];
