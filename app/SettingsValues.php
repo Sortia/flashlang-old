@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class SettingsValues extends Model
+class SettingsValues extends BaseModel
 {
 
 }

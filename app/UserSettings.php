@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserSettings extends Model
+class UserSettings extends BaseModel
 {
     protected $fillable = [
         'settings_id',
