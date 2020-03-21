@@ -8,6 +8,6 @@ class BaseModel extends Model
 {
     public static function current()
     {
-        return static::on()->where('user_id')->get();
+        return static::on()->where('user_id', user()->id)->get();
     }
 }
