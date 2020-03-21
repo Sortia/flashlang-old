@@ -1,3 +1,3 @@
 <div class="container">
-    @include('deck.components.show_flashcards')
+    @include('training.components.show_flashcards')
 </div>
