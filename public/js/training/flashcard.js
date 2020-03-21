@@ -1,15 +1,14 @@
 $(() => {
 
     get_word();
-    get_word();
 
-    setTimeout(() => {
+    get_word(() => {
         $('.carousel').carousel();
         $('.carousel-item:eq(0)').addClass('active');
         $('.carousel-control').removeClass('d-none');
-    }, 300);
+    });
 
-    function get_word() {
+    function get_word(initCarousel) {
         $.ajax({
             url: location.href + "/get-flashcard-word",
             method: "post",
@@ -17,10 +16,12 @@ $(() => {
             success: (response) => {
                 $('#training-block').append(response.layout);
                 initStatus();
+
+                if (initCarousel) initCarousel();
             },
         });
     }
 
-    $('body').on('click', '#next-word', () => get_word());
+    $('body').on('click', '#next-word', () => get_word(false));
 
 });
