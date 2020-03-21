@@ -26,7 +26,7 @@ function percent(float $progress, float $total): float
  * @param string|null $value
  * @return string
  */
-function settings(string $key, string $value = null): string
+function settings(string $key, string $value = null): ?string
 {
     if (!is_null($value)) {
         $keyId = Settings::on()->where('name', $key)->value('id');
@@ -49,7 +49,7 @@ function settings(string $key, string $value = null): string
         where s.name = '$key'
     ";
 
-    return DB::selectOne($query)->value;
+    return DB::selectOne($query)->value ?? null;
 }
 
 /**
