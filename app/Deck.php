@@ -8,20 +8,24 @@ use Illuminate\Support\Facades\DB;
 
 class Deck extends BaseModel
 {
-    use SoftDeletes;
-    use SoftCascadeTrait;
-
     /**
      * @var array
      */
-    protected array $softCascade = ['flashcards'];
+    protected array $softCascade = [
+        'flashcards',
+        'users'
+    ];
 
     /**
      * @var array
      */
     protected $fillable = [
         'name',
-        'user_id'
+        'user_id',
+        'access',
+        'rating',
+        'number_ratings',
+        'description'
     ];
 
     /**
@@ -32,6 +36,16 @@ class Deck extends BaseModel
         return $this->hasMany(Flashcard::class);
     }
 
+    public function users()
+    {
+        return $this->hasMany(DeckUser::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(DeckUser::class)->where('user_id', user()->id);
+    }
+
     /**
      * Количество изученых карточек этой колоды
      *
@@ -39,7 +53,22 @@ class Deck extends BaseModel
      */
     public function studied(): int
     {
-        return $this->flashcards->filter(fn($value) => $value->status->value === 5)->count();
+        return $this->flashcards->filter(fn($value) => $value->statusPivot->status->value === 5)->count();
+    }
+
+    public function isPublic()
+    {
+        return $this->access === 'public';
+    }
+
+    public function isOwner()
+    {
+        return $this->user_id === user()->id;
+    }
+
+    public static function userDecks()
+    {
+        return Deck::on()->whereIn('id', DeckUser::userDecks())->get();
     }
 
     /**
@@ -51,11 +80,15 @@ class Deck extends BaseModel
     {
         $query = "
             select
-                s.value
+                s.value,
+            f.id
             from flashcards f
-            inner join statuses s on f.status_id = s.id
+            inner join flashcard_users fu on fu.flashcard_id = f.id
+            inner join statuses s on fu.status_id = s.id
             inner join decks d on f.deck_id = d.id
-            where d.user_id = " . user()->id . "
+            inner join deck_users du on du.deck_id = d.id
+            where du.user_id = " . user()->id . "
+              and fu.user_id = " . user()->id . "
               and f.deleted_at is null
         ";
 
@@ -73,7 +106,8 @@ class Deck extends BaseModel
             select
                 s.value
             from flashcards f
-            inner join statuses s on f.status_id = s.id
+            inner join flashcard_users fu on fu.flashcard_id = f.id
+            inner join statuses s on fu.status_id = s.id
             where deck_id = $this->id
               and f.deleted_at is null
         ";

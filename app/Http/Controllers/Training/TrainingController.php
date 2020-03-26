@@ -32,7 +32,7 @@ class TrainingController extends Controller
 
     public function dashboard()
     {
-        return view('training.dashboard', ['decks' => Deck::current()]);
+        return view('training.dashboard', ['decks' => Deck::userDecks()]);
     }
 
     public function study(Deck $deck, string $typeTraining)
@@ -52,7 +52,7 @@ class TrainingController extends Controller
     {
         $this->lastId = Session::get('training.last_flashcard_id');
 
-        $query = Flashcard::with('status');
+        $query = Flashcard::with('statusPivot.status');
         $query->where('deck_id', $deck->id);
 
         if ($deck->flashcards->count() > 1 && $this->lastId) {
@@ -69,7 +69,7 @@ class TrainingController extends Controller
 
     private function getIndex()
     {
-        $weights = arrayGet($this->flashcards->toArray(), 'status.weight');
+        $weights = arrayGet($this->flashcards->toArray(), 'status_pivot.status.weight');
 
         $randomPicker = new RandomPicker();
         $randomPicker->addElements($weights);

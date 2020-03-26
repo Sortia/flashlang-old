@@ -4,6 +4,7 @@ use App\Settings;
 use App\SettingsValues;
 use App\User;
 use App\UserSettings;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -106,4 +107,9 @@ function arrayGet(array $collection, string $key): array
 function getHiddenSideName()
 {
     return settings('study_show_side') === 'front_text' ? 'back_text' : 'front_text';
+}
+
+function checkbox($model, string $field, string $value)
+{
+    return (isset($model->$field) && $model->$field === $value) ? 'checked' : '';
 }

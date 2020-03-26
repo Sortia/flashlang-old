@@ -37,6 +37,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('collections')}}" class="nav-link">
+                    <i class="nav-icon fas fa-star"></i>
+                    <p>Collections</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('settings.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-cog"></i>
                     <p>Settings</p>

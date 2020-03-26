@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Flashcard extends BaseModel
@@ -16,21 +15,22 @@ class Flashcard extends BaseModel
         'back_text',
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function deck(): BelongsTo
+
+    public function deck()
     {
         return $this->belongsTo(Deck::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function status(): BelongsTo
+    public function statusPivot()
     {
-        return $this->belongsTo(Status::class);
+        return $this->hasOne(FlashcardUsers::class)->where('user_id', user()->id);
     }
+
+    public function users()
+    {
+        return $this->hasMany(FlashcardUsers::class);
+    }
+
 
     public function getHiddenLetters()
     {
@@ -45,5 +45,10 @@ class Flashcard extends BaseModel
     public function getHiddenText()
     {
         return $this->{getHiddenSideName()};
+    }
+
+    public static function getAll()
+    {
+        return Flashcard::on()->whereIn('deck_id', DeckUser::userDecks())->get();
     }
 }
