@@ -48,6 +48,7 @@ function settings(string $key, string $value = null): ?string
         inner join user_settings as us on us.settings_id = s.id
         inner join settings_values as sv on us.settings_value_id = sv.id
         where s.name = '$key'
+          and us.user_id = " . user()->id . ";
     ";
 
     return DB::selectOne($query)->value ?? null;
