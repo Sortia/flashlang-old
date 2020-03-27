@@ -34,12 +34,12 @@ class FlashcardController extends Controller
 
     /**
      * @param Flashcard $flashcard
-     * @return bool|null
+     * @return void
      * @throws Exception
      */
     public function destroy(Flashcard $flashcard)
     {
-        return $flashcard->delete();
+        $flashcard->delete();
     }
 
     /**

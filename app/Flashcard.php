@@ -49,6 +49,6 @@ class Flashcard extends BaseModel
 
     public static function getAll()
     {
-        return Flashcard::on()->whereIn('deck_id', DeckUser::userDecks())->get();
+        return Flashcard::with('statusPivot.status')->whereIn('deck_id', DeckUser::userDecks())->get();
     }
 }
