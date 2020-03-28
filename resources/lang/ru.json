@@ -1,34 +1,43 @@
 {
-    "Decks": "Колоды",
     "Deck": "Колода",
+    "Decks": "Колоды",
     "Profile": "Профиль",
     "Training": "Тренировки",
     "Vocabulary": "Словарь",
     "Collections": "Колекции",
     "Settings": "Настройки",
+
     "Name": "Имя",
     "Description": "Описание",
+
     "Access type": "Тип доступа",
     "Public": "Публичный",
     "Private": "Приватный",
+
     "Create flashcard": "Создать карточку",
-    "Front": "Лицевая сторона",
-    "Back": "Обратная сторона",
 
     "Study flashcard type": "Отображение карточек",
-    "Study show side": "Скрытая сторона",
     "Flip": "Поворот",
     "Slide": "Слайд",
 
-    "Save": "Сохранить",
-    "Home": "Главная страница",
+    "Study show side": "Скрытая сторона",
+    "Front": "Лицевая сторона",
+    "Back": "Обратная сторона",
 
-    "Edit": "Редактировать",
-    "Create": "Создать",
-    "Delete": "Удалить",
-    "Actions": "Действия",
+    "Language": "Язык",
+    "English": "Английский",
+    "Russian": "Русский",
+
+    "Dashboard": "Доска объявлений",
+    "Home": "Главная страница",
     "Contact": "Контакты",
-    "Next": "Далее",
+
+    "Actions": "Действия",
+    "Create": "Создать",
+    "Edit": "Редактировать",
+    "Save": "Сохранить",
+    "Delete": "Удалить",
+
     "Username": "Имя пользователя",
     "Password": "Пароль",
     "Remember Me": "Запомнить меня",
@@ -36,16 +45,11 @@
     "Reset Password": "Восстановление пароля",
     "E-Mail Address": "E-Mail адрес",
     "Send Password Reset Link": "Отправить ссылку на сброс пароля",
-
     "Logout": "Выйти",
     "Login": "Войти",
     "Register": "Зарегистрироваться",
     "You are logged in!": "Вы вошли!",
 
-    "Dashboard": "Доска объявлений",
-
     "%s of %s cards studied": "%s из %s карточек изучено",
-    "Language": "Язык",
-    "English": "Английский",
-    "Russian": "Русский"
+    "Next": "Далее"
 }
