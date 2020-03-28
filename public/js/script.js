@@ -10,11 +10,25 @@ $(() => {
         });
     };
 
+    $(".deck-rate").rate({
+        step_size: 1,
+        max_value: 10
+    });
+
     initStatus();
 
     $('body').on('change', '.rate', function (event, data) {
         $.ajax({
             url: `/flashcard/${$(this).data('flashcard-id')}/update-status`,
+            method: "post",
+            data: {
+                value: data.to
+            },
+            dataType: "json",
+        });
+    }).on('change', '.deck-rate', function (event, data) {
+        $.ajax({
+            url: `/deck/${$(this).data('deck-id')}/update-status`,
             method: "post",
             data: {
                 value: data.to

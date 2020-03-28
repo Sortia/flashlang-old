@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Deck extends BaseModel
@@ -13,7 +12,8 @@ class Deck extends BaseModel
      */
     protected array $softCascade = [
         'flashcards',
-        'users'
+        'users',
+        'rate'
     ];
 
     /**
@@ -44,6 +44,17 @@ class Deck extends BaseModel
     public function user()
     {
         return $this->hasOne(DeckUser::class)->where('user_id', user()->id);
+    }
+
+    public function rate()
+    {
+        return $this->hasOne(Rate::class)->where('user_id', user()->id);
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+
     }
 
     /**

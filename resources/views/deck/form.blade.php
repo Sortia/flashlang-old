@@ -13,7 +13,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow">
-                    <div class="card-header">Block</div>
+                    <div class="card-header">
+                        <span class="float-left">Block</span>
+                        @isset($deck->id)
+                            <span class="float-right deck-rate" data-rate-value="{{$deck->rate->value ?? 0}}" data-deck-id="{{$deck->id}}"></span>
+                        @endisset
+                    </div>
 
                     <div class="card-body">
                         <form action="{{route('deck.store')}}" method="post">

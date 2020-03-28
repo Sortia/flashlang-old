@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('flashcard', 'FlashcardController@store')->name('flashcard.store');
     Route::post('flashcard/{flashcard}/update-status', 'FlashcardController@updateStatus');
+    Route::post('deck/{deck}/update-status', 'DeckController@updateStatus');
 
     Route::get('settings', 'SettingsController@index')->name('settings.index');
     Route::post('settings/update', 'SettingsController@update')->name('settings.update');

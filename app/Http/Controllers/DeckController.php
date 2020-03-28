@@ -99,4 +99,13 @@ class DeckController extends Controller
             });
         }
     }
+
+    public function updateStatus(Deck $deck, Request $request)
+    {
+        $deck->rate()->updateOrCreate(['user_id' => user()->id],['value' => $request->value]);
+
+        $deck->update([
+            'rating' => $deck->rates->pluck('value')->avg()
+        ]);
+    }
 }

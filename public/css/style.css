@@ -15,8 +15,12 @@ body {
     color: orange;
 }
 
-.rate {
+.rate, .deck-rate {
     font-size: 25px;
+}
+
+.deck-rate {
+    margin: -5px 0 -10px 0;
 }
 
 .rate-select-layer span {
