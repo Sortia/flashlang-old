@@ -39,7 +39,7 @@ class Flashcard extends BaseModel
 
     public function getShowText()
     {
-        return $this->{settings('study_show_side')};
+        return $this->{get_settings('study_show_side', 'back_text')};
     }
 
     public function getHiddenText()

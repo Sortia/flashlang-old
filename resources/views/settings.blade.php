@@ -16,7 +16,7 @@
                                     <label for="{{$setting->name}}">{{$setting->description}}</label>
                                     <select class="form-control" id="{{$setting->name}}" name="settings[{{$setting->name}}]">
                                         @foreach($setting->values as $value)
-                                            <option {{$value->value === settings($setting->name) ? 'selected' : ''}} value="{{$value->id}}">{{$value->description}}</option>
+                                            <option {{$value->value === get_settings($setting->name) ? 'selected' : ''}} value="{{$value->id}}">{{$value->description}}</option>
                                         @endforeach
                                     </select>
                                 </div>

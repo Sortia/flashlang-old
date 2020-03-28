@@ -53,7 +53,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request)
     {
-        return response()->json(settings($request->key, $request->value));
+        return response()->json(set_settings($request->key, $request->value));
     }
 
     /**

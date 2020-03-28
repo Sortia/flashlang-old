@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 @if(!$deck->flashcards->isEmpty())
-                    @include('training.components.study-' . settings('study_flashcards_type_view'))
+                    @include('training.components.study-' . get_settings('study_flashcards_type_view'))
                 @endif
             </div>
         </div>

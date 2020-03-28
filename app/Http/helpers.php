@@ -21,26 +21,38 @@ function percent(float $progress, float $total): float
 }
 
 /**
- * Get / Set settings value
+ * Set setting value for current user
  *
- * @param string $key
- * @param string|null $value
+ * @param $key
+ * @param $value
+ *
  * @return string
  */
-function settings(string $key, string $value = null): ?string
+function set_settings($key, $value)
 {
-    if (!is_null($value)) {
-        $keyId = Settings::on()->where('name', $key)->value('id');
-        $valueId = SettingsValues::on()->where('value', $value)->value('id');
+    $keyId = Settings::on()->where('name', $key)->value('id');
+    $valueId = SettingsValues::on()->where('value', $value)->value('id');
 
-        UserSettings::on()->updateOrCreate([
-            'settings_id' => $keyId,
-            'user_id' => user()->id
-        ], [
-            'settings_value_id' => $valueId
-        ]);
-    }
+    UserSettings::on()->updateOrCreate([
+        'settings_id' => $keyId,
+        'user_id' => user()->id
+    ], [
+        'settings_value_id' => $valueId
+    ]);
 
+    return get_settings($key);
+}
+
+/**
+ * Get setting value for current user by key
+ *
+ * @param  string  $key
+ * @param  string  $default
+ *
+ * @return string
+ */
+function get_settings(string $key, string $default = null)
+{
     $query = "
         select
             sv.value
@@ -51,7 +63,7 @@ function settings(string $key, string $value = null): ?string
           and us.user_id = " . user()->id . ";
     ";
 
-    return DB::selectOne($query)->value ?? null;
+    return DB::selectOne($query)->value ?? $default;
 }
 
 /**
@@ -107,7 +119,7 @@ function arrayGet(array $collection, string $key): array
 
 function getHiddenSideName()
 {
-    return settings('study_show_side') === 'front_text' ? 'back_text' : 'front_text';
+    return get_settings('study_show_side', 'back_text') === 'front_text' ? 'back_text' : 'front_text';
 }
 
 function checkbox($model, string $field, string $value)
