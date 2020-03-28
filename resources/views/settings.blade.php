@@ -5,9 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header pb-0">
-                        <h3>@lang('Settings')</h3>
-                    </div>
+                    <div class="card-header h5">@lang('Settings')</div>
                     <div class="card-body">
                         <form method="post" action="{{route('settings.store')}}">
                             @csrf
@@ -21,7 +19,7 @@
                                     </select>
                                 </div>
                             @endforeach
-                            <button class="btn btn-success float-right">@lang('Save')</button>
+                            <button class="btn btn-success float-right btn-sm">@lang('Save')</button>
                         </form>
                     </div>
                 </div>

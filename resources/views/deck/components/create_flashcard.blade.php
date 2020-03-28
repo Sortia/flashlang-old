@@ -1,5 +1,5 @@
 <div class="card shadow">
-    <div class="card-header">@lang('Create flashcard')</div>
+    <div class="card-header h5">@lang('Create flashcard')</div>
 
     <div class="card-body">
         <form action="/">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <button id="create_flashcard" class="btn btn-success float-right">@lang('Save')</button>
+                <button id="create_flashcard" class="btn btn-success float-right btn-sm">@lang('Save')</button>
             </div>
         </form>
     </div>

@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow">
-                    <div class="card-header">
+                    <div class="card-header h5">
                         <span class="float-left">@lang('Deck')</span>
                         @isset($deck->id)
                             <span class="float-right deck-rate" data-rate-value="{{$deck->rate->value ?? 0}}" data-deck-id="{{$deck->id}}"></span>
@@ -69,7 +69,7 @@
 
                             @can('edit', $deck)
                                 <div class="col-lg-12">
-                                    <button class="btn btn-success float-right">@lang('Save')</button>
+                                    <button class="btn btn-success float-right btn-sm">@lang('Save')</button>
                                 </div>
                             @endcan
                         </form>

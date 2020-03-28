@@ -5,9 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header pb-0">
-                        <h3>@lang('Vocabulary')</h3>
-                    </div>
+                    <div class="card-header h5">@lang('Vocabulary')</div>
                     <div class="list-group">
                         @foreach($flashcards as $flashcard)
                             <a href="#" class="list-group-item list-group-item-action">

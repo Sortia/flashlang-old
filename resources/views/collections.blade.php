@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"><h3>@lang('Collections')</h3></div>
+                    <div class="card-header h5">@lang('Collections')</div>
 
                     <div class="card-body">
                         <div class="list-group">
