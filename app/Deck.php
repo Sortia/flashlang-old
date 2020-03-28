@@ -118,7 +118,7 @@ class Deck extends BaseModel
         $query = "
             select
                 s.value,
-            f.id
+                f.id
             from flashcards f
             inner join flashcard_users fu on fu.flashcard_id = f.id
             inner join statuses s on fu.status_id = s.id
@@ -143,7 +143,7 @@ class Deck extends BaseModel
             select
                 s.value
             from flashcards f
-            inner join flashcard_users fu on fu.flashcard_id = f.id
+            inner join flashcard_users fu on fu.flashcard_id = f.id and fu.user_id = " . user()->id ."
             inner join statuses s on fu.status_id = s.id
             where deck_id = $this->id
               and f.deleted_at is null
