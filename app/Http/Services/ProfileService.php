@@ -6,7 +6,10 @@ use Illuminate\Http\UploadedFile;
 
 class ProfileService
 {
-    public static function handleUploadedImage(?UploadedFile $image)
+    /**
+     * Обработка загрузки картинки для аватара
+     */
+    public static function handleUploadedImage(?UploadedFile $image): void
     {
         if (!is_null($image)) {
             user()->update(['avatar_path' => $image->store('public/images')]);

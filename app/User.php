@@ -40,13 +40,16 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return HasMany
+     * Настройки пользователя
      */
     public function settings(): HasMany
     {
         return $this->hasMany(UserSettings::class);
     }
 
+    /**
+     * Колоды пользователя
+     */
     public function decks(): HasMany
     {
         return $this->hasMany(Deck::class);

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class UserSettings extends BaseModel
 {
     protected $fillable = [
@@ -10,17 +12,26 @@ class UserSettings extends BaseModel
         'user_id'
     ];
 
-    public function user()
+    /**
+     * Пользователь
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function key()
+    /**
+     * Настройка
+     */
+    public function key(): BelongsTo
     {
         return $this->belongsTo(Settings::class);
     }
 
-    public function value()
+    /**
+     * Значение настройки
+     */
+    public function value(): BelongsTo
     {
         return $this->belongsTo(SettingsValues::class);
     }

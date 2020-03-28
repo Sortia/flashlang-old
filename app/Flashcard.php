@@ -2,12 +2,18 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Flashcard extends BaseModel
 {
     use SoftDeletes;
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'deck_id',
         'status_id',
@@ -15,41 +21,65 @@ class Flashcard extends BaseModel
         'back_text',
     ];
 
+    /**
+     * @var array
+     */
     protected $with = [
         'statusPivot'
     ];
 
-    public function deck()
+    /**
+     * Колоду, к которой принадлежит карточка
+     */
+    public function deck(): BelongsTo
     {
         return $this->belongsTo(Deck::class);
     }
 
-    public function statusPivot()
+    /**
+     * Связуюшая таблица с оценками флеш-карточек
+     */
+    public function statusPivot(): HasOne
     {
         return $this->hasOne(FlashcardUsers::class)->current();
     }
 
-    public function users()
+    /**
+     * Пользователи у которых есть текущая карточка
+     */
+    public function users(): HasMany
     {
         return $this->hasMany(FlashcardUsers::class);
     }
 
-    public function getHiddenLetters()
+    /**
+     * Получить массив букв слова с обратной стороны карточки
+     */
+    public function getHiddenLetters(): \Illuminate\Support\Collection
     {
         return collect(mb_str_split($this->getHiddenText()))->shuffle();
     }
 
-    public function getShowText()
+    /**
+     * Получить текст лицевой стороны карточки
+     */
+    public function getShowText(): string
     {
         return $this->{get_settings('study_show_side', 'back_text')};
     }
 
-    public function getHiddenText()
+    /**
+     * Получить текст обратной стороны карточки
+     */
+    public function getHiddenText(): string
     {
         return $this->{get_hidden_side_name()};
     }
 
-    public static function getAll()
+    /**
+     * Получить все карточки пользователя
+     */
+    public static function getAll(): \Illuminate\Support\Collection
     {
         return self::with('statusPivot.status')->whereIn('deck_id', DeckUser::userDecks())->get();
     }

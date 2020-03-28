@@ -17,7 +17,7 @@ class CreateFlashcardsTable extends Migration
             $table->id();
             $table->string('front_text');
             $table->string('back_text');
-            $table->bigInteger('block_id');
+            $table->bigInteger('deck_id');
             $table->bigInteger('status_id')->default(1);
             $table->timestamps();
             $table->softDeletes();

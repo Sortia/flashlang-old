@@ -2,6 +2,9 @@
 
 namespace App\Http\Services;
 
+use Exception;
+use InvalidArgumentException;
+
 /**
  * Picks a random element from a number of weighted element.
  *
@@ -11,22 +14,16 @@ class RandomPicker
 {
     /**
      * The elements to be randomized.
-     *
-     * @var array
      */
     private array $elements = [];
 
     /**
      * The weights for each element, using common keys.
-     *
-     * @var array
      */
     private array $weights = [];
 
     /**
      * The sum of all the weights.
-     *
-     * @var int
      */
     private int $totalWeight = 0;
 
@@ -36,8 +33,6 @@ class RandomPicker
      * Sorting is not necessary for the algorithm to return correct results,
      * but it greatly improves performance for large arrays. Sorting is performed
      * just-in-time when calling getRandomElement().
-     *
-     * @var bool
      */
     private bool $isSorted = true;
 
@@ -45,16 +40,12 @@ class RandomPicker
      * Adds a single element.
      *
      * @param mixed $value
-     * @param int $weight
-     *
-     * @return void
-     *
-     * @throws \InvalidArgumentException If the weight is not a positive integer.
+     * @throws InvalidArgumentException If the weight is not a positive integer.
      */
     public function addElement($value, int $weight): void
     {
         if ($weight < 1) {
-            throw new \InvalidArgumentException('Weight must be a positive integer.');
+            throw new InvalidArgumentException('Weight must be a positive integer.');
         }
 
         $this->elements[] = $value;
@@ -65,14 +56,9 @@ class RandomPicker
 
     /**
      * Adds an associative array of elements.
-     *
      * The keys are elements, the values are weights.
      *
-     * @param array $elements
-     *
-     * @return void
-     *
-     * @throws \InvalidArgumentException If a weight is not a positive integer.
+     * @throws InvalidArgumentException If a weight is not a positive integer.
      */
     public function addElements(array $elements): void
     {
@@ -84,8 +70,7 @@ class RandomPicker
     /**
      * @return mixed
      *
-     * @throws \RuntimeException If no elements have been added.
-     * @throws \Exception
+     * @throws Exception
      */
     public function getRandomElement()
     {

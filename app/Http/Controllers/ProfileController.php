@@ -3,34 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\ProfileService;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    private ProfileService $profileService;
+
+    /**
+     * ProfileController constructor.
+     */
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
+    }
+
     /**
      * Страница профиля
-     *
-     * @return Factory|View
      */
-    public function index()
+    public function index(): View
     {
         return view('profile', ['user' => user()]);
     }
 
     /**
      * Сохранение данных профиля пользователя
-     *
-     * @param  Request  $request
-     *
-     * @return RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        ProfileService::handleUploadedImage($request->file('avatar'));
+        $this->profileService->handleUploadedImage($request->file('avatar'));
 
         return redirect(route('profile'));
     }

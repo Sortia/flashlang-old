@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class Deck extends BaseModel
@@ -29,39 +29,55 @@ class Deck extends BaseModel
         'description'
     ];
 
+    /**
+     * @var array
+     */
     protected $with = [
         'flashcards'
     ];
 
+    /**
+     * Флеш-карточки
+     */
     public function flashcards(): HasMany
     {
         return $this->hasMany(Flashcard::class);
     }
 
-    public function users()
+    /**
+     * Все пользователи у которых есть текущая колода
+     */
+    public function users(): HasMany
     {
         return $this->hasMany(DeckUser::class);
     }
 
-    public function user()
+    /**
+     * Создатель колоды
+     */
+    public function user(): HasOne
     {
         return $this->hasOne(DeckUser::class)->current();
     }
 
-    public function rate()
+    /**
+     * Оценка колоды текущего пользователя
+     */
+    public function rate(): HasOne
     {
         return $this->hasOne(Rate::class)->current();
     }
 
-    public function rates()
+    /**
+     * Все оценки колоды
+     */
+    public function rates(): HasMany
     {
         return $this->hasMany(Rate::class);
     }
 
     /**
      * Количество изученых карточек этой колоды
-     *
-     * @return int
      */
     public function studied(): int
     {
@@ -70,30 +86,24 @@ class Deck extends BaseModel
 
     /**
      * Вернет true, если колода является публичной
-     *
-     * @return bool
      */
-    public function isPublic()
+    public function isPublic(): bool
     {
         return $this->access === 'public';
     }
 
     /**
      * Вернут true, если колода является приватной
-     *
-     * @return bool
      */
-    public function isPrivate()
+    public function isPrivate(): bool
     {
         return $this->access === 'private';
     }
 
     /**
      * Вернет true, если авторизаваный пользователь является владельцем текущей колоды
-     *
-     * @return bool
      */
-    public function isOwner()
+    public function isOwner(): bool
     {
         return $this->user_id === user()->id;
     }
@@ -101,7 +111,7 @@ class Deck extends BaseModel
     /**
      * Вернет все колоды, доступные пользователю
      *
-     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function userDecks()
     {
@@ -110,8 +120,6 @@ class Deck extends BaseModel
 
     /**
      * Общий процент изучных карточек
-     *
-     * @return float
      */
     public static function totalProgress(): float
     {
@@ -134,8 +142,6 @@ class Deck extends BaseModel
 
     /**
      * Процент изученых карточек в колоде
-     *
-     * @return float
      */
     public function progress(): float
     {
@@ -153,7 +159,10 @@ class Deck extends BaseModel
         return self::calcProgressPercent(DB::select($query));
     }
 
-    private static function calcProgressPercent($values)
+    /**
+     * Расчитать процент изучения колоды
+     */
+    private static function calcProgressPercent($values): float
     {
         $progress = collect(array_column(to_array($values), 'value'));
         $progress->transform(fn($item) => $item * 20);

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Settings extends BaseModel
@@ -16,7 +17,10 @@ class Settings extends BaseModel
         'description',
     ];
 
-    public function values()
+    /**
+     * Значения настройки
+     */
+    public function values(): HasMany
     {
         return $this->hasMany(SettingsValues::class);
     }

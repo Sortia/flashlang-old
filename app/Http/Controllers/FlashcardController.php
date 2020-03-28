@@ -14,13 +14,8 @@ class FlashcardController extends Controller
 {
     /**
      * Сохранение новой карточки
-     *
-     * Ajax response
-     *
-     * @param Request $request
-     * @return string
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $flashcard =  Flashcard::on()->updateOrCreate(['id' => $request->get('id')], $request->all());
 
@@ -37,30 +32,20 @@ class FlashcardController extends Controller
     /**
      * Удаление карточки
      *
-     * @param Flashcard $flashcard
-     * @return void
      * @throws Exception
      */
-    public function destroy(Flashcard $flashcard)
+    public function destroy(Flashcard $flashcard): void
     {
         $flashcard->delete();
     }
 
     /**
      * Проставление/изменение статуса
-     *
-     * @param Flashcard $flashcard
-     * @param Request $request
-     * @return JsonResponse
      */
-    public function updateStatus(Flashcard $flashcard, Request $request)
+    public function updateStatus(Flashcard $flashcard, Request $request): JsonResponse
     {
         $statusId = Status::where('value', $request->value)->value('id');
 
-        $flashcard->statusPivot->update([
-            'status_id' => $statusId
-        ]);
-
-        return response()->json($flashcard);
+        return $flashcard->statusPivot->update(['status_id' => $statusId]);
     }
 }

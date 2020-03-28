@@ -9,6 +9,9 @@ class DeckUser extends BaseModel
         'deck_id',
     ];
 
+    /**
+     *
+     */
     public static function userDecks()
     {
         return self::current()->pluck('deck_id');

@@ -3,36 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Deck;
-use App\DeckUser;
-use App\FlashcardUsers;
-use App\Status;
 use Exception;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
+use App\Status;
+use App\DeckUser;
+use App\Flashcard;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class DeckController extends Controller
 {
     /**
      * Список колод пользователя
-     *
-     * @return Factory|View
      */
-    public function index()
+    public function index(): View
     {
         return view('deck.list', ['decks' => Deck::userDecks()]);
     }
 
     /**
      * Форма создания
-     *
-     * @return Factory|View
      */
-    public function create()
+    public function create(): View
     {
         return view('deck.form', [
             'deck' => Deck::class,
@@ -42,11 +34,8 @@ class DeckController extends Controller
 
     /**
      * Форма редатирования
-     *
-     * @param Deck $deck
-     * @return Factory|View
      */
-    public function edit(Deck $deck)
+    public function edit(Deck $deck): View
     {
         return view('deck.form', [
             'deck' => $deck,
@@ -56,16 +45,14 @@ class DeckController extends Controller
 
     /**
      * Создание/редактирование
-     *
-     * @param Request $request
-     * @return RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $deckData = array_merge($request->all(), ['user_id' => user()->id]);
 
         /** @var Deck $deck */
         $deck = Deck::on()->updateOrCreate(['id' => $request->id], $deckData);
+        $deck->users()->create(['user_id' => user()->id]);
 
         $this->add($deck);
 
@@ -76,28 +63,19 @@ class DeckController extends Controller
      * Если удаляет владелец - удаляется у всех пользователей,
      * если любой другой пользователь - только у него
      *
-     * @param Deck $deck
-     * @return RedirectResponse|Redirector
      * @throws Exception
      */
-    public function destroy(Deck $deck)
+    public function destroy(Deck $deck): RedirectResponse
     {
-        if ($deck->isOwner() && $deck->isPrivate()) {
-            $deck->delete();
-        } else {
-            $deck->user->delete();
-        }
+        ($deck->isOwner() && $deck->isPrivate()) ? $deck->delete() : $deck->user->delete();
 
         return redirect(route('deck.index'));
     }
 
     /**
      * Добавление колоды к пользователю
-     *
-     * @param Deck $deck
-     * @return void
      */
-    public function add(Deck $deck)
+    public function add(Deck $deck): void
     {
         if ($deck->isPrivate()) {
             return;
@@ -105,8 +83,8 @@ class DeckController extends Controller
 
         DeckUser::on()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
 
-        $deck->flashcards->each(function ($flashcard) {
-            FlashcardUsers::on()->create([
+        $deck->flashcards->each(function (Flashcard $flashcard) {
+            $flashcard->users()->create([
                 'user_id' => user()->id,
                 'flashcard_id' => $flashcard->id
             ]);
@@ -115,11 +93,8 @@ class DeckController extends Controller
 
     /**
      * Проставление/изменение рейтинга
-     *
-     * @param  Deck  $deck
-     * @param  Request  $request
      */
-    public function updateStatus(Deck $deck, Request $request)
+    public function updateStatus(Deck $deck, Request $request): void
     {
         $deck->rate()->updateOrCreate(['user_id' => user()->id],['value' => $request->value]);
         $deck->update(['rating' => $deck->rates->pluck('value')->avg()]);

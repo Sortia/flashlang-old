@@ -4,30 +4,22 @@ use App\Settings;
 use App\SettingsValues;
 use App\User;
 use App\UserSettings;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Расчитать процент
- *
- * @param float $progress
- * @param float $total
- * @return float
  */
 function percent(float $progress, float $total): float
 {
-    return ($progress / ($total ?: 0)) * 100;
+    return ($progress / ($total == 0 ? 1: $total)) * 100;
 }
 
 /**
  * Установить значение настроек
- *
- * @param $key
- * @param $value
- *
- * @return string
  */
-function set_settings($key, $value)
+function set_settings(string $key, string $value): string
 {
     $keyId = Settings::on()->where('name', $key)->value('id');
     $valueId = SettingsValues::on()->where('value', $value)->value('id');
@@ -44,13 +36,8 @@ function set_settings($key, $value)
 
 /**
  * Получить значение настроек
- *
- * @param  string  $key
- * @param  string  $default
- *
- * @return string
  */
-function get_settings(string $key, string $default = null)
+function get_settings(string $key, string $default = null): string
 {
     $query = "
         select
@@ -67,10 +54,8 @@ function get_settings(string $key, string $default = null)
 
 /**
  * Получить авторизованого пользователя
- *
- * @return User|null
  */
-function user()
+function user(): ?User
 {
     return auth()->user();
 }
@@ -78,44 +63,31 @@ function user()
 /**
  * Преобразовать stdClass в массив
  *
- * @param $object
- * @return mixed
+ * @param mixed $object
  */
-function to_array($object)
+function to_array($object): array
 {
     return json_decode(json_encode($object), true);
 }
 
 /**
  * Получить название стороны карточки, которая должна быть скрыта
- *
- * @return string
  */
-function get_hidden_side_name()
+function get_hidden_side_name(): string
 {
     return get_settings('study_show_side', 'back_text') === 'front_text' ? 'back_text' : 'front_text';
 }
 
 /**
  * Хелпер для отметки чекбокса
- *
- * @param $model
- * @param  string  $field
- * @param  string  $value
- *
- * @return string
  */
-function checkbox($model, string $field, string $value)
+function checkbox(Model $model, string $field, string $value): string
 {
     return (isset($model->$field) && $model->$field === $value) ? 'checked' : '';
 }
 
 /**
  * Get array of values
- *
- * @param array $collection
- * @param string $key
- * @return array
  */
 function array_get(array $collection, string $key): array
 {

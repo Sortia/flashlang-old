@@ -7,7 +7,7 @@ use Exception;
 trait SoftCascadeTrait
 {
     /**
-     * Cascade delete
+     * Каскадное удаление
      *
      * @throws Exception
      */

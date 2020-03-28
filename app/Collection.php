@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Collection extends BaseModel
 {
+    /**
+     * @var string
+     */
     protected $table = 'decks';
 
     /**
      * Получить все публичные колекции с сортировкой по рейтингу
-     *
-     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getAll()
+    public static function getAll(): \Illuminate\Database\Eloquent\Collection
     {
-        return Collection::where('access', 'public')->latest('rating')->get();
+        return self::where('access', 'public')->latest('rating')->get();
     }
 }

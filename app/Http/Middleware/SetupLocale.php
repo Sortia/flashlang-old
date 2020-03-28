@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\App;
 class SetupLocale
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  Request  $request
-     * @param  Closure  $next
+     * Задание языка интерфейса
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         App::setLocale(get_settings('locale'));
 

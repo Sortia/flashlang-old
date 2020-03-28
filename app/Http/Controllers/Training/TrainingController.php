@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 abstract class TrainingController extends Controller
 {
@@ -19,7 +20,7 @@ abstract class TrainingController extends Controller
 
     protected string $trainingComponentPath = '';
 
-    protected string $flashcardHtml = '';
+    protected string $layout = '';
 
     protected Collection $flashcards;
 
@@ -32,10 +33,6 @@ abstract class TrainingController extends Controller
     /**
      * Получение следующего слова для тренировки
      *
-     * @param  Deck  $deck
-     * @param  Request  $request
-     *
-     * @return string
      * @throws Exception
      */
     public function getWord(Deck $deck, Request $request): string
@@ -47,24 +44,27 @@ abstract class TrainingController extends Controller
     }
 
     /**
+     * Задание верстки, которая будет возвращена на клиент
+     */
+    protected function setLayout(): void
+    {
+        $this->layout = $this->prepareLayout($this->trainingComponentPath, ['flashcard' => $this->flashcard]);
+    }
+
+    /**
      * Возврат ответа на клиент.
-     *
-     * @return string
      */
     protected function sendResponse(): string
     {
         return json_encode([
             'flashcard' => new FlashcardResource($this->flashcard),
-            'layout' => $this->flashcardHtml,
+            'layout' => $this->layout,
             'deck' => $this->deck,
         ]);
     }
 
     /**
      * Инициализация переменных
-     *
-     * @param  Deck  $deck
-     * @param  Request  $request
      *
      * @throws Exception
      */
@@ -90,10 +90,9 @@ abstract class TrainingController extends Controller
     /**
      * Получение индекса карточки, которая будет отображена
      *
-     * @return mixed
      * @throws Exception
      */
-    private function getIndex()
+    private function getIndex(): int
     {
         $weights = array_get($this->flashcards->toArray(), 'status_pivot.status.weight');
 
@@ -101,13 +100,5 @@ abstract class TrainingController extends Controller
         $randomPicker->addElements($weights);
 
         return $randomPicker->getRandomElement();
-    }
-
-    /**
-     * Задание верстки, которая будет возвращена на клиент
-     */
-    protected function setLayout(): void
-    {
-        $this->flashcardHtml = $this->prepareLayout($this->trainingComponentPath, ['flashcard' => $this->flashcard]);
     }
 }

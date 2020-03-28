@@ -23,7 +23,7 @@ class ChooseController extends TrainingController
         $words = $this->getRandomWords();
         $words->add($this->flashcard->getHiddenText())->shuffle();
 
-        $this->flashcardHtml = $this->prepareLayout($this->trainingComponentPath, [
+        $this->layout = $this->prepareLayout($this->trainingComponentPath, [
             'flashcard' => $this->flashcard,
             'words' => $words
         ]);
@@ -31,8 +31,6 @@ class ChooseController extends TrainingController
 
     /**
      * Поулчение пяти дополнительных слов
-     *
-     * @return Collection
      */
     private function getRandomWords(): Collection
     {

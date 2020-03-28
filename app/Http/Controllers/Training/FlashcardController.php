@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Training;
 
 /**
- *
- *
  * Class FlashcardController
  * @package App\Http\Controllers\Training
  */
