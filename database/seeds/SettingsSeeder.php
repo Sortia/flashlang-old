@@ -14,12 +14,16 @@ class SettingsSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'study_flashcards_type_view',
+                'name'        => 'study_flashcards_type_view',
                 'description' => 'Study flashcard type'
             ],
             [
-                'name' => 'study_show_side',
+                'name'        => 'study_show_side',
                 'description' => 'Study show side'
+            ],
+            [
+                'name'        => 'locale',
+                'description' => 'Language'
             ],
         ];
 
