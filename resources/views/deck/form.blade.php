@@ -14,7 +14,7 @@
             <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-header">
-                        <span class="float-left">Deck</span>
+                        <span class="float-left">@lang('Deck')</span>
                         @isset($deck->id)
                             <span class="float-right deck-rate" data-rate-value="{{$deck->rate->value ?? 0}}" data-deck-id="{{$deck->id}}"></span>
                         @endisset
@@ -28,48 +28,48 @@
                                 <input readonly value="{{old('id') ?? $deck->id ?? ''}}" name="id" type="hidden"
                                        class="form-control" id="id" placeholder="Id">
                                 <div class="col-sm-12 my-1 mb-3">
-                                    <label class="sr-only" for="name">Name</label>
+                                    <label class="sr-only" for="name">@lang('Name')</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Name</div>
+                                            <div class="input-group-text">@lang('Name')</div>
                                         </div>
                                         <input autocomplete="off" value="{{old('name') ?? $deck->name ?? ''}}"
                                                name="name" type="text"
-                                               class="form-control" id="name" placeholder="Name">
+                                               class="form-control" id="name" placeholder="@lang('Name')">
                                     </div>
                                 </div>
                                 <div class="col-sm-12 my-1 mb-3">
-                                    <label class="sr-only font-weight-bold" for="description">Description</label>
+                                    <label class="sr-only font-weight-bold" for="description">@lang('Description')</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Description</div>
+                                            <div class="input-group-text">@lang('Description')</div>
                                         </div>
                                         <input autocomplete="off"
                                                value="{{old('description') ?? $deck->description ?? ''}}"
                                                name="description" type="text"
-                                               class="form-control" id="description" placeholder="Description">
+                                               class="form-control" id="description" placeholder="@lang('Description')">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="custom-control custom-control-inline font-weight-bold">
-                                        <span>Access type: </span>
+                                        <span>@lang('Access type'): </span>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input {{checkbox($deck, 'access', 'public')}} type="radio"
                                                value="public" id="access" name="access" class="custom-control-input">
-                                        <label class="custom-control-label" for="access">Public</label>
+                                        <label class="custom-control-label" for="access">@lang('Public')</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input {{checkbox($deck, 'access', 'private')}} type="radio"
                                                value="private" id="access2" name="access" class="custom-control-input">
-                                        <label class="custom-control-label" for="access2">Private</label>
+                                        <label class="custom-control-label" for="access2">@lang('Private')</label>
                                     </div>
                                 </div>
                             </fieldset>
 
                             @can('edit', $deck)
                                 <div class="col-lg-12">
-                                    <button class="btn btn-success float-right">Save</button>
+                                    <button class="btn btn-success float-right">@lang('Save')</button>
                                 </div>
                             @endcan
                         </form>

@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header pb-0">
-                        <h3>Vocabulary</h3>
+                        <h3>@lang('Vocabulary')</h3>
                     </div>
                     <div class="list-group">
                         @foreach($flashcards as $flashcard)

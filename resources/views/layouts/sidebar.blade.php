@@ -15,37 +15,37 @@
             <li class="nav-item">
                 <a href="{{route('profile')}}" class="nav-link">
                     <i class="nav-icon fas fa-user"></i>
-                    <p>Profile</p>
+                    <p>@lang('Profile')</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('training.dashboard')}}" class="nav-link">
                     <i class="nav-icon fas fa-graduation-cap"></i>
-                    <p>Training</p>
+                    <p>@lang('Training')</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('deck.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
-                    <p>Decks</p>
+                    <p>@lang('Decks')</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('vocabulary.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-book"></i>
-                    <p>Vocabulary</p>
+                    <p>@lang('Vocabulary')</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('collections')}}" class="nav-link">
                     <i class="nav-icon fas fa-star"></i>
-                    <p>Collections</p>
+                    <p>@lang('Collections')</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('settings.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-cog"></i>
-                    <p>Settings</p>
+                    <p>@lang('Settings')</p>
                 </a>
             </li>
 {{--            <li class="nav-item has-treeview menu-open">--}}

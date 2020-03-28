@@ -8,6 +8,6 @@
     </a>
     <a id="next-word" class="carousel-control carousel-control-next d-none" href="#carouselExampleIndicators" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">@lang('Next')</span>
     </a>
 </div>

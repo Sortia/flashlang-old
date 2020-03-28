@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Profile</div>
+                    <div class="card-header">@lang('Profile')</div>
                     <div class="card-body">
                         <div class="row">
 
@@ -14,10 +14,10 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="col-sm-12 my-1 mb-3">
-                                    <label class="sr-only" for="name">Name</label>
+                                    <label class="sr-only" for="name">@lang('Name')</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Name</div>
+                                            <div class="input-group-text">@lang('Name')</div>
                                         </div>
                                         <input value="{{$user->name ?? ''}}" class="form-control" id="name" disabled>
                                     </div>
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 my-1 mb-3">
-                                    <button class="btn float-right btn-success">Save</button>
+                                    <button class="btn float-right btn-success">@lang('Save')</button>
                                 </div>
                                 </form>
                         </div>

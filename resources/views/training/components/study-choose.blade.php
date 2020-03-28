@@ -17,7 +17,7 @@
         </div>
         <div class="card-footer mt-4">
             <div class="float-left rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->statusPivot->status->value}}"></div>
-            <div class="float-right"><button id="next-word" class="float-right btn btn-primary">Next -></button></div>
+            <div class="float-right"><button id="next-word" class="float-right btn btn-primary">@lang('Next') -></button></div>
         </div>
     </div>
 </div>

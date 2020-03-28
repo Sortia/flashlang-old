@@ -25,7 +25,7 @@
             <a href="#animatedModal" data-id="{{$deck->id}}" class="list-group-item list-group-item-action deck">
                 <span class="navbar-brand">
                     <b class="text-primary">{{$deck->progress()}}% {{$deck->name}}</b>
-                    <b class="deck-name-caption pl-3">{{$deck->studied()}} of {{$deck->flashcards->count()}} cards studied</b>
+                    <b class="deck-name-caption pl-3">{{sprintf(__('%s of %s cards studied'), $deck->studied(), $deck->flashcards->count())}}</b>
                 </span>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: {{$deck->progress()}}%"
