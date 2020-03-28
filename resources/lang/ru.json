@@ -14,9 +14,9 @@
     "Public": "Публичный",
     "Private": "Приватный",
 
-    "Create flashcard": "Создать карточку",
+    "Create flashcard": "Создать флеш-карточку",
 
-    "Study flashcard type": "Отображение карточек",
+    "Study flashcard type": "Отображение флеш-карточек",
     "Flip": "Поворот",
     "Slide": "Слайд",
 
@@ -29,6 +29,11 @@
     "Russian": "Русский",
 
     "Dashboard": "Доска объявлений",
+    "Total progress": "Общий прогресс",
+    "Flashcards": "Флеш-карточки",
+    "Word constructor": "Конструктор слов",
+    "Choose word": "Выбор слова",
+
     "Home": "Главная страница",
     "Contact": "Контакты",
 

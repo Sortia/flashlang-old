@@ -13,7 +13,7 @@
 @section('content')
     <div class="list-group">
         <a href="#" class="list-group-item disabled list-group-item-action">
-            <span class="navbar-brand text-primary"><b>{{\App\Deck::totalProgress()}}% Total progress</b></span>
+            <span class="navbar-brand text-primary"><b>{{\App\Deck::totalProgress()}}% @lang('Total progress')</b></span>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: {{\App\Deck::totalProgress()}}%"
                      aria-valuenow="{{\App\Deck::totalProgress()}}" aria-valuemin="0"
@@ -53,22 +53,20 @@
                 <div class="card-deck">
                     <a href="#" class="card card-training" data-type-training="flashcards">
                         <div class="card-body">
-                            <h3>Flashcards</h3>
-                            <p class="card-text">A flashcard or flash card is a card bearing information on both sides,
-                                which is intended to be used as an aid in memorization. Each flashcard bears a question
-                                on one side and an answer on the other.</p>
+                            <h3>@lang('Flashcards')</h3>
+                            <p class="card-text">@lang('text.flashcards_description')</p>
                         </div>
                     </a>
                     <a href="#" class="card card-training" data-type-training="word-constructor">
                         <div class="card-body">
-                            <h3>Word constructor</h3>
-                            <p class="card-text">Gather the correct translation word from the suggested letters.</p>
+                            <h3>@lang('Word constructor')</h3>
+                            <p class="card-text">@lang('text.word_constructor_description')</p>
                         </div>
                     </a>
                     <a href="#" class="card card-training" data-type-training="choose-word">
                         <div class="card-body">
-                            <h3>Choose word</h3>
-                            <p class="card-text">Choose one of the suggested translation options for the word and find out whether you answered correctly or not.</p>
+                            <h3>@lang('Choose word')</h3>
+                            <p class="card-text">@lang('text.choose_word_description')</p>
                         </div>
                     </a>
                 </div>
