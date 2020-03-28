@@ -95,7 +95,7 @@ abstract class TrainingController extends Controller
      */
     private function getIndex()
     {
-        $weights = arrayGet($this->flashcards->toArray(), 'status_pivot.status.weight');
+        $weights = array_get($this->flashcards->toArray(), 'status_pivot.status.weight');
 
         $randomPicker = new RandomPicker();
         $randomPicker->addElements($weights);

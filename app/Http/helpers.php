@@ -4,6 +4,7 @@ use App\Settings;
 use App\SettingsValues;
 use App\User;
 use App\UserSettings;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -107,4 +108,22 @@ function get_hidden_side_name()
 function checkbox($model, string $field, string $value)
 {
     return (isset($model->$field) && $model->$field === $value) ? 'checked' : '';
+}
+
+/**
+ * Get array of values
+ *
+ * @param array $collection
+ * @param string $key
+ * @return array
+ */
+function array_get(array $collection, string $key): array
+{
+    $result = [];
+
+    foreach ($collection as $item) {
+        $result[] = Arr::get($item, $key);
+    }
+
+    return $result;
 }
