@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Training;
 use App\Flashcard;
 use Illuminate\Support\Collection;
 
+/**
+ * Выбор одного правильного варианта перевода из 6 предложенных
+ *
+ * Class ChooseController
+ * @package App\Http\Controllers\Training
+ */
 class ChooseController extends TrainingController
 {
     protected string $trainingComponentPath = 'training.components.study-choose';
@@ -23,12 +29,17 @@ class ChooseController extends TrainingController
         ]);
     }
 
+    /**
+     * Поулчение пяти дополнительных слов
+     *
+     * @return Collection
+     */
     private function getRandomWords(): Collection
     {
         return Flashcard::on()
             ->where('id', '<>', $this->flashcard->id)
             ->inRandomOrder()
             ->take(5)
-            ->pluck(getHiddenSideName());
+            ->pluck(get_hidden_side_name());
     }
 }

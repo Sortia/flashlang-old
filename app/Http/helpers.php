@@ -4,12 +4,10 @@ use App\Settings;
 use App\SettingsValues;
 use App\User;
 use App\UserSettings;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Calc percent
+ * Расчитать процент
  *
  * @param float $progress
  * @param float $total
@@ -21,7 +19,7 @@ function percent(float $progress, float $total): float
 }
 
 /**
- * Set setting value for current user
+ * Установить значение настроек
  *
  * @param $key
  * @param $value
@@ -44,7 +42,7 @@ function set_settings($key, $value)
 }
 
 /**
- * Get setting value for current user by key
+ * Получить значение настроек
  *
  * @param  string  $key
  * @param  string  $default
@@ -67,7 +65,7 @@ function get_settings(string $key, string $default = null)
 }
 
 /**
- * Get auth user
+ * Получить авторизованого пользователя
  *
  * @return User|null
  */
@@ -77,19 +75,7 @@ function user()
 }
 
 /**
- * Get rendered view
- *
- * @param string $view
- * @param array $data
- * @return string
- */
-function ajax_view(string $view, array $data = []): string
-{
-    return view($view, $data)->toHtml();
-}
-
-/**
- * Convert stdClass to array
+ * Преобразовать stdClass в массив
  *
  * @param $object
  * @return mixed
@@ -100,28 +86,24 @@ function to_array($object)
 }
 
 /**
- * Get array of values
+ * Получить название стороны карточки, которая должна быть скрыта
  *
- * @param array $collection
- * @param string $key
- * @return array
+ * @return string
  */
-function arrayGet(array $collection, string $key): array
-{
-    $result = [];
-
-    foreach ($collection as $item) {
-        $result[] = Arr::get($item, $key);
-    }
-
-    return $result;
-}
-
-function getHiddenSideName()
+function get_hidden_side_name()
 {
     return get_settings('study_show_side', 'back_text') === 'front_text' ? 'back_text' : 'front_text';
 }
 
+/**
+ * Хелпер для отметки чекбокса
+ *
+ * @param $model
+ * @param  string  $field
+ * @param  string  $value
+ *
+ * @return string
+ */
 function checkbox($model, string $field, string $value)
 {
     return (isset($model->$field) && $model->$field === $value) ? 'checked' : '';

@@ -46,7 +46,7 @@ class Flashcard extends BaseModel
 
     public function getHiddenText()
     {
-        return $this->{getHiddenSideName()};
+        return $this->{get_hidden_side_name()};
     }
 
     public static function getAll()

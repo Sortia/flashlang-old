@@ -20,9 +20,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('settings', [
-            'settings' => Settings::with('values')->get(),
-        ]);
+        return view('settings', ['settings' => Settings::with('values')->get()]);
     }
 
     /**

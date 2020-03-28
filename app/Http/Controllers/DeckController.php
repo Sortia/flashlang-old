@@ -99,16 +99,18 @@ class DeckController extends Controller
      */
     public function add(Deck $deck)
     {
-        if ($deck->isPublic()) {
-            DeckUser::on()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
-
-            $deck->flashcards->each(function ($flashcard) {
-                FlashcardUsers::on()->create([
-                    'user_id' => user()->id,
-                    'flashcard_id' => $flashcard->id
-                ]);
-            });
+        if ($deck->isPrivate()) {
+            return;
         }
+
+        DeckUser::on()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
+
+        $deck->flashcards->each(function ($flashcard) {
+            FlashcardUsers::on()->create([
+                'user_id' => user()->id,
+                'flashcard_id' => $flashcard->id
+            ]);
+        });
     }
 
     /**

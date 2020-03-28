@@ -55,8 +55,10 @@ class FlashcardController extends Controller
      */
     public function updateStatus(Flashcard $flashcard, Request $request)
     {
+        $statusId = Status::where('value', $request->value)->value('id');
+
         $flashcard->statusPivot->update([
-            'status_id' => Status::on()->where('value', $request->value)->value('id')
+            'status_id' => $statusId
         ]);
 
         return response()->json($flashcard);

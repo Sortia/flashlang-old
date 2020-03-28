@@ -19,6 +19,8 @@ abstract class TrainingController extends Controller
 
     protected string $trainingComponentPath = '';
 
+    protected string $flashcardHtml = '';
+
     protected Collection $flashcards;
 
     protected Flashcard $flashcard;
@@ -26,8 +28,6 @@ abstract class TrainingController extends Controller
     protected Request $request;
 
     protected Deck $deck;
-
-    protected string $flashcardHtml;
 
     /**
      * Получение следующего слова для тренировки
@@ -106,5 +106,8 @@ abstract class TrainingController extends Controller
     /**
      * Задание верстки, которая будет возвращена на клиент
      */
-    abstract protected function setLayout(): void;
+    protected function setLayout(): void
+    {
+        $this->flashcardHtml = $this->prepareLayout($this->trainingComponentPath, ['flashcard' => $this->flashcard]);
+    }
 }

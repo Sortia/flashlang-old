@@ -16,8 +16,6 @@ class VocabularyController extends Controller
      */
     public function index()
     {
-        $flashcards = Flashcard::getAll();
-
-        return view('vocabulary', ['flashcards' => $flashcards]);
+        return view('vocabulary', ['flashcards' => Flashcard::getAll()]);
     }
 }

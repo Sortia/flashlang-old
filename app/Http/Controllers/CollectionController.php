@@ -15,8 +15,6 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        return view('collections', [
-            'collections' => Collection::getAll()
-        ]);
+        return view('collections', ['collections' => Collection::getAll()]);
     }
 }
