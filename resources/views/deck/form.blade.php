@@ -9,9 +9,9 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card shadow">
                     <div class="card-header h5">
                         <span class="float-left">@lang('Deck')</span>
