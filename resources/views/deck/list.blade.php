@@ -13,14 +13,12 @@
                     <div class="card-body pb-1">
                         <table class="table">
                             <tr>
-                                <th>Id</th>
-                                <th>@lang('Name')</th>
-                                <th>@lang('Description')</th>
+                                <th class="w-25">@lang('Name')</th>
+                                <th class="w-75">@lang('Description')</th>
                                 <th>@lang('Actions')</th>
                             </tr>
                             @foreach($decks as $deck)
                                 <tr>
-                                    <td>{{$deck->id}}</td>
                                     <td>{{$deck->name}}</td>
                                     <td>{{$deck->description}}</td>
                                     <td>
