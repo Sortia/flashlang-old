@@ -18,6 +18,8 @@ use Illuminate\View\View;
 class DeckController extends Controller
 {
     /**
+     * Список колод пользователя
+     *
      * @return Factory|View
      */
     public function index()
@@ -26,6 +28,8 @@ class DeckController extends Controller
     }
 
     /**
+     * Форма создания
+     *
      * @return Factory|View
      */
     public function create()
@@ -37,6 +41,8 @@ class DeckController extends Controller
     }
 
     /**
+     * Форма редатирования
+     *
      * @param Deck $deck
      * @return Factory|View
      */
@@ -49,6 +55,8 @@ class DeckController extends Controller
     }
 
     /**
+     * Создание/редактирование
+     *
      * @param Request $request
      * @return RedirectResponse|Redirector
      */
@@ -65,13 +73,16 @@ class DeckController extends Controller
     }
 
     /**
+     * Если удаляет владелец - удаляется у всех пользователей,
+     * если любой другой пользователь - только у него
+     *
      * @param Deck $deck
      * @return RedirectResponse|Redirector
      * @throws Exception
      */
     public function destroy(Deck $deck)
     {
-        if ($deck->isOwner()) {
+        if ($deck->isOwner() && $deck->isPrivate()) {
             $deck->delete();
         } else {
             $deck->user->delete();
@@ -100,12 +111,15 @@ class DeckController extends Controller
         }
     }
 
+    /**
+     * Проставление/изменение рейтинга
+     *
+     * @param  Deck  $deck
+     * @param  Request  $request
+     */
     public function updateStatus(Deck $deck, Request $request)
     {
         $deck->rate()->updateOrCreate(['user_id' => user()->id],['value' => $request->value]);
-
-        $deck->update([
-            'rating' => $deck->rates->pluck('value')->avg()
-        ]);
+        $deck->update(['rating' => $deck->rates->pluck('value')->avg()]);
     }
 }

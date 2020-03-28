@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 class FlashcardController extends Controller
 {
     /**
+     * Сохранение новой карточки
+     *
      * Ajax response
      *
      * @param Request $request
@@ -33,6 +35,8 @@ class FlashcardController extends Controller
     }
 
     /**
+     * Удаление карточки
+     *
      * @param Flashcard $flashcard
      * @return void
      * @throws Exception
@@ -43,6 +47,8 @@ class FlashcardController extends Controller
     }
 
     /**
+     * Проставление/изменение статуса
+     *
      * @param Flashcard $flashcard
      * @param Request $request
      * @return JsonResponse

@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card shadow">
                     <div class="card-header">
-                        <span>Blocks</span>
+                        <span>Decks</span>
                         <span><a href="{{route('deck.create')}}" class="btn btn-sm btn-success float-right">Create</a></span>
                     </div>
 

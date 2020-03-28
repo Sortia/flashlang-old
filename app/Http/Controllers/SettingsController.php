@@ -14,7 +14,7 @@ use Illuminate\View\View;
 class SettingsController extends Controller
 {
     /**
-     * Show settings page
+     * Страница настроек
      *
      * @return Factory|View
      */
@@ -26,7 +26,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Update setting values from settings page
+     * Обновление настроек пользователя со страницы настроек
      *
      * @param Request $request
      * @return RedirectResponse|Redirector
@@ -46,7 +46,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Quick update setting value
+     * Обновление настроек пользователя откуда либо кроме страницы настроек
      *
      * @param Request $request
      * @return JsonResponse
@@ -57,7 +57,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Initialize settings for new user
+     * Инициализация настроек для нового пользователя
      *
      * @param $userId
      * @return void

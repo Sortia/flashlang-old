@@ -14,7 +14,7 @@
             <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-header">
-                        <span class="float-left">Block</span>
+                        <span class="float-left">Deck</span>
                         @isset($deck->id)
                             <span class="float-right deck-rate" data-rate-value="{{$deck->rate->value ?? 0}}" data-deck-id="{{$deck->id}}"></span>
                         @endisset

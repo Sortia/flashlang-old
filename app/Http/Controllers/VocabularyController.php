@@ -10,6 +10,8 @@ use Illuminate\View\View;
 class VocabularyController extends Controller
 {
     /**
+     * Страница словаря
+     *
      * @return Factory|View
      */
     public function index()

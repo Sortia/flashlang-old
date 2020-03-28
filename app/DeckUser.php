@@ -11,6 +11,6 @@ class DeckUser extends BaseModel
 
     public static function userDecks()
     {
-        return DeckUser::current()->pluck('deck_id');
+        return self::current()->pluck('deck_id');
     }
 }

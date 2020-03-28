@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Service;
+namespace App\Http\Services;
 
 /**
  * Picks a random element from a number of weighted element.

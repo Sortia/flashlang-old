@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  */
 function percent(float $progress, float $total): float
 {
-    return ($progress / ($total == 0 ? 1 : $total)) * 100;
+    return ($progress / ($total ?: 0)) * 100;
 }
 
 /**

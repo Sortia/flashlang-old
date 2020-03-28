@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
@@ -28,9 +29,10 @@ class Deck extends BaseModel
         'description'
     ];
 
-    /**
-     * @return HasMany
-     */
+    protected $with = [
+        'flashcards'
+    ];
+
     public function flashcards(): HasMany
     {
         return $this->hasMany(Flashcard::class);
@@ -43,18 +45,17 @@ class Deck extends BaseModel
 
     public function user()
     {
-        return $this->hasOne(DeckUser::class)->where('user_id', user()->id);
+        return $this->hasOne(DeckUser::class)->current();
     }
 
     public function rate()
     {
-        return $this->hasOne(Rate::class)->where('user_id', user()->id);
+        return $this->hasOne(Rate::class)->current();
     }
 
     public function rates()
     {
         return $this->hasMany(Rate::class);
-
     }
 
     /**
@@ -67,19 +68,44 @@ class Deck extends BaseModel
         return $this->flashcards->filter(fn($value) => $value->statusPivot->status->value === 5)->count();
     }
 
+    /**
+     * Вернет true, если колода является публичной
+     *
+     * @return bool
+     */
     public function isPublic()
     {
         return $this->access === 'public';
     }
 
+    /**
+     * Вернут true, если колода является приватной
+     *
+     * @return bool
+     */
+    public function isPrivate()
+    {
+        return $this->access === 'private';
+    }
+
+    /**
+     * Вернет true, если авторизаваный пользователь является владельцем текущей колоды
+     *
+     * @return bool
+     */
     public function isOwner()
     {
         return $this->user_id === user()->id;
     }
 
+    /**
+     * Вернет все колоды, доступные пользователю
+     *
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public static function userDecks()
     {
-        return Deck::on()->whereIn('id', DeckUser::userDecks())->get();
+        return self::on()->whereIn('id', DeckUser::userDecks())->get();
     }
 
     /**

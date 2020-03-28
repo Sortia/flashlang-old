@@ -9,6 +9,9 @@ class ChooseController extends TrainingController
 {
     protected string $trainingComponentPath = 'training.components.study-choose';
 
+    /**
+     * Задание верстки, которая будет возвращена на клиент
+     */
     protected function setLayout(): void
     {
         $words = $this->getRandomWords();

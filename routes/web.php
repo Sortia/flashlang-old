@@ -47,8 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@index')->name('profile');
     Route::post('profile/store', 'ProfileController@store')->name('profile.store');
 
-    Route::get('training/dashboard', 'Training\TrainingController@dashboard')->name('training.dashboard');
-    Route::get('training/{deck}/{typeTraining}', 'Training\TrainingController@study')->name('training.study')
+    Route::get('training/dashboard', 'Training\DashboardController@dashboard')->name('training.dashboard');
+    Route::get('training/{deck}/{typeTraining}', 'Training\DashboardController@study')->name('training.study')
         ->where(['typeTraining' => 'flashcards|word-constructor|choose-word']);
 
     Route::post('training/{deck}/word-constructor/get-constructor-word', 'Training\ConstructorController@getWord');

@@ -15,6 +15,9 @@ class Flashcard extends BaseModel
         'back_text',
     ];
 
+    protected $with = [
+        'statusPivot'
+    ];
 
     public function deck()
     {
@@ -23,14 +26,13 @@ class Flashcard extends BaseModel
 
     public function statusPivot()
     {
-        return $this->hasOne(FlashcardUsers::class)->where('user_id', user()->id);
+        return $this->hasOne(FlashcardUsers::class)->current();
     }
 
     public function users()
     {
         return $this->hasMany(FlashcardUsers::class);
     }
-
 
     public function getHiddenLetters()
     {
@@ -49,6 +51,6 @@ class Flashcard extends BaseModel
 
     public static function getAll()
     {
-        return Flashcard::with('statusPivot.status')->whereIn('deck_id', DeckUser::userDecks())->get();
+        return self::with('statusPivot.status')->whereIn('deck_id', DeckUser::userDecks())->get();
     }
 }
