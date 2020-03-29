@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Deck;
 use App\Http\Requests\StoreDeck;
+use App\Models\Deck;
+use App\Models\Status;
 use Exception;
-use App\Status;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;

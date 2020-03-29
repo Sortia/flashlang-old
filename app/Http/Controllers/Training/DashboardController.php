@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Training;
 
-use App\Deck;
 use App\Http\Controllers\Controller;
+use App\Models\Deck;
 use Illuminate\View\View;
 
 class DashboardController extends Controller

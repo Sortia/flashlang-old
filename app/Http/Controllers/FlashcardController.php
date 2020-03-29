@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Deck;
-use App\Flashcard;
 use App\Http\Requests\DeleteFlashcard;
 use App\Http\Requests\StoreFlashcard;
-use App\Status;
+use App\Models\Deck;
+use App\Models\Flashcard;
+use App\Models\Status;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

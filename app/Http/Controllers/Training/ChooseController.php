@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Training;
 
-use App\Flashcard;
+use App\Models\Flashcard;
 use Illuminate\Support\Collection;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Settings;
-use App\UserSettings;
+use App\Models\Settings;
+use App\Models\UserSettings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

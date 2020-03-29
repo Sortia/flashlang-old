@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Training;
 
-use App\Deck;
-use App\Flashcard;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LayoutResponse;
 use App\Http\Resources\FlashcardResource;
 use App\Http\Services\RandomPicker;
+use App\Models\Deck;
+use App\Models\Flashcard;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
-use phpDocumentor\Reflection\Types\Mixed_;
 
 abstract class TrainingController extends Controller
 {

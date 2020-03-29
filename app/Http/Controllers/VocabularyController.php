@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Flashcard;
+use App\Models\Flashcard;
 use Illuminate\View\View;
 
 class VocabularyController extends Controller

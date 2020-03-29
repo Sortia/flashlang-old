@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Collection;
-use App\Deck;
-use App\Flashcard;
 use App\Http\Requests\AddCollection;
+use App\Models\Collection;
+use App\Models\Deck;
+use App\Models\Flashcard;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
