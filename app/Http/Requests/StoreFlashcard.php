@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Deck;
+
 class StoreFlashcard extends BaseRequest
 {
     /**
@@ -9,9 +11,10 @@ class StoreFlashcard extends BaseRequest
      */
     public function authorize(): bool
     {
-        $flashcard = $this->route('flashcard');
+        $deckId = $this->request->get('deck_id');
+        $userId = Deck::on()->whereKey($deckId)->value('user_id');
 
-        return $flashcard->deck->user_id === user()->id;
+        return $userId === user()->id;
     }
 
     /**

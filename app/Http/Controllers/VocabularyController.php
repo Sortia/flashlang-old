@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flashcard;
+use App\Repositories\FlashcardRepository;
 use Illuminate\View\View;
 
 class VocabularyController extends Controller
@@ -10,8 +11,10 @@ class VocabularyController extends Controller
     /**
      * Страница словаря
      */
-    public function index(): View
+    public function index(FlashcardRepository $flashcardRepository): View
     {
-        return view('vocabulary', ['flashcards' => Flashcard::getAll()]);
+        $flashcards = $flashcardRepository->get();
+
+        return view('vocabulary', compact('flashcards'));
     }
 }

@@ -4,44 +4,56 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDeck;
 use App\Models\Deck;
-use App\Models\Status;
+use App\Repositories\DeckRepository;
+use App\Repositories\StatusRepository;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 class DeckController extends Controller
 {
+    private DeckRepository $repository;
+
+    /**
+     * DeckController constructor.
+     */
+    public function __construct(DeckRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Список колод пользователя
      */
     public function index(): View
     {
-        return view('deck.list', [
-            'decks' => Deck::userDecks()
-        ]);
+        $decks = $this->repository->get();
+
+        return view('deck.list', compact('decks'));
     }
 
     /**
      * Форма создания
      */
-    public function create(): View
+    public function create(StatusRepository $statusRepository): View
     {
-        return view('deck.form', [
-            'deck' => Deck::class,
-            'statuses' => Status::all(),
-        ]);
+        $deck = $this->repository->getModel();
+
+        $statuses = $statusRepository->all();
+
+        return view('deck.form', compact('deck', 'statuses'));
     }
 
     /**
      * Форма редатирования
      */
-    public function edit(Deck $deck): View
+    public function edit(Deck $deck, StatusRepository $statusRepository): View
     {
-        return view('deck.form', [
-            'deck' => $deck,
-            'statuses' => Status::all(),
-        ]);
+        $statuses = $statusRepository->all();
+
+        return view('deck.form', compact('deck', 'statuses'));
     }
 
     /**
@@ -49,13 +61,9 @@ class DeckController extends Controller
      */
     public function store(StoreDeck $request): RedirectResponse
     {
-        $deckData = array_merge($request->all(), ['user_id' => user()->id]);
+        $deck = $this->repository->store($request);
 
-        /** @var Deck $deck */
-        $deck = Deck::on()->updateOrCreate(['id' => $request->id, 'user_id' => user()->id], $deckData);
-        $deck->users()->create(['user_id' => user()->id]);
-
-        $this->add($deck);
+        $this->repository->processAddDeck($deck);
 
         return redirect(route('deck.index'));
     }
@@ -68,7 +76,7 @@ class DeckController extends Controller
      */
     public function destroy(Deck $deck): RedirectResponse
     {
-        ($deck->isOwner() && $deck->isPrivate()) ? $deck->delete() : $deck->user->delete();
+        $this->repository->delete($deck);
 
         return redirect(route('deck.index'));
     }
@@ -76,9 +84,10 @@ class DeckController extends Controller
     /**
      * Проставление/изменение рейтинга
      */
-    public function updateStatus(Deck $deck, Request $request): void
+    public function updateStatus(Deck $deck, Request $request): JsonResponse
     {
-        $deck->rate()->updateOrCreate(['user_id' => user()->id],['value' => $request->value]);
-        $deck->update(['rating' => $deck->rates->pluck('value')->avg()]);
+        $this->repository->updateStatus($deck, $request->value);
+
+        return $this->respondSuccess();
     }
 }

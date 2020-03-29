@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\Deck;
+use App\Models\Deck;
 use App\Policies\DeckPolice;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {

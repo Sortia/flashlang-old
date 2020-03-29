@@ -5,14 +5,19 @@ namespace App\Http\Controllers\Training;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LayoutResponse;
 use App\Http\Resources\FlashcardResource;
-use App\Http\Services\RandomPicker;
 use App\Models\Deck;
 use App\Models\Flashcard;
+use App\Repositories\TrainingRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Session;
 
+/**
+ * Абстрактый класс тренировок
+ *
+ * Class TrainingController
+ * @package App\Http\Controllers\Training
+ */
 abstract class TrainingController extends Controller
 {
     use LayoutResponse;
@@ -21,6 +26,8 @@ abstract class TrainingController extends Controller
 
     protected string $layout = '';
 
+    protected TrainingRepository $repository;
+
     protected Collection $flashcards;
 
     protected Flashcard $flashcard;
@@ -28,6 +35,14 @@ abstract class TrainingController extends Controller
     protected Request $request;
 
     protected Deck $deck;
+
+    /**
+     * TrainingController constructor.
+     */
+    public function __construct(TrainingRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Получение следующего слова для тренировки
@@ -57,8 +72,8 @@ abstract class TrainingController extends Controller
     {
         return json_encode([
             'flashcard' => new FlashcardResource($this->flashcard),
-            'layout' => $this->layout,
-            'deck' => $this->deck,
+            'layout'    => $this->layout,
+            'deck'      => $this->deck,
         ]);
     }
 
@@ -69,35 +84,10 @@ abstract class TrainingController extends Controller
      */
     private function init(Deck $deck, Request $request): void
     {
-        $this->deck = $deck;
-        $this->request = $request;
-        $lastId = Session::get('training.last_flashcard_id');
-
-        $query = Flashcard::with('statusPivot.status');
-        $query->where('deck_id', $deck->id);
-
-        if ($deck->flashcards->count() > 1 && $lastId) {
-            $query->whereNotIn('id', [$lastId]);
-        }
-
-        $this->flashcards = $query->get();
-        $this->flashcard = $this->flashcards->slice($this->getIndex(), 1)->first();
-
-        Session::put('training.last_flashcard_id', $this->flashcard->id);
+        $this->request    = $request;
+        $this->deck       = $deck;
+        $this->flashcards = $this->repository->getFlashcards($deck);
+        $this->flashcard  = $this->repository->getTrainingFlashcard($this->flashcards);
     }
 
-    /**
-     * Получение индекса карточки, которая будет отображена
-     *
-     * @throws Exception
-     */
-    private function getIndex(): int
-    {
-        $weights = array_get($this->flashcards->toArray(), 'status_pivot.status.weight');
-
-        $randomPicker = new RandomPicker();
-        $randomPicker->addElements($weights);
-
-        return $randomPicker->getRandomElement();
-    }
 }

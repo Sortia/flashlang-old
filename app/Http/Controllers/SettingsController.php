@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Settings;
-use App\Models\UserSettings;
+use App\Repositories\SettingsRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,12 +10,24 @@ use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
+    private SettingsRepository $repository;
+
+    /**
+     * SettingsController constructor.
+     */
+    public function __construct(SettingsRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Страница настроек
      */
     public function index(): View
     {
-        return view('settings', ['settings' => Settings::with('values')->get()]);
+        $settings = $this->repository->all();
+
+        return view('settings', compact('settings'));
     }
 
     /**
@@ -24,14 +35,7 @@ class SettingsController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        foreach ($request->settings as $key => $value) {
-            UserSettings::on()->updateOrCreate([
-                'user_id' => user()->id,
-                'settings_id' => Settings::on()->where('name', $key)->value('id')
-            ], [
-                'settings_value_id' => $value
-            ]);
-        }
+        $this->repository->store($request->settings);
 
         return redirect(route('settings.index'));
     }
@@ -41,22 +45,9 @@ class SettingsController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        return response()->json(set_settings($request->key, $request->value));
+        $this->repository->set($request->key, $request->value);
+
+        return $this->respondSuccess();
     }
 
-    /**
-     * Инициализация настроек для нового пользователя
-     */
-    public static function setDefaults(int $userId): void
-    {
-        $settings = Settings::all();
-
-        foreach ($settings as $setting) {
-            $setting->users()->create([
-                'settings_id' => $setting->id,
-                'user_id' => $userId,
-                'settings_value_id' => $setting->values->first()->id
-            ]);
-        }
-    }
 }

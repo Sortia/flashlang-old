@@ -17,27 +17,9 @@ function percent(float $progress, float $total): float
 }
 
 /**
- * Установить значение настроек
- */
-function set_settings(string $key, string $value): string
-{
-    $keyId = Settings::on()->where('name', $key)->value('id');
-    $valueId = SettingsValues::on()->where('value', $value)->value('id');
-
-    UserSettings::on()->updateOrCreate([
-        'settings_id' => $keyId,
-        'user_id' => user()->id
-    ], [
-        'settings_value_id' => $valueId
-    ]);
-
-    return get_settings($key);
-}
-
-/**
  * Получить значение настроек
  */
-function get_settings(string $key, string $default = null): string
+function settings(string $key, string $default = null): string
 {
     $query = "
         select
@@ -75,7 +57,7 @@ function to_array($object): array
  */
 function get_hidden_side_name(): string
 {
-    return get_settings('study_show_side', 'back_text') === 'front_text' ? 'back_text' : 'front_text';
+    return settings('study_show_side', 'back_text') === 'front_text' ? 'back_text' : 'front_text';
 }
 
 /**

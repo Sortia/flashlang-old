@@ -15,6 +15,10 @@ class FlashcardUsers extends BaseModel
         'status_id',
     ];
 
+    protected $with = [
+        'status'
+    ];
+
     /**
      * Статус карточки
      */

@@ -65,7 +65,7 @@ class Flashcard extends BaseModel
      */
     public function getShowText(): string
     {
-        return $this->{get_settings('study_show_side', 'back_text')};
+        return $this->{settings('study_show_side', 'back_text')};
     }
 
     /**
@@ -74,13 +74,5 @@ class Flashcard extends BaseModel
     public function getHiddenText(): string
     {
         return $this->{get_hidden_side_name()};
-    }
-
-    /**
-     * Получить все карточки пользователя
-     */
-    public static function getAll(): \Illuminate\Support\Collection
-    {
-        return self::with('statusPivot.status')->whereIn('deck_id', DeckUser::userDecks())->get();
     }
 }

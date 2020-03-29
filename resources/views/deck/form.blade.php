@@ -76,7 +76,7 @@
                     </div>
                 </div>
 
-                @can('edit', $deck)
+                @can('createFlashcard', $deck)
                     @include('deck.components.create_flashcard')
                 @endcan
                 @include('deck.components.show_flashcards')

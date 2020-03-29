@@ -8,8 +8,13 @@ class DeckPolice extends BasePolice
 {
     use HandlesAuthorization;
 
-    public function edit($user, $model = null)
+    public function edit($user, $model)
     {
-        return is_null($model) || $model->user_id === $user->id;
+        return !$model->id || $model->user_id === $user->id;
+    }
+
+    public function createFlashcard($user, $model)
+    {
+        return $model->id;
     }
 }

@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddCollection;
-use App\Models\Collection;
 use App\Models\Deck;
-use App\Models\Flashcard;
+use App\Repositories\CollectionRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class CollectionController extends Controller
 {
+    private CollectionRepository $repository;
+
+    /**
+     * CollectionController constructor.
+     */
+    public function __construct(CollectionRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Страница колекций
      */
     public function index(): View
     {
-        return view('collections', ['collections' => Collection::getAll()]);
+        $collections = $this->repository->get();
+
+        return view('collections', compact('collections'));
     }
 
     /**
@@ -24,14 +35,7 @@ class CollectionController extends Controller
      */
     public function add(AddCollection $request, Deck $deck): JsonResponse
     {
-        $deck->users()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
-
-        $deck->flashcards->each(function (Flashcard $flashcard) {
-            $flashcard->users()->create([
-                'user_id' => user()->id,
-                'flashcard_id' => $flashcard->id
-            ]);
-        });
+        $this->repository->processAddDeck($deck);
 
         return $this->respondSuccess();
     }

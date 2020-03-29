@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Training;
 
-use App\Models\Flashcard;
-use Illuminate\Support\Collection;
-
 /**
  * Выбор одного правильного варианта перевода из 6 предложенных
  *
@@ -20,7 +17,7 @@ class ChooseController extends TrainingController
      */
     protected function setLayout(): void
     {
-        $words = $this->getRandomWords();
+        $words = $this->repository->getRandomWords();
         $words->add($this->flashcard->getHiddenText())->shuffle();
 
         $this->layout = $this->prepareLayout($this->trainingComponentPath, [
@@ -29,15 +26,4 @@ class ChooseController extends TrainingController
         ]);
     }
 
-    /**
-     * Поулчение пяти дополнительных слов
-     */
-    private function getRandomWords(): Collection
-    {
-        return Flashcard::on()
-            ->where('id', '<>', $this->flashcard->id)
-            ->inRandomOrder()
-            ->take(5)
-            ->pluck(get_hidden_side_name());
-    }
 }

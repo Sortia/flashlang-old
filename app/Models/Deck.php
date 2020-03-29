@@ -109,16 +109,6 @@ class Deck extends BaseModel
     }
 
     /**
-     * Вернет все колоды, доступные пользователю
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public static function userDecks()
-    {
-        return self::on()->whereIn('id', DeckUser::userDecks())->get();
-    }
-
-    /**
      * Общий процент изучных карточек
      */
     public static function totalProgress(): float
@@ -154,7 +144,6 @@ class Deck extends BaseModel
             where deck_id = $this->id
               and f.deleted_at is null
         ";
-
 
         return self::calcProgressPercent(DB::select($query));
     }

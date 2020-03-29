@@ -17,6 +17,10 @@ class Settings extends BaseModel
         'description',
     ];
 
+    protected $with = [
+        'values'
+    ];
+
     /**
      * Значения настройки
      */

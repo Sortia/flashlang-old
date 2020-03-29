@@ -34,4 +34,5 @@ class BaseModel extends Model
     {
         return parent::on()->where($column, $operator, $value, $boolean);
     }
+
 }

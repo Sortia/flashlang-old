@@ -4,25 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteFlashcard;
 use App\Http\Requests\StoreFlashcard;
-use App\Models\Deck;
 use App\Models\Flashcard;
-use App\Models\Status;
+use App\Repositories\DeckRepository;
+use App\Repositories\FlashcardRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FlashcardController extends Controller
 {
+    use LayoutResponse;
+
+    private FlashcardRepository $repository;
+
+    /**
+     * FlashcardController constructor.
+     */
+    public function __construct(FlashcardRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Сохранение новой карточки
      */
-    public function store(StoreFlashcard $request): JsonResponse
+    public function store(StoreFlashcard $request, DeckRepository $deckRepository): JsonResponse
     {
-        $flashcard =  Flashcard::on()->updateOrCreate(['id' => $request->get('id')], $request->all());
+        $deck = $deckRepository->getModel();
 
-        $flashcard->users->firstOrCreate(['flashcard_id' => $flashcard->id, 'user_id' => user()->id]);
+        $flashcard = $this->repository->store($request);
 
-        $layout = view('deck.components.flashcard', ['flashcard' => $flashcard, 'deck' => Deck::class])->toHtml();
+        $layout = $this->prepareLayout('deck.components.flashcard', compact('flashcard', 'deck'));
 
         return $this->respond($layout);
     }
@@ -34,7 +46,7 @@ class FlashcardController extends Controller
      */
     public function destroy(DeleteFlashcard $request, Flashcard $flashcard): JsonResponse
     {
-        $flashcard->delete();
+        $this->repository->delete($flashcard);
 
         return $this->respondSuccess();
     }
@@ -44,9 +56,7 @@ class FlashcardController extends Controller
      */
     public function updateStatus(Request $request, Flashcard $flashcard): JsonResponse
     {
-        $statusId = Status::where('value', $request->value)->value('id');
-
-        $flashcard->statusPivot->update(['status_id' => $statusId]);
+        $this->repository->updateStatus($flashcard, $request->value);
 
         return $this->respondSuccess();
     }
