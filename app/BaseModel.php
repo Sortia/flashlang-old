@@ -13,6 +13,12 @@ class BaseModel extends Model
 
     protected array $softCascade = [];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * Условие для поиска по автризованому пользователю
      */

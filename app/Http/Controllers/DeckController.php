@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Deck;
+use App\Http\Requests\StoreDeck;
 use Exception;
 use App\Status;
-use App\DeckUser;
-use App\Flashcard;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +17,9 @@ class DeckController extends Controller
      */
     public function index(): View
     {
-        return view('deck.list', ['decks' => Deck::userDecks()]);
+        return view('deck.list', [
+            'decks' => Deck::userDecks()
+        ]);
     }
 
     /**
@@ -46,12 +47,12 @@ class DeckController extends Controller
     /**
      * Создание/редактирование
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreDeck $request): RedirectResponse
     {
         $deckData = array_merge($request->all(), ['user_id' => user()->id]);
 
         /** @var Deck $deck */
-        $deck = Deck::on()->updateOrCreate(['id' => $request->id], $deckData);
+        $deck = Deck::on()->updateOrCreate(['id' => $request->id, 'user_id' => user()->id], $deckData);
         $deck->users()->create(['user_id' => user()->id]);
 
         $this->add($deck);
@@ -70,25 +71,6 @@ class DeckController extends Controller
         ($deck->isOwner() && $deck->isPrivate()) ? $deck->delete() : $deck->user->delete();
 
         return redirect(route('deck.index'));
-    }
-
-    /**
-     * Добавление колоды к пользователю
-     */
-    public function add(Deck $deck): void
-    {
-        if ($deck->isPrivate()) {
-            return;
-        }
-
-        DeckUser::on()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
-
-        $deck->flashcards->each(function (Flashcard $flashcard) {
-            $flashcard->users()->create([
-                'user_id' => user()->id,
-                'flashcard_id' => $flashcard->id
-            ]);
-        });
     }
 
     /**

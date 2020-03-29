@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Deck;
 use App\Flashcard;
-use App\FlashcardUsers;
+use App\Http\Requests\DeleteFlashcard;
+use App\Http\Requests\StoreFlashcard;
 use App\Status;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -15,18 +16,15 @@ class FlashcardController extends Controller
     /**
      * Сохранение новой карточки
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreFlashcard $request): JsonResponse
     {
         $flashcard =  Flashcard::on()->updateOrCreate(['id' => $request->get('id')], $request->all());
 
-        FlashcardUsers::on()->firstOrCreate([
-            'flashcard_id' => $flashcard->id,
-            'user_id' => user()->id,
-        ]);
+        $flashcard->users->firstOrCreate(['flashcard_id' => $flashcard->id, 'user_id' => user()->id]);
 
-        $flashcardHtml = view('deck.components.flashcard', ['flashcard' => $flashcard, 'deck' => Deck::class])->toHtml();
+        $layout = view('deck.components.flashcard', ['flashcard' => $flashcard, 'deck' => Deck::class])->toHtml();
 
-        return response()->json($flashcardHtml);
+        return $this->respond($layout);
     }
 
     /**
@@ -34,18 +32,22 @@ class FlashcardController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(Flashcard $flashcard): void
+    public function destroy(DeleteFlashcard $request, Flashcard $flashcard): JsonResponse
     {
         $flashcard->delete();
+
+        return $this->respondSuccess();
     }
 
     /**
      * Проставление/изменение статуса
      */
-    public function updateStatus(Flashcard $flashcard, Request $request): JsonResponse
+    public function updateStatus(Request $request, Flashcard $flashcard): JsonResponse
     {
         $statusId = Status::where('value', $request->value)->value('id');
 
-        return $flashcard->statusPivot->update(['status_id' => $statusId]);
+        $flashcard->statusPivot->update(['status_id' => $statusId]);
+
+        return $this->respondSuccess();
     }
 }

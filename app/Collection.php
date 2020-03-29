@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
-
 class Collection extends BaseModel
 {
     /**

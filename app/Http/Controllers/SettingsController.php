@@ -52,7 +52,7 @@ class SettingsController extends Controller
         $settings = Settings::all();
 
         foreach ($settings as $setting) {
-            UserSettings::on()->create([
+            $setting->users()->create([
                 'settings_id' => $setting->id,
                 'user_id' => $userId,
                 'settings_value_id' => $setting->values->first()->id

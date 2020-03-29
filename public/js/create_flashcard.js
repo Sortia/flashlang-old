@@ -15,6 +15,7 @@ $(() => {
                 $('.flashcard-list').append(response);
                 $('#front_text, #back_text').val('');
                 $('#front_text').focus();
+                initStatus();
             },
         });
     });
