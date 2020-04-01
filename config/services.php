@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_SECRET_CODE'),
+        'redirect' => 'http://127.0.0.1:8000/sign_in/google',
+    ],
+
 ];

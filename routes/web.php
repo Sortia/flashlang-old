@@ -57,3 +57,7 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
     Route::post('training/{deck}/flashcards/get-flashcard-word', 'Training\FlashcardController@getWord');
 
 });
+
+/** Auth */
+Route::get('google', 'Auth\GoogleAuthController@index')->name('google.index');
+Route::get('sign_in/google', 'Auth\GoogleAuthController@auth');

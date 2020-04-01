@@ -15,7 +15,7 @@ class FlashcardRepository
      */
     public function get()
     {
-        return Flashcard::with('statusPivot.status')->whereIn('deck_id', DeckUser::userDecks())->get();
+        return Flashcard::on()->whereIn('deck_id', DeckUser::userDecks())->get();
     }
 
     /**

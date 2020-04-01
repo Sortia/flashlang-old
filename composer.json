@@ -16,7 +16,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "google/apiclient": "^2.0",
+        "laravel/socialite" : "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
