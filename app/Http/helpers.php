@@ -19,7 +19,7 @@ function percent(float $progress, float $total): float
 /**
  * Получить значение настроек
  */
-function settings(string $key, string $default = null): string
+function settings(string $key, string $default = null): ?string
 {
     $query = "
         select
