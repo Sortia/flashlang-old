@@ -27,10 +27,10 @@ class SettingsSeeder extends Seeder
             ],
         ];
 
-        Settings::on()->truncate();
+        Settings::truncate();
 
         foreach ($data as $row) {
-            Settings::on()->create($row);
+            Settings::create($row);
         }
     }
 }

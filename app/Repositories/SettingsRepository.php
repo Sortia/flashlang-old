@@ -14,9 +14,9 @@ class SettingsRepository extends Repository
     public function store($settings)
     {
         foreach ($settings as $key => $value) {
-            UserSettings::on()->updateOrCreate([
+            UserSettings::updateOrCreate([
                 'user_id' => user()->id,
-                'settings_id' => Settings::on()->where('name', $key)->value('id')
+                'settings_id' => Settings::where('name', $key)->value('id')
             ], [
                 'settings_value_id' => $value
             ]);
@@ -28,7 +28,7 @@ class SettingsRepository extends Repository
      */
     public function set($key, $value)
     {
-        $value = SettingsValues::on()->where('value', $value)->value('id');
+        $value = SettingsValues::where('value', $value)->value('id');
 
         $this->store([$key => $value]);
 

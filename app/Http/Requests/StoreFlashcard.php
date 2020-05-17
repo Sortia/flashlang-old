@@ -12,7 +12,7 @@ class StoreFlashcard extends BaseRequest
     public function authorize(): bool
     {
         $deckId = $this->request->get('deck_id');
-        $userId = Deck::on()->whereKey($deckId)->value('user_id');
+        $userId = Deck::whereKey($deckId)->value('user_id');
 
         return $userId === user()->id;
     }

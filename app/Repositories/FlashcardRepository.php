@@ -15,7 +15,7 @@ class FlashcardRepository
      */
     public function get()
     {
-        return Flashcard::on()->whereIn('deck_id', DeckUser::userDecks())->get();
+        return Flashcard::whereIn('deck_id', DeckUser::userDecks())->get();
     }
 
     /**
@@ -23,7 +23,7 @@ class FlashcardRepository
      */
     public function store(StoreFlashcard $request): Flashcard
     {
-        $flashcard = Flashcard::on()->updateOrCreate(['id' => $request->id], $request->all());
+        $flashcard = Flashcard::updateOrCreate(['id' => $request->id], $request->all());
 
         $flashcard->users()->firstOrCreate(['flashcard_id' => $flashcard->id, 'user_id' => user()->id]);
 

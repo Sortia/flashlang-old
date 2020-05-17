@@ -17,7 +17,7 @@ class DeckRepository extends Repository
      */
     public function get(): Collection
     {
-        return Deck::on()->whereIn('id', DeckUser::userDecks())->get();
+        return Deck::whereIn('id', DeckUser::userDecks())->get();
     }
 
     /**
@@ -27,7 +27,7 @@ class DeckRepository extends Repository
     {
         $deckData = array_merge($request->all(), ['user_id' => user()->id]);
 
-        $deck = Deck::on()->updateOrCreate(['id' => $request->id, 'user_id' => user()->id], $deckData);
+        $deck = Deck::updateOrCreate(['id' => $request->id, 'user_id' => user()->id], $deckData);
 
         $deck->users()->create(['user_id' => user()->id]);
 

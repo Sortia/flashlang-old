@@ -64,13 +64,13 @@ class TrainingRepository
         return $this->randomPicker->getRandomElement();
     }
 
+
     /**
      * Поулчение пяти дополнительных слов
      */
-    public function getRandomWords(): Collection
+    public function getRandomWords(): \Illuminate\Support\Collection
     {
-        return Flashcard::on()
-            ->whereKeyNot(session('training.last_flashcard_id'))
+        return Flashcard::whereKeyNot(session('training.last_flashcard_id'))
             ->inRandomOrder()
             ->take(5)
             ->pluck(get_hidden_side_name());

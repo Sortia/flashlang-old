@@ -46,10 +46,10 @@ class SettingsValuesSeeder extends Seeder
 
         ];
 
-        SettingsValues::on()->truncate();
+        SettingsValues::truncate();
 
         foreach ($data as $row) {
-            SettingsValues::on()->create($row);
+            SettingsValues::create($row);
         }
     }
 }

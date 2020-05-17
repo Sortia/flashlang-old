@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Laravel\Socialite\Facades\Socialite;
+use Socialite;
 
 class GoogleAuthController extends AuthController
 {
@@ -21,7 +21,7 @@ class GoogleAuthController extends AuthController
         }
 
         // check if they're an existing user
-        $user = User::on()->where('email', $googleUser->email)->first();
+        $user = User::where('email', $googleUser->email)->first();
 
         if ( ! $user) {
             // create a new user

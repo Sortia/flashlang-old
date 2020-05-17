@@ -45,10 +45,10 @@ class StatusSeeder extends Seeder
             ],
         ];
 
-        Status::on()->truncate();
+        Status::truncate();
 
         foreach ($data as $row) {
-            Status::on()->create($row);
+            Status::create($row);
         }
     }
 }

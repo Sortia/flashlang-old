@@ -26,13 +26,4 @@ class BaseModel extends Model
     {
         return $query->where('user_id', user()->id);
     }
-
-    /**
-     * Просто чтобы where не подсвечивалась
-     */
-    public static function where($column, $operator = null, $value = null, $boolean = 'and'): Builder
-    {
-        return parent::on()->where($column, $operator, $value, $boolean);
-    }
-
 }
