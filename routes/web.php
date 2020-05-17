@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +40,7 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
     Route::get('vocabulary', 'VocabularyController@index')->name('vocabulary.index');
 
     Route::get('collections', 'CollectionController@index')->name('collections');
-    Route::post('collections/{collection}/add', 'CollecctionController@add');
+    Route::post('collection/{collection}/add', 'CollectionController@add');
 
     Route::get('profile', 'ProfileController@index')->name('profile');
     Route::post('profile/store', 'ProfileController@store')->name('profile.store');

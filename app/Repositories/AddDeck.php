@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Collection;
 use App\Models\Deck;
 use App\Models\Flashcard;
 
@@ -9,8 +10,9 @@ trait AddDeck
 {
     /**
      * Добавление колоды к пользователю
+     * @param Deck|Collection $deck
      */
-    public function processAddDeck(Deck $deck): void
+    public function processAddDeck($deck): void
     {
         $deck->users()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
 

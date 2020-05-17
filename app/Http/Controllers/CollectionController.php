@@ -33,9 +33,9 @@ class CollectionController extends Controller
     /**
      * Добавление колоды к пользователю
      */
-    public function add(AddCollection $request, Deck $deck): JsonResponse
+    public function add(AddCollection $request, Deck $collection): JsonResponse
     {
-        $this->repository->processAddDeck($deck);
+        $this->repository->processAddDeck($collection);
 
         return $this->respondSuccess();
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Training;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LayoutResponse;
 use App\Http\Resources\FlashcardResource;
+use App\Http\Services\TrainingService;
 use App\Models\Deck;
 use App\Models\Flashcard;
 use App\Repositories\TrainingRepository;
@@ -28,6 +29,8 @@ abstract class TrainingController extends Controller
 
     protected TrainingRepository $repository;
 
+    protected TrainingService $service;
+
     protected Collection $flashcards;
 
     protected Flashcard $flashcard;
@@ -39,9 +42,10 @@ abstract class TrainingController extends Controller
     /**
      * TrainingController constructor.
      */
-    public function __construct(TrainingRepository $repository)
+    public function __construct(TrainingRepository $repository, TrainingService $service)
     {
         $this->repository = $repository;
+        $this->service    = $service;
     }
 
     /**
@@ -87,7 +91,7 @@ abstract class TrainingController extends Controller
         $this->request    = $request;
         $this->deck       = $deck;
         $this->flashcards = $this->repository->getFlashcards($deck);
-        $this->flashcard  = $this->repository->getTrainingFlashcard($this->flashcards);
+        $this->flashcard  = $this->service->getTrainingFlashcard($this->flashcards);
     }
 
 }

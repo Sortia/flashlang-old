@@ -28,14 +28,14 @@
 @endsection
 
 @section('js')
-    <script !src="" defer>
+    <script defer>
         $(() => {
             $('.add-deck').on('click', function (event) {
                 event.preventDefault();
 
                 $.ajax({
                     method: 'post',
-                    url: `deck/${$(this).data('id')}/add`,
+                    url: `collection/${$(this).data('id')}/add`,
                     dataType: "json",
                 })
             });

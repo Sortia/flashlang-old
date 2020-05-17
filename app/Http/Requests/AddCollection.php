@@ -9,8 +9,8 @@ class AddCollection extends BaseRequest
      */
     public function authorize(): bool
     {
-        $deck = $this->route('deck');
+        $collection = $this->route('collection');
 
-        return $deck->isPublic();
+        return $collection->isPublic();
     }
 }
