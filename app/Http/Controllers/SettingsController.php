@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\SettingsRepository;
+use App\Models\Settings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,22 +10,12 @@ use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
-    private SettingsRepository $repository;
-
-    /**
-     * SettingsController constructor.
-     */
-    public function __construct(SettingsRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * Страница настроек
      */
     public function index(): View
     {
-        $settings = $this->repository->all();
+        $settings = Settings::all();
 
         return view('settings', compact('settings'));
     }
@@ -35,7 +25,7 @@ class SettingsController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->repository->store($request->settings);
+        Settings::store($request->settings);
 
         return redirect(route('settings.index'));
     }
@@ -45,7 +35,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        $this->repository->set($request->key, $request->value);
+        Settings::set($request->key, $request->value);
 
         return $this->respondSuccess();
     }

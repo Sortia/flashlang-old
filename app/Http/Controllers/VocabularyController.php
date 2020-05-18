@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DeckUser;
 use App\Models\Flashcard;
-use App\Repositories\FlashcardRepository;
 use Illuminate\View\View;
 
 class VocabularyController extends Controller
@@ -11,9 +11,9 @@ class VocabularyController extends Controller
     /**
      * Страница словаря
      */
-    public function index(FlashcardRepository $flashcardRepository): View
+    public function index(): View
     {
-        $flashcards = $flashcardRepository->get();
+        $flashcards = Flashcard::whereIn('deck_id', DeckUser::userDecks())->get();
 
         return view('vocabulary', compact('flashcards'));
     }

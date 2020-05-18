@@ -1,12 +1,7 @@
 <?php
 
-use App\Models\Settings;
-use App\Models\SettingsValues;
 use App\Models\User;
-use App\Models\UserSettings;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Расчитать процент

@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use Exception;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
 /**
@@ -60,11 +61,9 @@ class RandomPicker
      *
      * @throws InvalidArgumentException If a weight is not a positive integer.
      */
-    public function addElements(array $elements): void
+    public function addElements(Collection $elements): void
     {
-        foreach ($elements as $value => $weight) {
-            $this->addElement($value, $weight);
-        }
+        $elements->each(fn($weight, $value) => $this->addElement($value, $weight));
     }
 
     /**

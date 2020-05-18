@@ -8,7 +8,6 @@ use App\Http\Resources\FlashcardResource;
 use App\Http\Services\TrainingService;
 use App\Models\Deck;
 use App\Models\Flashcard;
-use App\Repositories\TrainingRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -27,8 +26,6 @@ abstract class TrainingController extends Controller
 
     protected string $layout = '';
 
-    protected TrainingRepository $repository;
-
     protected TrainingService $service;
 
     protected Collection $flashcards;
@@ -42,10 +39,9 @@ abstract class TrainingController extends Controller
     /**
      * TrainingController constructor.
      */
-    public function __construct(TrainingRepository $repository, TrainingService $service)
+    public function __construct(TrainingService $service)
     {
-        $this->repository = $repository;
-        $this->service    = $service;
+        $this->service = $service;
     }
 
     /**
@@ -90,7 +86,7 @@ abstract class TrainingController extends Controller
     {
         $this->request    = $request;
         $this->deck       = $deck;
-        $this->flashcards = $this->repository->getFlashcards($deck);
+        $this->flashcards = $this->service->getFlashcards($deck);
         $this->flashcard  = $this->service->getTrainingFlashcard($this->flashcards);
     }
 

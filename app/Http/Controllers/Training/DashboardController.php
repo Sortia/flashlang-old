@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Training;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deck;
-use App\Repositories\DeckRepository;
+use App\Models\DeckUser;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -12,9 +12,9 @@ class DashboardController extends Controller
     /**
      * "Доска" тренировок
      */
-    public function dashboard(DeckRepository $deckRepository): View
+    public function dashboard(): View
     {
-        $decks = $deckRepository->get();
+        $decks = Deck::whereIn('id', DeckUser::userDecks())->get();
 
         return view('training.dashboard', compact('decks'));
     }

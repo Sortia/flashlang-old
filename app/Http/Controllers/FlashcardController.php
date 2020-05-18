@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteFlashcard;
 use App\Http\Requests\StoreFlashcard;
+use App\Models\Deck;
 use App\Models\Flashcard;
-use App\Repositories\DeckRepository;
-use App\Repositories\FlashcardRepository;
+use App\Models\Status;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,24 +15,16 @@ class FlashcardController extends Controller
 {
     use LayoutResponse;
 
-    private FlashcardRepository $repository;
-
-    /**
-     * FlashcardController constructor.
-     */
-    public function __construct(FlashcardRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * Сохранение новой карточки
      */
-    public function store(StoreFlashcard $request, DeckRepository $deckRepository): JsonResponse
+    public function store(StoreFlashcard $request): JsonResponse
     {
-        $deck = $deckRepository->getModel();
+        $deck = new Deck();
 
-        $flashcard = $this->repository->store($request);
+        $flashcard = Flashcard::updateOrCreate(['id' => $request->id], $request->all());
+
+        $flashcard->users()->firstOrCreate(['flashcard_id' => $flashcard->id, 'user_id' => user()->id]);
 
         $layout = $this->prepareLayout('deck.components.flashcard', compact('flashcard', 'deck'));
 
@@ -46,7 +38,7 @@ class FlashcardController extends Controller
      */
     public function destroy(DeleteFlashcard $request, Flashcard $flashcard): JsonResponse
     {
-        $this->repository->delete($flashcard);
+        $flashcard->delete();
 
         return $this->respondSuccess();
     }
@@ -56,7 +48,9 @@ class FlashcardController extends Controller
      */
     public function updateStatus(Request $request, Flashcard $flashcard): JsonResponse
     {
-        $this->repository->updateStatus($flashcard, $request->value);
+        $statusId = Status::where('value', $request->value)->value('id');
+
+        $flashcard->statusPivot->update(['status_id' => $statusId]);
 
         return $this->respondSuccess();
     }

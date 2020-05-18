@@ -17,7 +17,7 @@ class ChooseController extends TrainingController
      */
     protected function setLayout(): void
     {
-        $words = $this->repository->getRandomWords();
+        $words = $this->service->getRandomWords();
         $words->add($this->flashcard->getHiddenText())->shuffle();
 
         $this->layout = $this->prepareLayout($this->trainingComponentPath, [

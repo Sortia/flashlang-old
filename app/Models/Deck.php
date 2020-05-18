@@ -158,4 +158,28 @@ class Deck extends BaseModel
 
         return round(percent($progress->sum(), $progress->count() * 100), 2);
     }
+
+    /**
+     * Добавление колоды к пользователю
+     * @param Deck|Collection $deck
+     */
+    public static function processAddDeck($deck): void
+    {
+        $deck->users()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
+
+        self::duplicateFlashcards($deck);
+    }
+
+    /**
+     * @param Deck|Collection $deck
+     */
+    public static function duplicateFlashcards($deck)
+    {
+        foreach ($deck->flashcards as $flashcard) {
+            $flashcard->users()->create([
+                'user_id' => user()->id,
+                'flashcard_id' => $flashcard->id
+            ]);
+        }
+    }
 }

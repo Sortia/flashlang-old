@@ -4,28 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddCollection;
 use App\Models\Deck;
-use App\Repositories\CollectionRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class CollectionController extends Controller
 {
-    private CollectionRepository $repository;
-
-    /**
-     * CollectionController constructor.
-     */
-    public function __construct(CollectionRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * Страница колекций
      */
     public function index(): View
     {
-        $collections = $this->repository->get();
+        $collections = Deck::where('access', 'public')->latest('rating')->get();
 
         return view('collections', compact('collections'));
     }
@@ -35,7 +24,7 @@ class CollectionController extends Controller
      */
     public function add(AddCollection $request, Deck $collection): JsonResponse
     {
-        $this->repository->processAddDeck($collection);
+        Deck::processAddDeck($collection);
 
         return $this->respondSuccess();
     }

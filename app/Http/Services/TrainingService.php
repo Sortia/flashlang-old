@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use App\Models\Deck;
+use App\Models\Flashcard;
 use Exception;
 use Illuminate\Support\Collection;
 
@@ -39,10 +41,37 @@ class TrainingService
      */
     private function getIndex(Collection $flashcards): int
     {
-        $weights = array_get($flashcards->toArray(), 'status_pivot.status.weight');
+        $weights = $flashcards->pluck('statusPivot.status.weight');
 
         $this->randomPicker->addElements($weights);
 
         return $this->randomPicker->getRandomElement();
+    }
+
+    /**
+     * Получение карточек из колоды для тренировки (исключена карточка, которая была получена в прошлый раз)
+     */
+    public function getFlashcards(Deck $deck)
+    {
+        $lastId = session('training.last_flashcard_id');
+
+        $query = Flashcard::where('deck_id', $deck->id);
+
+        if ($deck->flashcards->count() > 1) {
+            $query->whereKeyNot($lastId);
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * Поулчение пяти дополнительных слов
+     */
+    public function getRandomWords(): Collection
+    {
+        return Flashcard::whereKeyNot(session('training.last_flashcard_id'))
+            ->inRandomOrder()
+            ->take(5)
+            ->pluck(get_hidden_side_name());
     }
 }

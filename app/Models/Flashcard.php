@@ -47,7 +47,7 @@ class Flashcard extends BaseModel
     /**
      * Пользователи у которых есть текущая карточка
      */
-    public function users(): HasMany
+    public function users(): HasMany // todo rename function
     {
         return $this->hasMany(FlashcardUsers::class);
     }
