@@ -9,16 +9,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^7.0",
-        "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0",
-        "ext-json": "*",
         "google/apiclient": "^2.0",
-        "laravel/socialite" : "*"
+        "guzzlehttp/guzzle": "^6.5",
+        "laravel/framework": "7.*",
+        "laravel/socialite": "*",
+        "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",
