@@ -33,7 +33,11 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_ID'),
         'client_secret' => env('GOOGLE_SECRET_CODE'),
-        'redirect' => 'http://127.0.0.1:8000/sign_in/google',
+        'redirect' => env('GOOGLE_AUTH_REDIRECT'),
+    ],
+
+    'yandex' => [
+        'key' => env('YANDEX_KEY'),
     ],
 
 ];

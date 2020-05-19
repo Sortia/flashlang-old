@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
 
     Route::resource('flashcard', 'FlashcardController');
 
+    Route::resource('storybook', 'StorybookController');
+
     Route::post('flashcard', 'FlashcardController@store')->name('flashcard.store');
     Route::post('flashcard/{flashcard}/update-status', 'FlashcardController@updateStatus');
     Route::post('deck/{deck}/update-status', 'DeckController@updateStatus');
