@@ -45,7 +45,7 @@
             <li class="nav-item">
                 <a href="{{route('storybook.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-tree"></i>
-                    <p>@lang('Storybook')</p>
+                    <p>@lang('Storybooks')</p>
                 </a>
             </li>
 
