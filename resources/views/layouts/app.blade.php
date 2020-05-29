@@ -65,9 +65,9 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{route('home')}}" class="nav-link">@lang('Home')</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">@lang('Contact')</a>
-                </li>
+{{--                <li class="nav-item d-none d-sm-inline-block">--}}
+{{--                    <a href="#" class="nav-link">@lang('Contact')</a>--}}
+{{--                </li>--}}
             </ul>
 
             <ul class="navbar-nav ml-auto">

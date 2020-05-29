@@ -77,7 +77,7 @@ class DeckController extends Controller
      */
     public function updateStatus(Deck $deck, Request $request): JsonResponse
     {
-        $deck->rate()->updateOrCreate(['user_id' => user()->id], compact('value'));
+        $deck->rate()->updateOrCreate(['user_id' => user()->id, 'value' => $request->value]);
 
         $deck->update(['rating' => $deck->rates->pluck('value')->avg()]);
 
