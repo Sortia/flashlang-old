@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Flashcard;
+
 class DeleteFlashcard extends BaseRequest
 {
     /**
@@ -9,6 +11,7 @@ class DeleteFlashcard extends BaseRequest
      */
     public function authorize(): bool
     {
+        /** @var Flashcard $flashcard */
         $flashcard = $this->route('flashcard');
 
         return $flashcard->deck->user_id === user()->id;

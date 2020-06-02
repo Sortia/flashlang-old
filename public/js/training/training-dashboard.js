@@ -10,6 +10,6 @@ $(() => {
     });
 
     $(".card-training").on('click', function() {
-        location.href = `/training/${$('.deck-active').data('id')}/${$(this).data('type-training')}`;
+        location.href = `/training/${$(this).data('type-training')}/${$('.deck-active').data('id')}`;
     });
 });

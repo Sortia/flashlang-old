@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Settings;
+use App\Models\UserSettings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class SettingsController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Settings::store($request->settings);
+        foreach ($request->settings as $id => $value) {
+            $this->setSetting($id, $value);
+        }
 
         return redirect(route('settings.index'));
     }
@@ -33,11 +36,23 @@ class SettingsController extends Controller
     /**
      * Обновление настроек пользователя откуда либо кроме страницы настроек
      */
-    public function update(Request $request): JsonResponse
+    public function flashStore(Request $request): JsonResponse
     {
-        Settings::set($request->key, $request->value);
+        $this->setSetting($request->settings_id, $request->settings_value_id);
 
         return $this->respondSuccess();
     }
 
+    /**
+     * Сохранение настройки для аутентифицированного пользователя
+     *
+     * @param $settingsId
+     * @param $settingsValueId
+     */
+    private function setSetting($settingsId, $settingsValueId)
+    {
+        UserSettings::where('settings_id', $settingsId)
+            ->where('user_id', user()->id)
+            ->update(['settings_value_id' => $settingsValueId]);
+    }
 }

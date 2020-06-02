@@ -37,9 +37,6 @@
 
     </div>
 
-    <!--Call your modal-->
-{{--    <a id="demo01" href="#animatedModal">DEMO01</a>--}}
-
     <!--DEMO01-->
     <div id="animatedModal">
         <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->

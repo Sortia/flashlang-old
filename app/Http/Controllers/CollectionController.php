@@ -21,10 +21,20 @@ class CollectionController extends Controller
 
     /**
      * Добавление колоды к пользователю
+     *
+     *  По факту создается новая колода и в нее дублируются карточки
      */
     public function add(AddCollection $request, Deck $collection): JsonResponse
     {
-        Deck::processAddDeck($collection);
+        $deck = Deck::create([
+            'name' => $collection->name,
+            'description' => $collection->description,
+            'user_id' => user()->id,
+        ]);
+
+        $collection->flashcards->each(function($item) use ($deck) {
+            $deck->flashcards()->create($item->toArray());
+        });
 
         return $this->respondSuccess();
     }

@@ -20,13 +20,9 @@ class FlashcardController extends Controller
      */
     public function store(StoreFlashcard $request): JsonResponse
     {
-        $deck = new Deck();
-
-        $flashcard = Flashcard::updateOrCreate(['id' => $request->id], $request->all());
-
-        $flashcard->users()->firstOrCreate(['flashcard_id' => $flashcard->id, 'user_id' => user()->id]);
-
-        $layout = $this->prepareLayout('deck.components.flashcard', compact('flashcard', 'deck'));
+        $deck      = Deck::findOrFail($request->deck_id);
+        $flashcard = $deck->flashcards()->updateOrCreate(['id' => $request->id], $request->all())->refresh();
+        $layout    = $this->prepareLayout('deck.components.flashcard', compact('flashcard', 'deck'));
 
         return $this->respond($layout);
     }
@@ -50,7 +46,7 @@ class FlashcardController extends Controller
     {
         $statusId = Status::where('value', $request->value)->value('id');
 
-        $flashcard->statusPivot->update(['status_id' => $statusId]);
+        $flashcard->update(['status_id' => $statusId]);
 
         return $this->respondSuccess();
     }

@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
     Route::post('deck/{deck}/update-status', 'DeckController@updateStatus');
 
     Route::get('settings', 'SettingsController@index')->name('settings.index');
-    Route::post('settings/update', 'SettingsController@update')->name('settings.update');
+    Route::post('settings/flashStore', 'SettingsController@flashStore')->name('settings.flashStore');
     Route::post('settings/store', 'SettingsController@store')->name('settings.store');
 
     Route::get('vocabulary', 'VocabularyController@index')->name('vocabulary.index');
@@ -47,13 +47,13 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
     Route::get('profile', 'ProfileController@index')->name('profile');
     Route::post('profile/store', 'ProfileController@store')->name('profile.store');
 
-    Route::get('training/dashboard', 'Training\DashboardController@dashboard')->name('training.dashboard');
-    Route::get('training/{deck}/{typeTraining}', 'Training\DashboardController@study')->name('training.study')
+    Route::get('training/dashboard', 'Training\TrainingController@dashboard')->name('training.dashboard');
+    Route::get('training/{typeTraining}/{deck}', 'Training\TrainingController@study')->name('training.study')
         ->where(['typeTraining' => 'flashcards|word-constructor|choose-word']);
 
-    Route::post('training/{deck}/word-constructor/get-constructor-word', 'Training\ConstructorController@getWord');
-    Route::post('training/{deck}/choose-word/get-choose-word', 'Training\ChooseController@getWord');
-    Route::post('training/{deck}/flashcards/get-flashcard-word', 'Training\FlashcardController@getWord');
+    Route::post('training/word-constructor/{deck}/get-constructor-word', 'Training\ConstructorController@getWord');
+    Route::post('training/choose-word/{deck}/get-choose-word', 'Training\ChooseController@getWord');
+    Route::post('training/flashcards/{deck}/get-flashcard-word', 'Training\FlashcardController@getWord');
 
 });
 

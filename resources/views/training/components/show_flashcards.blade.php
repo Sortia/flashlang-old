@@ -1,5 +1,5 @@
 <div class="row flashcard-list">
-    @foreach($deck->flashcards as $flashcard)
+    @foreach($flashcards as $flashcard)
         <div class="col-lg-4" id="flashcard-{{$flashcard->id}}">
             <div class="card">
                 <div class="card-body p-0">
@@ -17,7 +17,7 @@
 
                 </div>
                 <div class="card-footer py-1 px-3">
-                    <div class="float-left rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->statusPivot->status->value}}"></div>
+                    <div class="float-left rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->status->value}}"></div>
                 </div>
             </div>
         </div>

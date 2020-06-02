@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Flashcard extends BaseModel
@@ -22,13 +21,6 @@ class Flashcard extends BaseModel
     ];
 
     /**
-     * @var array
-     */
-    protected $with = [
-        'statusPivot'
-    ];
-
-    /**
      * Колоду, к которой принадлежит карточка
      */
     public function deck(): BelongsTo
@@ -36,20 +28,9 @@ class Flashcard extends BaseModel
         return $this->belongsTo(Deck::class);
     }
 
-    /**
-     * Связуюшая таблица с оценками флеш-карточек
-     */
-    public function statusPivot(): HasOne
+    public function status()
     {
-        return $this->hasOne(FlashcardUsers::class)->current();
-    }
-
-    /**
-     * Пользователи у которых есть текущая карточка
-     */
-    public function users(): HasMany // todo rename function
-    {
-        return $this->hasMany(FlashcardUsers::class);
+        return $this->belongsTo(Status::class);
     }
 
     /**
@@ -63,7 +44,7 @@ class Flashcard extends BaseModel
     /**
      * Получить текст лицевой стороны карточки
      */
-    public function getShowText(): string
+    public function getShowText(): ?string
     {
         return $this->{settings('study_show_side', 'back_text')};
     }
@@ -71,8 +52,15 @@ class Flashcard extends BaseModel
     /**
      * Получить текст обратной стороны карточки
      */
-    public function getHiddenText(): string
+    public function getHiddenText(): ?string
     {
         return $this->{get_hidden_side_name()};
+    }
+
+    public static function scopeMy(Builder $query): Builder
+    {
+        return $query->whereHas('deck', function (Builder $q) {
+            $q->where('user_id', user()->id);
+        });
     }
 }

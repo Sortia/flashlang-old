@@ -22,7 +22,7 @@ class BaseModel extends Model
     /**
      * Условие для поиска по автризованому пользователю
      */
-    public static function scopeCurrent(Builder $query): Builder
+    public static function scopeMy(Builder $query): Builder
     {
         return $query->where('user_id', user()->id);
     }

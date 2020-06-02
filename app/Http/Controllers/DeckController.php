@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDeck;
 use App\Models\Deck;
-use App\Models\DeckUser;
 use App\Models\Status;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -19,7 +18,7 @@ class DeckController extends Controller
      */
     public function index(): View
     {
-        $decks = Deck::whereIn('id', DeckUser::userDecks())->get();
+        $decks = Deck::my()->get();
 
         return view('deck.list', compact('decks'));
     }
@@ -50,11 +49,7 @@ class DeckController extends Controller
      */
     public function store(StoreDeck $request): RedirectResponse
     {
-        $deck = Deck::updateOrCreate(['id' => $request->id, 'user_id' => user()->id], $request->all());
-
-        $deck->users()->create(['user_id' => user()->id]);
-
-        Deck::processAddDeck($deck);
+        Deck::updateOrCreate(['id' => $request->id, 'user_id' => user()->id], $request->all());
 
         return redirect(route('deck.index'));
     }
@@ -67,7 +62,7 @@ class DeckController extends Controller
      */
     public function destroy(Deck $deck): RedirectResponse
     {
-        ($deck->isOwner() && $deck->isPrivate()) ? $deck->delete() : $deck->user->delete();
+        $deck->delete();
 
         return redirect(route('deck.index'));
     }

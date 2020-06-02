@@ -12,7 +12,7 @@
                             @foreach($settings as $setting)
                                 <div class="form-group">
                                     <label for="{{$setting->name}}">@lang($setting->description)</label>
-                                    <select class="form-control" id="{{$setting->name}}" name="settings[{{$setting->name}}]">
+                                    <select class="form-control" id="{{$setting->name}}" name="settings[{{$setting->id}}]">
                                         @foreach($setting->values as $value)
                                             <option {{$value->value === settings($setting->name) ? 'selected' : ''}} value="{{$value->id}}">@lang($value->description)</option>
                                         @endforeach

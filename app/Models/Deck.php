@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
 
 class Deck extends BaseModel
 {
@@ -30,13 +30,6 @@ class Deck extends BaseModel
     ];
 
     /**
-     * @var array
-     */
-    protected $with = [
-        'flashcards'
-    ];
-
-    /**
      * Флеш-карточки
      */
     public function flashcards(): HasMany
@@ -45,27 +38,11 @@ class Deck extends BaseModel
     }
 
     /**
-     * Все пользователи у которых есть текущая колода
-     */
-    public function users(): HasMany
-    {
-        return $this->hasMany(DeckUser::class);
-    }
-
-    /**
-     * Создатель колоды
-     */
-    public function user(): HasOne
-    {
-        return $this->hasOne(DeckUser::class)->current();
-    }
-
-    /**
      * Оценка колоды текущего пользователя
      */
     public function rate(): HasOne
     {
-        return $this->hasOne(Rate::class)->current();
+        return $this->hasOne(Rate::class)->my();
     }
 
     /**
@@ -81,7 +58,7 @@ class Deck extends BaseModel
      */
     public function studied(): int
     {
-        return $this->flashcards->filter(fn($value) => $value->statusPivot->status->value === 5)->count();
+        return $this->flashcards->filter(fn($value) => $value->status->value === 5)->count();
     }
 
     /**
@@ -113,21 +90,11 @@ class Deck extends BaseModel
      */
     public static function totalProgress(): float
     {
-        $query = "
-            select
-                s.value,
-                f.id
-            from flashcards f
-            inner join flashcard_users fu on fu.flashcard_id = f.id
-            inner join statuses s on fu.status_id = s.id
-            inner join decks d on f.deck_id = d.id
-            inner join deck_users du on du.deck_id = d.id
-            where du.user_id = " . user()->id . "
-              and fu.user_id = " . user()->id . "
-              and f.deleted_at is null
-        ";
+        $flashcards = Flashcard::with('status')->whereHas('deck', function (Builder $query) {
+            $query->my();
+        })->get();
 
-        return self::calcProgressPercent(DB::select($query));
+        return self::calcProgressPercent($flashcards->pluck('status.value'));
     }
 
     /**
@@ -135,51 +102,19 @@ class Deck extends BaseModel
      */
     public function progress(): float
     {
-        $query = "
-            select
-                s.value
-            from flashcards f
-            inner join flashcard_users fu on fu.flashcard_id = f.id and fu.user_id = " . user()->id ."
-            inner join statuses s on fu.status_id = s.id
-            where deck_id = $this->id
-              and f.deleted_at is null
-        ";
+        $this->load('flashcards.status');
 
-        return self::calcProgressPercent(DB::select($query));
+        return self::calcProgressPercent($this->flashcards->pluck('status.value'));
     }
 
     /**
      * Расчитать процент изучения колоды
      */
-    private static function calcProgressPercent($values): float
+    private static function calcProgressPercent($progress): float
     {
-        $progress = collect(array_column(to_array($values), 'value'));
         $progress->transform(fn($item) => $item * 20);
 
         return round(percent($progress->sum(), $progress->count() * 100), 2);
     }
 
-    /**
-     * Добавление колоды к пользователю
-     * @param Deck|Collection $deck
-     */
-    public static function processAddDeck($deck): void
-    {
-        $deck->users()->firstOrCreate(['user_id' => user()->id, 'deck_id' => $deck->id]);
-
-        self::duplicateFlashcards($deck);
-    }
-
-    /**
-     * @param Deck|Collection $deck
-     */
-    public static function duplicateFlashcards($deck)
-    {
-        foreach ($deck->flashcards as $flashcard) {
-            $flashcard->users()->create([
-                'user_id' => user()->id,
-                'flashcard_id' => $flashcard->id
-            ]);
-        }
-    }
 }

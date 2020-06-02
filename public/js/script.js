@@ -43,13 +43,13 @@ $(() => {
         }
     });
 
-    window.set_settings = (key, value) => {
+    window.set_settings = (settings_id, settings_value_id) => {
         $.ajax({
-            url: `/settings/update`,
+            url: `/settings/flashStore`,
             method: "post",
             data: {
-                key: key,
-                value: value
+                settings_id: settings_id,
+                settings_value_id: settings_value_id
             },
             dataType: "json",
             success: () => location.reload()

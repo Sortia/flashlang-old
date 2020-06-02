@@ -1,5 +1,5 @@
 $(() => {
     $('.change-view-type').on('click', function () {
-        set_settings('study_flashcards_type_view', $(this).data('type'));
+        set_settings($(this).data('settings-id'), $(this).data('settings-value-id'));
     });
 });

@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Training;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LayoutResponse;
-use App\Http\Resources\FlashcardResource;
 use App\Http\Services\TrainingService;
 use App\Models\Deck;
-use App\Models\Flashcard;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 /**
  * Абстрактый класс тренировок
@@ -18,76 +14,35 @@ use Illuminate\Support\Collection;
  * Class TrainingController
  * @package App\Http\Controllers\Training
  */
-abstract class TrainingController extends Controller
+class TrainingController extends Controller
 {
     use LayoutResponse;
 
-    protected string $trainingComponentPath = '';
-
-    protected string $layout = '';
-
     protected TrainingService $service;
 
-    protected Collection $flashcards;
-
-    protected Flashcard $flashcard;
-
-    protected Request $request;
-
-    protected Deck $deck;
-
-    /**
-     * TrainingController constructor.
-     */
     public function __construct(TrainingService $service)
     {
         $this->service = $service;
     }
 
     /**
-     * Получение следующего слова для тренировки
-     *
-     * @throws Exception
+     * "Доска" тренировок
      */
-    public function getWord(Deck $deck, Request $request): string
+    public function dashboard(): View
     {
-        $this->init($deck, $request);
-        $this->setLayout();
+        $decks = Deck::my()->get();
 
-        return $this->sendResponse();
+        return view('training.dashboard', compact('decks'));
     }
 
     /**
-     * Задание верстки, которая будет возвращена на клиент
+     * Страница тренировки
      */
-    protected function setLayout(): void
+    public function study(string $typeTraining, Deck $deck): View
     {
-        $this->layout = $this->prepareLayout($this->trainingComponentPath, ['flashcard' => $this->flashcard]);
-    }
+        $flashcards = $deck->flashcards->shuffle();
 
-    /**
-     * Возврат ответа на клиент.
-     */
-    protected function sendResponse(): string
-    {
-        return json_encode([
-            'flashcard' => new FlashcardResource($this->flashcard),
-            'layout'    => $this->layout,
-            'deck'      => $this->deck,
-        ]);
-    }
-
-    /**
-     * Инициализация переменных
-     *
-     * @throws Exception
-     */
-    private function init(Deck $deck, Request $request): void
-    {
-        $this->request    = $request;
-        $this->deck       = $deck;
-        $this->flashcards = $this->service->getFlashcards($deck);
-        $this->flashcard  = $this->service->getTrainingFlashcard($this->flashcards);
+        return view('training.' . $typeTraining, compact('flashcards'));
     }
 
 }

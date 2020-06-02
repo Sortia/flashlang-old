@@ -62,17 +62,3 @@ function checkbox(Model $model, string $field, string $value): string
 {
     return (isset($model->$field) && $model->$field === $value) ? 'checked' : '';
 }
-
-/**
- * Get array of values
- */
-function array_get(array $collection, string $key): array
-{
-    $result = [];
-
-    foreach ($collection as $item) {
-        $result[] = Arr::get($item, $key);
-    }
-
-    return $result;
-}

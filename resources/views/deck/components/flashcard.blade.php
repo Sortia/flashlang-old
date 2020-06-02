@@ -8,10 +8,10 @@
                 <div>{{$flashcard->getHiddenText()}}</div>
             </div>
         </div>
-        @isset($flashcard->statusPivot->status)
+        @isset($flashcard->status)
             <div class="card-footer py-1 px-3">
                 <div class="float-left rate" data-flashcard-id="{{$flashcard->id}}"
-                     data-rate-value="{{$flashcard->statusPivot->status->value}}"></div>
+                     data-rate-value="{{$flashcard->status->value}}"></div>
                 @can('edit', $deck)
                     <span class="float-right pt-2">
                         <a href="#" data-flashcard-id="{{$flashcard->id}}" class="fas fa-trash delete-flashcard"></a>

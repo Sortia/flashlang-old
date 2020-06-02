@@ -2,28 +2,37 @@
 
 namespace App\Http\Controllers\Training;
 
+use App\Http\Resources\FlashcardResource;
+use App\Models\Deck;
+use Exception;
+use Illuminate\Http\Request;
+
 /**
  * Выбор одного правильного варианта перевода из 6 предложенных
  *
  * Class ChooseController
  * @package App\Http\Controllers\Training
  */
-class ChooseController extends TrainingController
+class ChooseController extends TrainingController implements Training
 {
-    protected string $trainingComponentPath = 'training.components.study-choose';
-
     /**
-     * Задание верстки, которая будет возвращена на клиент
+     * Получить следующее слово для тренировки
+     *
+     * @param Deck $deck
+     * @param Request $request
+     * @return string
+     * @throws Exception
      */
-    protected function setLayout(): void
+    public function getWord(Deck $deck): array
     {
-        $words = $this->service->getRandomWords();
-        $words->add($this->flashcard->getHiddenText())->shuffle();
+        $flashcard = $this->service->getTrainingFlashcard($deck);
+        $words     = $this->service->getRandomWords();
 
-        $this->layout = $this->prepareLayout($this->trainingComponentPath, [
-            'flashcard' => $this->flashcard,
-            'words' => $words
-        ]);
+        $words->add($flashcard->getHiddenText())->shuffle();
+
+        $layout = $this->prepareLayout('training.components.study-choose', compact('flashcard', 'words'));
+        $flashcard = FlashcardResource::make($flashcard);
+
+        return compact('deck', 'flashcard', 'layout');
     }
-
 }
