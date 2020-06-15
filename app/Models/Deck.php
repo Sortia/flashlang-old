@@ -90,11 +90,11 @@ class Deck extends BaseModel
      */
     public static function totalProgress(): float
     {
-        $flashcards = Flashcard::with('status')->whereHas('deck', function (Builder $query) {
+        $flashcards = Flashcard::whereHas('deck', function (Builder $query) {
             $query->my();
         })->get();
 
-        return self::calcProgressPercent($flashcards->pluck('status.value'));
+        return self::calcProgressPercent($flashcards->pluck('status_id'));
     }
 
     /**
@@ -102,9 +102,7 @@ class Deck extends BaseModel
      */
     public function progress(): float
     {
-        $this->load('flashcards.status');
-
-        return self::calcProgressPercent($this->flashcards->pluck('status.value'));
+        return self::calcProgressPercent($this->flashcards->pluck('status_id'));
     }
 
     /**
