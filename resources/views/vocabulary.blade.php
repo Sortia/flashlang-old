@@ -13,7 +13,7 @@
                                     <div class="col-lg-5">{{$flashcard->front_text}}</div>
                                     <div class="col-lg-5">{{$flashcard->back_text}}</div>
                                     <div class="col-lg-2">
-                                    <div class="rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->status->value}}"></div>
+                                    <div class="rate" data-flashcard-id="{{$flashcard->id}}" data-rate-value="{{$flashcard->status_id}}"></div>
                                 </div></div>
                             </a>
                         @endforeach

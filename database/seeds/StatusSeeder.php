@@ -14,33 +14,27 @@ class StatusSeeder extends Seeder
     {
         $data = [
             [
-                'name'   => 1,
-                'value'  => 0,
+                'id'   => 0,
                 'weight' => 6,
             ],
             [
-                'name'   => 2,
-                'value'  => 1,
+                'id'   => 1,
                 'weight' => 5,
             ],
             [
-                'name'   => 3,
-                'value'  => 2,
+                'id'   => 2,
                 'weight' => 4,
             ],
             [
-                'name'   => 4,
-                'value'  => 3,
+                'id'   => 3,
                 'weight' => 3,
             ],
             [
-                'name'   => 5,
-                'value'  => 4,
+                'id'   => 4,
                 'weight' => 2,
             ],
             [
-                'name'   => 6,
-                'value'  => 5,
+                'id'   => 5,
                 'weight' => 1,
             ],
         ];

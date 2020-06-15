@@ -58,7 +58,7 @@ class Deck extends BaseModel
      */
     public function studied(): int
     {
-        return $this->flashcards->filter(fn($value) => $value->status->value === 5)->count();
+        return $this->flashcards->filter(fn($value) => $value->status_id === 5)->count();
     }
 
     /**

@@ -22,7 +22,7 @@ $(() => {
             url: `/flashcard/${$(this).data('flashcard-id')}/update-status`,
             method: "post",
             data: {
-                value: data.to
+                status_id: data.to
             },
             dataType: "json",
         });

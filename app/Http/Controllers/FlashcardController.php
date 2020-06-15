@@ -6,7 +6,6 @@ use App\Http\Requests\DeleteFlashcard;
 use App\Http\Requests\StoreFlashcard;
 use App\Models\Deck;
 use App\Models\Flashcard;
-use App\Models\Status;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,9 +43,7 @@ class FlashcardController extends Controller
      */
     public function updateStatus(Request $request, Flashcard $flashcard): JsonResponse
     {
-        $statusId = Status::where('value', $request->value)->value('id');
-
-        $flashcard->update(['status_id' => $statusId]);
+        $flashcard->update(['status_id' => $request->status_id]);
 
         return $this->respondSuccess();
     }
