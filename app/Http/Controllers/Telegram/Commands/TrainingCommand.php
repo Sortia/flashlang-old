@@ -43,7 +43,7 @@ class TrainingCommand extends Command
      */
     private function sendNextWord()
     {
-        $flashcard = $this->service->getTrainingFlashcard(Flashcard::my(user())->get());
+        $flashcard = $this->service->getTrainingFlashcard(Flashcard::my()->get());
 
         $this->replyWithMessage(['text' => $flashcard->getShowText()]);
     }
