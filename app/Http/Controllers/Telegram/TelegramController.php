@@ -16,9 +16,13 @@ class TelegramController
      */
     public function handler(Request $request)
     {
-        $commandsHandler = Telegram::commandsHandler(true);
+        try {
+            $commandsHandler = Telegram::commandsHandler(true);
 
-        $this->handleMessage($request, $commandsHandler);
+            $this->handleMessage($request, $commandsHandler);
+        } catch (Exception $e) {
+            print_r($e->getMessage()); die;
+        }
     }
 
     private function handleMessage(Request $request, Update $update)
