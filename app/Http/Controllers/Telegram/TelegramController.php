@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Telegram;
 
+use App\Exceptions\TelegramValidationException;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,6 +21,8 @@ class TelegramController
             $commandsHandler = Telegram::commandsHandler(true);
 
             $this->handleMessage($request, $commandsHandler);
+        } catch (TelegramValidationException $e) {
+            Telegram::sendMessage(['chat_id' => $request['message']['from']['id'], 'text' => $e->getMessage()]);
         } catch (Exception $e) {
             print_r($e->getMessage()); die;
         }
