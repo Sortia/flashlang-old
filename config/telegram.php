@@ -122,6 +122,8 @@ return [
         \App\Http\Controllers\Telegram\Commands\TrainingCommand::class,
         \App\Http\Controllers\Telegram\Commands\TranslateCommand::class,
         \App\Http\Controllers\Telegram\Commands\GetKeymapCommand::class,
+        \App\Http\Controllers\Telegram\Commands\GetSettingsCommand::class,
+        \App\Http\Controllers\Telegram\Commands\SetSettingsCommand::class,
     ],
 
     /*
