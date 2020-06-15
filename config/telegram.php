@@ -124,6 +124,7 @@ return [
         \App\Http\Controllers\Telegram\Commands\GetKeymapCommand::class,
         \App\Http\Controllers\Telegram\Commands\GetSettingsCommand::class,
         \App\Http\Controllers\Telegram\Commands\SetSettingsCommand::class,
+        \App\Http\Controllers\Telegram\Commands\SetStatusCommand::class,
     ],
 
     /*
