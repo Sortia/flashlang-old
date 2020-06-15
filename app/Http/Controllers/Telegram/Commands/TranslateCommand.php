@@ -27,9 +27,10 @@ class TranslateCommand extends Command
     public function handle()
     {
         if ($flashcardId = Redis::get("user:" . user()->id . ":last_word")) {
+            /** @var Flashcard $flashcard */
             $flashcard = Flashcard::find($flashcardId);
 
-            $this->replyWithMessage(['text' => $flashcard->front_text]);
+            $this->replyWithMessage(['text' => $flashcard->getHiddenText()]);
         }
 
         $this->triggerCommand('training');

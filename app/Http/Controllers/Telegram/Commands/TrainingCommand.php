@@ -45,6 +45,6 @@ class TrainingCommand extends Command
     {
         $flashcard = $this->service->getTrainingFlashcard(Flashcard::my(user())->get());
 
-        $this->replyWithMessage(['text' => $flashcard->back_text]);
+        $this->replyWithMessage(['text' => $flashcard->getShowText()]);
     }
 }
