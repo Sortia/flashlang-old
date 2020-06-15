@@ -25,7 +25,7 @@ class ChooseController extends TrainingController implements Training
      */
     public function getWord(Deck $deck): array
     {
-        $flashcard = $this->service->getTrainingFlashcard($deck);
+        $flashcard = $this->service->getTrainingFlashcard($deck->flashcards);
         $words     = $this->service->getRandomWords();
 
         $words->add($flashcard->getHiddenText())->shuffle();

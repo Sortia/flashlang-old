@@ -16,7 +16,7 @@ class DeckController extends Controller
     /**
      * Список колод пользователя
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $decks = Deck::my()->get();
 

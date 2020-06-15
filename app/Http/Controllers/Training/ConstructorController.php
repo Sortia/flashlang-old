@@ -25,7 +25,7 @@ class ConstructorController extends TrainingController implements Training
      */
     public function getWord(Deck $deck): array
     {
-        $flashcard = $this->service->getTrainingFlashcard($deck);
+        $flashcard = $this->service->getTrainingFlashcard($deck->flashcards);
         $layout    = $this->prepareLayout('training.components.word-constructor', compact('flashcard'));
         $flashcard = FlashcardResource::make($flashcard);
 

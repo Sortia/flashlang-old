@@ -22,7 +22,7 @@ class FlashcardController extends TrainingController implements Training
      */
     public function getWord(Deck $deck): array
     {
-        $flashcard = $this->service->getTrainingFlashcard($deck);
+        $flashcard = $this->service->getTrainingFlashcard($deck->flashcards);
         $layout    = $this->prepareLayout('training.components.slide-item', compact('flashcard'));
 
         return compact('deck', 'flashcard', 'layout');

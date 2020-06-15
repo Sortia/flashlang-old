@@ -15,10 +15,12 @@
         "fruitcake/laravel-cors": "^1.0",
         "google/apiclient": "^2.0",
         "guzzlehttp/guzzle": "^6.5",
+        "irazasyed/telegram-bot-sdk": "dev-develop",
         "laravel/framework": "7.*",
         "laravel/socialite": "*",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",

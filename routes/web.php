@@ -60,3 +60,10 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
 /** Auth */
 Route::get('google', 'Auth\GoogleAuthController@index')->name('google.index');
 Route::get('sign_in/google', 'Auth\GoogleAuthController@auth');
+
+Route::group(['prefix' => 'telegram'], function () {
+    Route::get('settings', 'Telegram\TelegramSettingsController@index')->name('telegram.settings');
+    Route::get('setup', 'Telegram\TelegramSettingsController@setup')->name('telegram.settings.setup');
+    Route::any('auth', 'Telegram\TelegramAuthController@auth');
+    Route::post('handler', 'Telegram\TelegramController@handler');
+});

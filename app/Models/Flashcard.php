@@ -57,10 +57,10 @@ class Flashcard extends BaseModel
         return $this->{get_hidden_side_name()};
     }
 
-    public static function scopeMy(Builder $query): Builder
+    public static function scopeMy(Builder $query, User $user = null): Builder
     {
-        return $query->whereHas('deck', function (Builder $q) {
-            $q->where('user_id', user()->id);
+        return $query->whereHas('deck', function (Builder $q) use ($user) {
+            $q->where('user_id', 2);
         });
     }
 }

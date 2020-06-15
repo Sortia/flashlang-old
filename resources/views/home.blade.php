@@ -15,6 +15,7 @@
                     @endif
 
                     @lang('You are logged in!')
+                        <script async src="https://telegram.org/js/telegram-widget.js?9" data-telegram-login="flashlang_bot" data-size="large" data-auth-url="https://8e9421363ae2.ngrok.io/telegram/auth" data-request-access="write"></script>
                 </div>
             </div>
         </div>
