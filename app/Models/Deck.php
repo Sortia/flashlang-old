@@ -115,4 +115,16 @@ class Deck extends BaseModel
         return round(percent($progress->sum(), $progress->count() * 100), 2);
     }
 
+    /**
+     *
+     */
+    public static function getTelegramDeck(): Deck
+    {
+        /** @var Deck $deck */
+        $deck = Deck::on()->firstOrCreate(['name' => 'Telegram', 'user_id' => user()->id], [
+            'description' => 'Default Telegram deck'
+        ]);
+
+        return $deck;
+    }
 }

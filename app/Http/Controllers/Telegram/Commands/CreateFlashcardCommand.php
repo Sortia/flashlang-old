@@ -34,7 +34,7 @@ class CreateFlashcardCommand extends Command
 
         $this->validate($arguments);
 
-        $this->getTelegramDeck()->flashcards()->create($arguments);
+        Deck::getTelegramDeck()->flashcards()->create($arguments);
     }
 
     /**
@@ -52,16 +52,5 @@ class CreateFlashcardCommand extends Command
         }
     }
 
-    /**
-     *
-    */
-    private function getTelegramDeck(): Deck
-    {
-        /** @var Deck $deck */
-        $deck = Deck::on()->firstOrCreate(['name' => 'Telegram', 'user_id' => user()->id], [
-            'description' => 'Default Telegram deck'
-        ]);
 
-        return $deck;
-    }
 }
