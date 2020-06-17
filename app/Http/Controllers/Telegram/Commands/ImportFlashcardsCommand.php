@@ -34,7 +34,7 @@ class ImportFlashcardsCommand extends Command
     {
         $this->authUser();
 
-        Storage::put('temp/flashcards.csv', $this->getFile());
+        Storage::put('temp/flashcards.csv', $this->getMessageDocument());
 
         Excel::import(new FlashcardsImport(), storage_path('app/temp/flashcards.csv'));
 

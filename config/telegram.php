@@ -127,6 +127,7 @@ return [
         \App\Http\Controllers\Telegram\Commands\CreateFlashcardCommand::class,
         \App\Http\Controllers\Telegram\Commands\ExportFlashcardsCommand::class,
         \App\Http\Controllers\Telegram\Commands\ImportFlashcardsCommand::class,
+        \App\Http\Controllers\Telegram\Commands\CreateAccountCommand::class,
     ],
 
     /*

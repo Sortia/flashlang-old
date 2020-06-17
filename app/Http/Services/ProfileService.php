@@ -9,10 +9,11 @@ class ProfileService
     /**
      * Обработка загрузки картинки для аватара
      */
-    public static function handleUploadedImage(?UploadedFile $image): void
+    public function handleUploadedImage(?UploadedFile $image): void
     {
         if (!is_null($image)) {
             user()->update(['avatar_path' => $image->store('public/images')]);
         }
     }
+
 }
