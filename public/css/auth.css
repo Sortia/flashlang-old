@@ -1,0 +1,23 @@
+.btn-google {
+    color: white;
+    background-color: #dc4242;
+    border-radius: 20px;
+    height: 40px;
+    padding-top: 9px;
+    padding-bottom: 11px;
+    border: 0;
+    font-size: 18px;
+}
+
+.btn-google:hover {
+    color: white;
+}
+
+.btn-google svg {
+    margin-top: -10px;
+}
+
+.btn-google span {
+    position: relative;
+    top: -3px;
+}

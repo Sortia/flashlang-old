@@ -18,7 +18,9 @@ trait Authenticable
         $user = User::where('telegram_id', $telegramId)->first();
 
         if (is_null($user)) {
-            throw new TelegramAuthException('Pls auth or /create_account');
+            $settingsUrl = route('settings.index');
+
+            throw new TelegramAuthException("Pls <a href='{$settingsUrl}'>connect telegram to your account</a> or /create_account");
         }
 
         Auth::login($user);

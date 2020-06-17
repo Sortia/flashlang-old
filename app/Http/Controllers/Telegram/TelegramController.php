@@ -26,7 +26,11 @@ class TelegramController
             $this->handleMessage($request, $commandsHandler);
             $this->handleUploadDocument($request, $commandsHandler);
         } catch (TelegramException $e) {
-            Telegram::sendMessage(['chat_id' => $request['message']['from']['id'], 'text' => $e->getMessage()]);
+            Telegram::sendMessage([
+                'parse_mode' => 'html',
+                'chat_id' => $request['message']['from']['id'],
+                'text' => $e->getMessage()
+            ]);
         } catch (Exception $e) {
             print_r($e->getMessage()); die;
         }

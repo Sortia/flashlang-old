@@ -8,13 +8,14 @@
                     <div class="card-header h5">@lang('Settings')</div>
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-lg-2 mt-2"><b>Connect telegram:</b></div>
+                            <div class="col-lg-10">
+                                <script async src="https://telegram.org/js/telegram-widget.js?9" data-telegram-login="flashlang_bot" data-size="large" data-auth-url="https://048b6259ad8f.ngrok.io/telegram/connect" data-request-access="write"></script>
+                            </div>
+                        </div>
 
-                        <div class="col-lg-2 mt-2"><b>Connect telegram:</b></div>
-                        <div class="col-lg-10">
-                            <script async src="https://telegram.org/js/telegram-widget.js?9" data-telegram-login="flashlang_bot" data-size="large" data-auth-url="https://048b6259ad8f.ngrok.io/telegram/connect" data-request-access="write"></script>
-                        </div>
-                        </div>
                         <hr>
+
                         <form method="post" action="{{route('settings.store')}}">
                             @csrf
                             @foreach($settings as $setting)

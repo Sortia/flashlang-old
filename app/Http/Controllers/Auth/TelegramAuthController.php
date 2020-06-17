@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class TelegramAuthController extends Controller
 {
     /**
-     * Обработка входа через телеграм
+     * Telegram auth handler
      */
     public function auth(Request $request): RedirectResponse
     {
