@@ -61,6 +61,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right"></label>
+                            <div class="col-md-6">
+                                <script async src="https://telegram.org/js/telegram-widget.js?9" data-telegram-login="flashlang_bot" data-size="large" data-auth-url="https://048b6259ad8f.ngrok.io/telegram/auth" data-request-access="write"></script>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

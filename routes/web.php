@@ -64,6 +64,8 @@ Route::get('sign_in/google', 'Auth\GoogleAuthController@auth');
 Route::group(['prefix' => 'telegram'], function () {
     Route::get('settings', 'Telegram\TelegramSettingsController@index')->name('telegram.settings');
     Route::get('setup', 'Telegram\TelegramSettingsController@setup')->name('telegram.settings.setup');
-    Route::any('auth', 'Telegram\TelegramAuthController@auth');
     Route::post('handler', 'Telegram\TelegramController@handler');
+
+    Route::any('auth', 'Auth\TelegramAuthController@auth');
+    Route::any('connect', 'Auth\TelegramAuthController@connect');
 });
