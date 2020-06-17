@@ -9,13 +9,18 @@ class TestCommand extends Command
     /**
      * @var string Command Name
      */
-    protected $name = "user";
+    protected $name = "im";
 
     /**
      * @var string Command Description
      */
-    protected $description = "Test Command";
+    protected $description = "Show your id";
 
+    /**
+     * Command handler
+     *
+     * @inheritDoc
+     */
     public function handle()
     {
         $this->replyWithMessage(['text' => user()->id]);

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Telegram;
 
-use App\Exceptions\TelegramValidationException;
+use App\Exceptions\TelegramAuthException;
+use App\Exceptions\TelegramException;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +13,8 @@ use Telegram\Bot\Objects\Update;
 class TelegramController
 {
     /**
+     * Обработка вебхука
+     *
      * @param Request $request
      * @throws Exception
      */
@@ -22,7 +25,7 @@ class TelegramController
 
             $this->handleMessage($request, $commandsHandler);
             $this->handleUploadDocument($request, $commandsHandler);
-        } catch (TelegramValidationException $e) {
+        } catch (TelegramException $e) {
             Telegram::sendMessage(['chat_id' => $request['message']['from']['id'], 'text' => $e->getMessage()]);
         } catch (Exception $e) {
             print_r($e->getMessage()); die;
@@ -30,7 +33,7 @@ class TelegramController
     }
 
     /**
-     *
+     * Обработка обычных сообщений пользователя (не команд)
      */
     private function handleMessage(Request $request, Update $update): void
     {
@@ -48,7 +51,7 @@ class TelegramController
     }
 
     /**
-     *
+     * Обработка отправки документа
      */
     private function handleUploadDocument(Request $request, Update $update): void
     {

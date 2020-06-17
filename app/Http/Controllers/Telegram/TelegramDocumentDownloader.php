@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Telegram;
 
 use Illuminate\Support\Facades\Http;
 
-trait TelegramFileDownloader
+trait TelegramDocumentDownloader
 {
+    /**
+     * Получение файла, прикрепленного к сообщению
+     */
     private function getFile()
     {
         $token = $this->getTelegram()->getAccessToken();

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Telegram\Commands;
 
 use Telegram\Bot\Actions;
@@ -19,7 +18,9 @@ class StartCommand extends Command
     protected $description = "Start Command to get you started";
 
     /**
-     * @inheritdoc
+     * Command handler
+     *
+     * @inheritDoc
      */
     public function handle()
     {

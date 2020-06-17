@@ -9,7 +9,7 @@ use Telegram\Bot\Commands\Command;
 
 class TrainingCommand extends Command
 {
-    use ShouldAuth;
+    use Authenticable;
 
     /**
      * @var string Command Name
@@ -21,20 +21,28 @@ class TrainingCommand extends Command
      */
     protected $description = "Training Command";
 
+    /**
+     * @var TrainingService
+     */
     private TrainingService $service;
 
+    /**
+     * TrainingCommand constructor.
+     */
     public function __construct(TrainingService $service)
     {
-        $this->authUser();
-
         $this->service = $service;
     }
 
     /**
+     * Command handler
+     *
+     * @inheritDoc
      * @throws Exception
      */
     public function handle()
     {
+        $this->authUser();
         $this->sendNextWord();
     }
 

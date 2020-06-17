@@ -2,38 +2,42 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
+use App\Exceptions\TelegramAuthException;
 use App\Exceptions\TelegramValidationException;
-use App\Http\Requests\Telegram\SetStatusRequest;
 use App\Models\Flashcard;
 use Illuminate\Support\Facades\Validator;
 use Telegram\Bot\Commands\Command;
 
 class SetStatusCommand extends Command
 {
-    use ShouldAuth;
+    use Authenticable;
 
     /**
      * @var string Command Name
      */
     protected $name = "set_status";
 
+    /**
+     * @var string Command Argument Pattern
+     */
     protected $pattern = '{flashcardText} {value}';
 
     /**
      * @var string Command Description
      */
-    protected $description = "Set user settings. Example: /set_settings locale en";
-
-    public function __construct()
-    {
-        $this->authUser();
-    }
+    protected $description = "Set flashcard status. Example: /set_status flashcardText 5";
 
     /**
+     * Command handler
+     *
+     * @inheritDoc
      * @throws TelegramValidationException
+     * @throws TelegramAuthException
      */
     public function handle()
     {
+        $this->authUser();
+
         $arguments = $this->getArguments();
 
         $this->validate($arguments);
@@ -47,6 +51,8 @@ class SetStatusCommand extends Command
     }
 
     /**
+     * Validation
+     *
      * @throws TelegramValidationException
      */
     public function validate(array $arguments)
@@ -61,4 +67,3 @@ class SetStatusCommand extends Command
         }
     }
 }
-

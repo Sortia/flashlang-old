@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
+use App\Exceptions\TelegramAuthException;
 use App\Models\Flashcard;
 use Illuminate\Support\Facades\Redis;
 use Telegram\Bot\Commands\Command;
 
 class TranslateCommand extends Command
 {
-    use ShouldAuth;
+    use Authenticable;
     /**
      * @var string Command Name
      */
@@ -19,15 +20,17 @@ class TranslateCommand extends Command
      */
     protected $description = "Translate previous word.";
 
-    public function __construct()
-    {
-        $this->authUser();
-    }
-
+    /**
+     * Command handler
+     *
+     * @inheritDoc
+     * @throws TelegramAuthException
+     */
     public function handle()
     {
+        $this->authUser();
+
         if ($flashcardId = Redis::get("user:" . user()->id . ":last_word")) {
-            /** @var Flashcard $flashcard */
             $flashcard = Flashcard::find($flashcardId);
 
             $this->replyWithMessage(['text' => $flashcard->getHiddenText()]);
@@ -35,5 +38,4 @@ class TranslateCommand extends Command
 
         $this->triggerCommand('training');
     }
-
 }

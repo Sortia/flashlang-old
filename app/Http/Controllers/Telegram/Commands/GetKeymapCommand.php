@@ -17,6 +17,11 @@ class GetKeymapCommand extends Command
      */
     protected $description = "Get keymap";
 
+    /**
+     * Command handler
+     *
+     * @inheritDoc
+     */
     public function handle()
     {
         $this->replyWithMessage([

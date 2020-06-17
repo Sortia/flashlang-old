@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
+use App\Exceptions\TelegramAuthException;
 use App\Models\Settings;
 use Telegram\Bot\Commands\Command;
 
 class GetSettingsCommand extends Command
 {
-    use ShouldAuth;
+    use Authenticable;
 
     /**
      * @var string Command Name
@@ -19,13 +20,16 @@ class GetSettingsCommand extends Command
      */
     protected $description = "Show settings";
 
-    public function __construct()
-    {
-        $this->authUser();
-    }
-
+    /**
+     * Command handler
+     *
+     * @inheritDoc
+     * @throws TelegramAuthException
+     */
     public function handle()
     {
+        $this->authUser();
+
         $text = "";
         $settings = Settings::all();
 
@@ -37,6 +41,6 @@ class GetSettingsCommand extends Command
             }
         }
 
-        $this->replyWithMessage(['text' => $text]);
+        $this->replyWithMessage(compact('text'));
     }
 }

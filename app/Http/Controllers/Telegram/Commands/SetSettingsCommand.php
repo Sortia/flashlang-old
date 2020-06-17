@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
+use App\Exceptions\TelegramAuthException;
 use App\Exceptions\TelegramValidationException;
 use App\Http\Controllers\SettingsController;
 use App\Models\Settings;
@@ -11,13 +12,16 @@ use Telegram\Bot\Commands\Command;
 
 class SetSettingsCommand extends Command
 {
-    use ShouldAuth;
+    use Authenticable;
 
     /**
      * @var string Command Name
      */
     protected $name = "set_settings";
 
+    /**
+     * @var string Command Argument Pattern
+     */
     protected $pattern = '{setting} {value}';
 
     /**
@@ -25,16 +29,17 @@ class SetSettingsCommand extends Command
      */
     protected $description = "Set user settings. Example: /set_settings locale en";
 
-    public function __construct()
-    {
-        $this->authUser();
-    }
-
     /**
+     * Command handler
+     *
+     * @inheritDoc
      * @throws TelegramValidationException
+     * @throws TelegramAuthException
      */
     public function handle()
     {
+        $this->authUser();
+
         $arguments = $this->getArguments();
 
         $this->validate($arguments);
@@ -48,6 +53,8 @@ class SetSettingsCommand extends Command
     }
 
     /**
+     * Validation
+     *
      * @throws TelegramValidationException
      */
     public function validate(array $arguments)
@@ -62,11 +69,3 @@ class SetSettingsCommand extends Command
         }
     }
 }
-
-
-
-
-
-
-
-

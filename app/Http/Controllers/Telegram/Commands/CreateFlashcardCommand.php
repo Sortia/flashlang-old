@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
+use App\Exceptions\TelegramAuthException;
 use App\Exceptions\TelegramValidationException;
 use App\Models\Deck;
 use Illuminate\Support\Facades\Validator;
@@ -9,6 +10,8 @@ use Telegram\Bot\Commands\Command;
 
 class CreateFlashcardCommand extends Command
 {
+    use Authenticable;
+
     /**
      * @var string Command Name
      */
@@ -20,16 +23,20 @@ class CreateFlashcardCommand extends Command
     protected $description = "Create flashcard. Example: /create_flashcard front_text back_text";
 
     /**
-     * @var string Arguments pattern
+     * @var string Command Argument Pattern
      */
     protected $pattern = '{front_text} {back_text}';
 
     /**
-     * @inheritDoc
+     * Command handler
+     *
      * @throws TelegramValidationException
+     * @throws TelegramAuthException
      */
     public function handle()
     {
+        $this->authUser();
+
         $arguments = $this->getArguments();
 
         $this->validate($arguments);
@@ -38,6 +45,8 @@ class CreateFlashcardCommand extends Command
     }
 
     /**
+     * Validation
+     *
      * @throws TelegramValidationException
      */
     private function validate(array $arguments)
@@ -51,6 +60,4 @@ class CreateFlashcardCommand extends Command
             throw new TelegramValidationException('Invalid args');
         }
     }
-
-
 }

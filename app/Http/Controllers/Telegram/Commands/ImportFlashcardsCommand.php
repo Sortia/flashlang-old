@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
-use App\Http\Controllers\Telegram\TelegramDocumentSender;
-use App\Http\Controllers\Telegram\TelegramFileDownloader;
+use App\Exceptions\TelegramAuthException;
+use App\Http\Controllers\Telegram\TelegramDocumentDownloader;
 use App\Imports\FlashcardsImport;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -11,9 +11,8 @@ use Telegram\Bot\Commands\Command;
 
 class ImportFlashcardsCommand extends Command
 {
-    use ShouldAuth;
-    use TelegramDocumentSender;
-    use TelegramFileDownloader;
+    use Authenticable;
+    use TelegramDocumentDownloader;
 
     /**
      * @var string Command Name
@@ -25,16 +24,16 @@ class ImportFlashcardsCommand extends Command
      */
     protected $description = "Import flashcards";
 
-    public function __construct()
-    {
-        $this->authUser();
-    }
-
     /**
+     * Command handler
+     *
      * @inheritDoc
+     * @throws TelegramAuthException
      */
     public function handle()
     {
+        $this->authUser();
+
         Storage::put('temp/flashcards.csv', $this->getFile());
 
         Excel::import(new FlashcardsImport(), storage_path('app/temp/flashcards.csv'));

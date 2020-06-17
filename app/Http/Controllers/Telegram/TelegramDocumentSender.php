@@ -2,31 +2,23 @@
 
 namespace App\Http\Controllers\Telegram;
 
-use CURLFile;
+use Illuminate\Support\Facades\Http;
 
 trait TelegramDocumentSender
 {
     /**
-     * @param array $params
+     * Отправка документа в телеграм.
+     * Переопределение стандартной функции, т. к. та почему-то не работает.
+     *
      * @return bool|string
      */
     private function replyWithDocument(array $params)
     {
-        $url = "https://api.telegram.org/bot{$this->getTelegram()->getAccessToken()}/sendDocument";
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+        return Http::attach(
+            'document', file_get_contents($params['document']), $params['document']
+        )->post("https://api.telegram.org/bot{$this->getTelegram()->getAccessToken()}/sendDocument", [
             "chat_id" => $this->update->getChat()->id,
-            "document" => new CURLFile($params['document']),
             "caption" => $params['caption'] ?? ""
         ]);
-
-        $result = curl_exec($ch);
-
-        curl_close($ch);
-
-        return $result;
     }
 }

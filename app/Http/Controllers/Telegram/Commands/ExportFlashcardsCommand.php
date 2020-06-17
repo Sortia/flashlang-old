@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Telegram\Commands;
 
+use App\Exceptions\TelegramAuthException;
 use App\Exports\FlashcardsExport;
 use App\Http\Controllers\Telegram\TelegramDocumentSender;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +11,7 @@ use Telegram\Bot\Commands\Command;
 
 class ExportFlashcardsCommand extends Command
 {
-    use ShouldAuth;
+    use Authenticable;
     use TelegramDocumentSender;
 
     /**
@@ -23,16 +24,16 @@ class ExportFlashcardsCommand extends Command
      */
     protected $description = "Export user flashcards";
 
-    public function __construct()
-    {
-        $this->authUser();
-    }
-
     /**
+     * Command handler
+     *
      * @inheritDoc
+     * @throws TelegramAuthException
      */
     public function handle()
     {
+        $this->authUser();
+
         Excel::store(new FlashcardsExport(), 'temp/flashcards.csv');
 
         $this->replyWithDocument(['document' => storage_path('app/temp/flashcards.csv')]);
