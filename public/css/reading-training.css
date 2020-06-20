@@ -1,0 +1,32 @@
+.container-cards .card-hover .face {
+    height: 550px;
+    transition: 0.5s;
+    padding: 20px;
+    font-size: 24px;
+}
+
+.container-cards .card-hover .face.face1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    color: #cdcdcd;
+    background: #333;
+    padding: 0 50px;
+    text-align: center;
+}
+
+.container-cards .card-hover .face {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    padding: 25px;
+}
+
+.container-cards-overlay {
+    margin: 0 200px;
+    padding: 140px 0
+}

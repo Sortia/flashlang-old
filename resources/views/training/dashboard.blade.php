@@ -60,20 +60,24 @@
                             <p class="card-text">@lang('text.word_constructor_description')</p>
                         </div>
                     </a>
+                </div>
+                    <div class="card-deck mt-3">
                     <a href="#" class="card card-training" data-type-training="choose-word">
                         <div class="card-body">
                             <h3>@lang('Choose word')</h3>
                             <p class="card-text">@lang('text.choose_word_description')</p>
                         </div>
                     </a>
+                    <a href="#" class="card card-training" data-type-training="reading">
+                        <div class="card-body">
+                            <h3>@lang('Reading')</h3>
+                            <p class="card-text">@lang('text.reading_description')</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
 
     <style>
 
@@ -102,6 +106,10 @@
         .deck-name-caption {
             font-size: 12px;
             color: rgba(0, 0, 0, .333);
+        }
+
+        .card-training {
+            min-height: 130px;
         }
 
     </style>

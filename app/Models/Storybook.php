@@ -2,12 +2,22 @@
 
 namespace App\Models;
 
+use Elasticquent\ElasticquentTrait;
 use Str;
 
 class Storybook extends BaseModel
 {
+    use ElasticquentTrait;
+
     protected $fillable = [
         'text'
+    ];
+
+    protected $mappingProperties = [
+        'text' => [
+            'type' => 'string',
+            "analyzer" => "standard",
+        ],
     ];
 
     public function translation()

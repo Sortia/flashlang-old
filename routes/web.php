@@ -49,11 +49,12 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
 
     Route::get('training/dashboard', 'Training\TrainingController@dashboard')->name('training.dashboard');
     Route::get('training/{typeTraining}/{deck}', 'Training\TrainingController@study')->name('training.study')
-        ->where(['typeTraining' => 'flashcards|word-constructor|choose-word']);
+        ->where(['typeTraining' => 'flashcards|word-constructor|choose-word|reading']);
 
     Route::post('training/word-constructor/{deck}/get-constructor-word', 'Training\ConstructorController@getWord');
     Route::post('training/choose-word/{deck}/get-choose-word', 'Training\ChooseController@getWord');
     Route::post('training/flashcards/{deck}/get-flashcard-word', 'Training\FlashcardController@getWord');
+    Route::post('training/reading/{deck}/get-flashcard-word', 'Training\ReadingController@getWord');
 
 });
 
