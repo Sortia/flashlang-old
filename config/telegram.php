@@ -118,7 +118,8 @@ return [
     'commands' => [
         \App\Http\Controllers\Telegram\Commands\HelpCommand::class,
         \App\Http\Controllers\Telegram\Commands\StartCommand::class,
-        \App\Http\Controllers\Telegram\Commands\TrainingCommand::class,
+        \App\Http\Controllers\Telegram\Commands\FlashcardTrainingCommand::class,
+        \App\Http\Controllers\Telegram\Commands\ReadingTrainingCommand::class,
         \App\Http\Controllers\Telegram\Commands\TranslateCommand::class,
         \App\Http\Controllers\Telegram\Commands\GetKeymapCommand::class,
         \App\Http\Controllers\Telegram\Commands\GetSettingsCommand::class,

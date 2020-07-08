@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Telegram\Commands;
 
 use App\Http\Services\TrainingService;
 use App\Models\Flashcard;
+use App\Models\Storybook;
 use Exception;
 use Telegram\Bot\Commands\Command;
 
-class TrainingCommand extends Command
+class ReadingTrainingCommand extends Command
 {
     use Authenticable;
 
     /**
      * @var string Command Name
      */
-    protected $name = "training";
+    protected $name = "reading";
 
     /**
      * @var string Command Description
      */
-    protected $description = "Training Command";
+    protected $description = "Reading training";
 
     /**
      * @var TrainingService
@@ -27,7 +28,7 @@ class TrainingCommand extends Command
     private TrainingService $service;
 
     /**
-     * TrainingCommand constructor.
+     * FlashcardTrainingCommand constructor.
      */
     public function __construct(TrainingService $service)
     {
@@ -43,16 +44,18 @@ class TrainingCommand extends Command
     public function handle()
     {
         $this->authUser();
-        $this->sendNextWord();
+        $this->sendStorybook();
     }
 
     /**
      * @throws Exception
      */
-    private function sendNextWord()
+    private function sendStorybook()
     {
-        $flashcard = $this->service->getTrainingFlashcard(Flashcard::my()->get());
+        $words = Flashcard::my()->get()->implode('front_text', ' ');
 
-        $this->replyWithMessage(['text' => $flashcard->getShowText()]);
+        $storybook = Storybook::searchByQuery(['match' => ['text' => $words]], null, null, 20)->random();
+
+        $this->replyWithMessage(['text' => $storybook->text]);
     }
 }
