@@ -26,9 +26,9 @@ class ChooseController extends TrainingController implements Training
     public function getWord(Deck $deck): array
     {
         $flashcard = $this->service->getTrainingFlashcard($deck->flashcards);
-        $words     = $this->service->getRandomWords();
+        $words     = $this->service->getRandomWords($flashcard);
 
-        $words->add($flashcard->getHiddenText())->shuffle();
+        $words = $words->add($flashcard->getHiddenText())->shuffle();
 
         $layout = $this->prepareLayout('training.components.study-choose', compact('flashcard', 'words'));
         $flashcard = FlashcardResource::make($flashcard);

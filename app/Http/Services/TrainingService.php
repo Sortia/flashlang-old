@@ -70,11 +70,13 @@ class TrainingService
 
     /**
      * Поулчение пяти дополнительных слов (для тренировки ChooseWord)
+     * без текущего и предыдущего
      */
-    public function getRandomWords(): Collection
+    public function getRandomWords(Flashcard $flashcard): Collection
     {
         return Flashcard::my()
             ->whereKeyNot(session('training.last_flashcard_id'))
+            ->whereKeyNot($flashcard->id)
             ->inRandomOrder()
             ->take(5)
             ->pluck(get_hidden_side_name());
