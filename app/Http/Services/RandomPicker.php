@@ -90,4 +90,14 @@ class RandomPicker
             }
         }
     }
+
+    public function getElements()
+    {
+        return $this->elements;
+    }
+
+    public function getWeights()
+    {
+        return $this->weights;
+    }
 }

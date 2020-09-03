@@ -16,7 +16,7 @@ class DeckController extends Controller
     /**
      * Список колод пользователя
      */
-    public function index(Request $request): View
+    public function index(): View
     {
         $decks = Deck::my()->get();
 
@@ -74,7 +74,10 @@ class DeckController extends Controller
     {
         $deck->rate()->updateOrCreate(['user_id' => user()->id, 'value' => $request->value]);
 
-        $deck->update(['rating' => $deck->rates->pluck('value')->avg()]);
+        $deck->update([
+            'rating' => $deck->rates->pluck('value')->avg(),
+            'number_ratings' => ++$deck->number_ratings
+        ]);
 
         return $this->respondSuccess();
     }

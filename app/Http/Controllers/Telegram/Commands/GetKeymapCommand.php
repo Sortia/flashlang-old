@@ -26,10 +26,15 @@ class GetKeymapCommand extends Command
     {
         $this->replyWithMessage([
             'text' => 'Держи удобные кнопки, чтобы не писать команды',
-            'reply_markup' => Keyboard::make([
-                'keyboard' => [['Translate', 'Training']],
-                'resize_keyboard' => true,
-            ])
+            'reply_markup' => $this->getKeymap(),
+        ]);
+    }
+
+    public function getKeymap()
+    {
+        return Keyboard::make([
+            'keyboard' => [['Translate', 'Training']],
+            'resize_keyboard' => true,
         ]);
     }
 }

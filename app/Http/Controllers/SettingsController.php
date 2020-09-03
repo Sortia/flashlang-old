@@ -49,10 +49,13 @@ class SettingsController extends Controller
      * @param $settingsId
      * @param $settingsValueId
      */
-    public static function setSetting($settingsId, $settingsValueId)
+    private function setSetting($settingsId, $settingsValueId)
     {
-        UserSettings::where('settings_id', $settingsId)
-            ->where('user_id', user()->id)
-            ->update(['settings_value_id' => $settingsValueId]);
+        UserSettings::on()->updateOrCreate([
+            'settings_id' => $settingsId,
+            'user_id' => user()->id,
+        ], [
+            'settings_value_id' => $settingsValueId,
+        ]);
     }
 }

@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
 
     Route::get('settings', 'SettingsController@index')->name('settings.index');
     Route::post('settings/flashStore', 'SettingsController@flashStore')->name('settings.flashStore');
-    Route::post('settings/store', 'SettingsController@store')->name('settings.store');
+    Route::post('settings', 'SettingsController@store')->name('settings.store');
 
     Route::get('vocabulary', 'VocabularyController@index')->name('vocabulary.index');
 
@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth', 'locale']], function () {
     Route::post('collection/{collection}/add', 'CollectionController@add');
 
     Route::get('profile', 'ProfileController@index')->name('profile');
-    Route::post('profile/store', 'ProfileController@store')->name('profile.store');
+    Route::post('profile', 'ProfileController@store')->name('profile.store');
 
     Route::get('training/dashboard', 'Training\TrainingController@dashboard')->name('training.dashboard');
     Route::get('training/{typeTraining}/{deck}', 'Training\TrainingController@study')->name('training.study')
